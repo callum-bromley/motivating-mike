@@ -8,10 +8,10 @@ export function up(knex) {
     table.string('task')
     table.boolean('status')
     table.integer('urgency')
-    table.timestamp('created')
-    table.timestamp('due')
+    table.string('created')
+    table.string('due')
     table.integer('user_id')
-    table.number('avatar_id')
+    table.integer('avatar_id')
   })
 }
 
