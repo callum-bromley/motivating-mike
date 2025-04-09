@@ -1,4 +1,4 @@
-import { Todo } from "../../../client/Models/todos";
+import { Todo } from "../../../client/models/todos";
 import db from '../connection.ts'
 
 //This where the functions for
@@ -20,7 +20,7 @@ export async function getTodosByUserId(userId: number): Promise<Todo[]> {
     .where('todos.user_id', userId)
     .select()
 
-  console.log(todoList)
+  console.log('db function getTodosByUserId: ', todoList)
 
   return todoList
 }

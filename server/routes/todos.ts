@@ -15,12 +15,13 @@ router.get('/', async (req, res) => {
   }
 })
 
-// GET /api/v1/todos/userId
-router.get('/:userId', async (req, res) => {
+// GET /api/v1/todos/id
+router.get('/:id', async (req, res) => {
   try {
-    const userId = 1
-    console.log(userId)
-    const todos = await db.getTodosByUserId(userId)
+    const id = Number(req.params.id)
+    console.log('server route: ', id)
+    const todos = await db.getTodosByUserId(id)
+    console.log('route db data returned', todos)
     res.json(todos)
   } catch (err) {
     console.error(err)
