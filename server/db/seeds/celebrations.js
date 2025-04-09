@@ -6,57 +6,63 @@ export async function seed(knex) {
   await knex('heckles').insert([
     {
       id: 1,
-      avatar_id: 1,
       heckle: 'Nice!',
       severity: 0,
+      avatar_id: 1,
+
     },
     {
       id: 2,
-      avatar_id: 1,
       heckle: 'You done did it',
       severity: 0,
+      avatar_id: 1,
     },
     {
       id: 3,
-      avatar_id: 1,
       heckle: 'Bloody good job',
       severity: 0,
+      avatar_id: 1,
     },
     {
       id: 4,
-      avatar_id: 2,
-      heckle: 'Excellent',
+            heckle: 'Excellent',
       severity: 0,
+      avatar_id: 2,
     },
     {
       id: 5,
-      avatar_id: 2,
       heckle: 'Great work!',
       severity: 0,
+            avatar_id: 2,
+
     },
     {
       id: 6,
-      avatar_id: 2,
       heckle: 'Phew, You made it!',
       severity: 0,
+            avatar_id: 2,
+
     },
     {
       id: 7,
-      avatar_id: 3,
       heckle: 'woop woop',
       severity: 3,
+            avatar_id: 3,
+
     },
     {
       id: 8,
-      avatar_id: 3,
       heckle: 'Holy tamoli!',
       severity: 0,
+            avatar_id: 3,
+
     },
     {
       id: 9,
-      avatar_id: 3,
       heckle: 'Wow im so proud of you! Sklip sklamp plomp!',
       severity: 0,
+            avatar_id: 3,
+
     },
   ])
 }
