@@ -13,7 +13,7 @@ export async function seed(knex) {
       image: '/images/avatars/mandy.WebP'
     },
     {
-      id: 1,
+      id: 3,
       name: 'Slappy the Seal',
       description: 'Slappy the Seal is a playful and silly character who brings joy wherever he swims. When he’s relaxed, he bounces around with a carefree spirit, cracking jokes and making everyone laugh with his goofy antics. His playful nature shines as he flops around on the beach, splashing water and engaging with anyone willing to join in on the fun.\n\nHowever, don’t be fooled by his jovial demeanor—when angered, Slappy transforms into a force to be reckoned with. His playful barks turn into fierce growls, and his eyes flash with intensity. Anyone who crosses him quickly learns that he’s not just a silly seal; he has a serious side that demands respect.\n\nDespite his occasional temper, Slappy’s heart is in the right place. He values friendship and loyalty, always ready to lend a flipper to those in need. His dual nature makes him a fascinating character, reminding everyone that it’s okay to be silly and serious in equal measure.\n\nWhen you’re around Slappy, you can’t help but feel uplifted by his playful spirit—just remember to tread lightly if you see him getting riled up!',
       image: '/images/avatars/slappy-the-seal.WebP'

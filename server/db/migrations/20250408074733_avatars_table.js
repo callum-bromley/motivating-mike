@@ -4,7 +4,7 @@
  */
 export function up(knex) {
   return knex.schema.createTable('avatars', (table) => {
-    table.increment('id')
+    table.increments('id')
     table.string('name')
     table.string('description')
     table.string('image')
@@ -18,3 +18,4 @@ export function up(knex) {
 export function down(knex) {
   return knex.schema.dropTable('avatars')
 }
+
