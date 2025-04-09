@@ -1,51 +1,12 @@
-import useUserTodos from "../apis/use-todos"
+import useUserTodos from "../apis/use-user-todos"
+import FilterTodos from "./FilterTodos"
 
-// interface Props {
-//   userId: number
-// }
-// const todos = [{
-//   id: '1',
-//   task: 'wash cat',
-//   urgency: 3,
-//   created: '2025',
-//   due: '2026',
-//   completed: null,
-//   userId: 1,
-// },
-// {
-//   id: '2',
-//   task: 'Tip Cow',
-//   urgency: 3,
-//   created: '2025',
-//   due: '2026',
-//   completed: null,
-//   userId: 1,
-// },
-// {
-//   id: '3',
-//   task: 'Shear Sheep',
-//   urgency: 1,
-//   created: '2025',
-//   due: '2026',
-//   completed: null,
-//   userId: 2,
-// },
-// {
-//   id: '4',
-//   task: 'Make up excuses',
-//   urgency: 3,
-//   created: '2025',
-//   due: '2026',
-//   completed: '2026',
-//   userId: 1,
-// }
-// ]
 
 export default function OneTodo() {
 
   const userId = 1
   const { data: todos, isPending, error } = useUserTodos(userId)
-  console.log(todos)
+  console.log('before filter ', todos)
 
   if (isPending) {
     return (<h2>Loading...</h2>)
@@ -57,31 +18,14 @@ export default function OneTodo() {
     return (<h2>No todo data found</h2>)
   }
 
-  let filteredTodos = todos.filter((todo) => todo.urgency === 3)
-  let randomTodo = null
-
-  if (filteredTodos.length === 0) {
-    filteredTodos = todos.filter((todo) => todo.urgency === 2)
-  }
-  if (filteredTodos.length === 0) {
-    filteredTodos = todos.filter((todo) => todo.urgency === 1)
-  }
-  if (filteredTodos.length > 0) {
-    filteredTodos = todos.filter((todo) => todo.completed === null)
-  }
-  if (filteredTodos.length > 0) {
-    const randomChoice = Math.floor(Math.random() * filteredTodos.length)
-    randomTodo = filteredTodos[randomChoice]
-  }
-
-
+  //FilteredTodos Component Call
+  const randomTodo = FilterTodos(todos)
 
   return (
     <>
       {randomTodo ? (
         <>
           <h3><strong>{randomTodo.task}</strong></h3>
-          <p>Get your shit done</p>
         </>
       ) : (
         <>
