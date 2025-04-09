@@ -1,8 +1,21 @@
 import express from 'express'
 import * as todo from '../db/functions/todos.ts'
 const router = express.Router()
+export default router
 
 // GET /api/v1/todos
+
+router.get('/', async (req, res) => {
+  try {
+    const todos = await todo.getTodos()
+    res.json(todos)
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    } else console.error('unknown error')
+    res.sendStatus(500)
+  }
+})
 //
 // GET /api/v1/todos/id
 //

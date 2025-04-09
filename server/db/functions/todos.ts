@@ -5,6 +5,20 @@ import connection from '../connection'
 //This where the functions for
 
 // getTodos
+
+export async function getTodos() {
+  const result: TodoData[] = await connection('todos').select(
+    'id',
+    'task',
+    'urgency',
+    'created',
+    'due',
+    'completed',
+    'user_id as userId',
+  )
+  return result
+}
+
 // getTodosBy____
 // editTodo
 // deleteTodo
@@ -44,6 +58,6 @@ export async function updateTodo(updatedTodo: Todo) {
 // delete todo
 
 export async function deleteTodo(id: number) {
-  const results = await connection ('todos').del().where('todos.id', id)
+  const results = await connection('todos').del().where('todos.id', id)
   return results
 }

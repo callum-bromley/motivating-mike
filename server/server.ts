@@ -5,7 +5,11 @@ import express from 'express'
 const server = express()
 server.use(express.json())
 
+import todosRoutes from './routes/todos'
+
 // ADD YOUR API ROUTES HERE
+
+server.use('/api/v1/todos', todosRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))
