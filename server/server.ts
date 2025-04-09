@@ -1,10 +1,16 @@
+import express from 'express'
 import * as Path from 'node:path'
 
-import express from 'express'
+import todosRoutes from './routes/todos'
+import usersRoutes from './routes/users'
+import avatarsRoutes from './routes/avatars'
 
 const server = express()
 server.use(express.json())
 
+server.use('/api/v1/todos', todosRoutes)
+server.use('/api/v1/users', usersRoutes)
+server.use('/api/v1/avatars', avatarsRoutes)
 // ADD YOUR API ROUTES HERE
 
 if (process.env.NODE_ENV === 'production') {
