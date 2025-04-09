@@ -4,8 +4,8 @@
  */
 export function up(knex) {
   return knex.schema.createTable('heckles', (table) => {
-    table.number('id')
-    table.string('heckles')
+    table.increment('id')
+    table.string('heckle')
     table.integer('severity')
     table.integer('avatar_id')
   })
