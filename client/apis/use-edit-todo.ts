@@ -1,7 +1,16 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import request from 'superagent'
-// import { Todo } from '../Models/todos';
+import { Todo } from '../Models/todos'
 
-export async function updateTodo(id: number) {
-  const response = await request.patch(`/api/v1/todos/${id}`)
-  return response
+export async function useUpdateTodo(id: number) {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (todo: Todo) => {
+      await request.patch(`/api/v1/todos/${id}`).send(todo)
+    },
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ['todos', id] })
+    },
+  })
 }
