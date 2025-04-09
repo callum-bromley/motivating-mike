@@ -17,6 +17,7 @@
     "knex": "knex --knexfile ./server/db/knexfile.js",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "format": "prettier -w '**/*.{js,jsx,ts,tsx}'"
+
   },
   "keywords": [
     "fullstack"
@@ -37,7 +38,7 @@
     "express": "^4.17.2",
     "framer-motion": "^12.6.3",
     "knex": "^2.5.1",
-    "sqlite3": "^5.1.6",
+    "sqlite3": "^5.1.7",
     "superagent": "^8.1.2"
   },
   "devDependencies": {
@@ -81,4 +82,5 @@
     "singleQuote": true
   },
   "browserslist": "> 2%, not dead"
+  
 }
