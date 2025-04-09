@@ -1,16 +1,13 @@
 import express from 'express'
+
 import * as db from '../db/functions/todos'
 
 const router = express.Router()
 
-
-// GET /api/v1/todos
-//
-
-// GET /api/v1/todos/userId
+// READ
 router.get('/userId', async (req, res) => {
   try {
-    const { userId } = req.body
+    const userId = 1
     const todos = await db.getTodosByUserId(userId)
     res.json(todos)
   } catch (err) {
@@ -18,15 +15,5 @@ router.get('/userId', async (req, res) => {
     res.sendStatus(500)
   }
 })
-
-// GET /api/v1/todos/urgency
-//
-// GET /api/v1/todos/status
-//
-// POST /api/v1/todo
-//
-// PATCH /api/v1/todo/id
-//
-// DELETE /api/v1/todo/id
 
 export default router
