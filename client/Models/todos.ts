@@ -4,7 +4,7 @@ export interface TodoData {
   urgency: number
   created: string
   due: string
-  user_id: number
+  userId: number
 }
 
 export interface Todo extends TodoData {

@@ -1,6 +1,6 @@
 export interface HeckleData {
-  todos_id: number
-  avatar_id: number
+  todosId: number
+  avatarId: number
   heckle: string
   severity: number
 }

@@ -1,6 +1,6 @@
 export interface UserData {
   name: string
-  avatar_id: number
+  avatarId: number
 }
 
 export interface User extends UserData {
