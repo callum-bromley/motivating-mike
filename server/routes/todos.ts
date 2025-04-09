@@ -1,5 +1,5 @@
 import express from 'express'
-import * as todo from '../db/functions/todos.ts'
+import * as db from '../db/functions/todos.ts'
 const router = express.Router()
 export default router
 
@@ -7,13 +7,12 @@ export default router
 
 router.get('/', async (req, res) => {
   try {
-    const todos = await todo.getTodos()
+    const todos = await db.getTodos()
+    console.log('Through route', todos)
     res.json(todos)
   } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message)
-    } else console.error('unknown error')
-    res.sendStatus(500)
+    console.error(error)
+    res.status(500).send('No todos loaded')
   }
 })
 //
@@ -27,7 +26,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    await todo.addTodo(req.body)
+    await db.addTodo(req.body)
     res.sendStatus(204)
   } catch (e) {
     next(e)
@@ -42,7 +41,7 @@ router.patch('/:id', async (req, res, next) => {
     const { task, urgency, created, due, completed, userId } = req.body
     const id = Number(req.params.id)
 
-    await todo.updateTodo({
+    await db.updateTodo({
       id,
       task,
       urgency,
@@ -62,7 +61,7 @@ router.patch('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   try {
     const id = Number(req.params.id)
-    await todo.deleteTodo(id)
+    await db.deleteTodo(id)
     res.sendStatus(204)
   } catch (e) {
     next(e)
