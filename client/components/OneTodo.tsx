@@ -59,28 +59,38 @@ export default function OneTodo() {
   //   return (<h2>No todo data found</h2>)
   // }
   //
-  let filteredByUrgency = todos.filter((todo) => todo.urgency === 3)
+  let filteredTodos = todos.filter((todo) => todo.urgency === 3)
+  let randomTodo = null
 
-  if (filteredByUrgency.length === 0) {
-    filteredByUrgency = todos.filter((todo) => todo.urgency === 2)
+  if (filteredTodos.length === 0) {
+    filteredTodos = todos.filter((todo) => todo.urgency === 2)
   }
-  if (filteredByUrgency.length === 0) {
-    filteredByUrgency = todos.filter((todo) => todo.urgency === 1)
+  if (filteredTodos.length === 0) {
+    filteredTodos = todos.filter((todo) => todo.urgency === 1)
   }
-  console.log(filteredByUrgency)
+  if (filteredTodos.length > 0) {
+    filteredTodos = todos.filter((todo) => todo.completed === null)
+  }
+  if (filteredTodos.length > 0) {
+    const randomChoice = Math.floor(Math.random() * filteredTodos.length)
+    randomTodo = filteredTodos[randomChoice]
+  }
+
+
+
   return (
     <>
-      <h1>All Todos will update to single todo</h1>
-      <ul>
-        {filteredByUrgency
-          .filter((todo) => todo.completed === null)
-          .map((todo) => (
-            <li key={todo.id} >
-              <h3>{todo.task}</h3>
-              <p>Get your shit done</p>
-            </li>
-          ))}
-      </ul >
+      {randomTodo ? (
+        <>
+          <h3><strong>{randomTodo.task}</strong></h3>
+          <p>Get your shit done</p>
+        </>
+      ) : (
+        <>
+          <button>Add todo</button>
+          <p>You&apos;r all caught up!</p>
+        </>
+      )}
     </>
   )
 }
