@@ -1,9 +1,9 @@
 export interface TodoData {
   task: string
-  status: boolean
   urgency: number
   created: string
   due: string
+  completed: string
   userId: number
 }
 
