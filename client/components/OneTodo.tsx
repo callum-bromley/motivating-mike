@@ -3,7 +3,7 @@
 // interface Props {
 //   userId: number
 // }
-const userId = 1
+// const userId = 1
 
 const todos = [{
   id: '1',
@@ -30,7 +30,7 @@ const todos = [{
   created: '2025',
   due: '2026',
   completed: null,
-  userId: 1,
+  userId: 2,
 },
 {
   id: '4',
@@ -60,40 +60,25 @@ export default function OneTodo() {
   //   return (<h2>No todo data found</h2>)
   // }
   //
+  let filteredByUrgency = todos.filter((todo) => todo.urgency === 3)
+
+  if (filteredByUrgency.length === 0) {
+    filteredByUrgency = todos.filter((todo) => todo.urgency === 2)
+  }
+  if (filteredByUrgency.length === 0) {
+    filteredByUrgency = todos.filter((todo) => todo.urgency === 1)
+  }
+  console.log(filteredByUrgency)
   return (
     <>
       <h1>All Todos will update to single todo</h1>
       <ul>
-        {todos
-          .filter((todo) => todo.completed === null)
-          .map((todo) => {
-            if (todo.urgency === 3) {
-              return (
-                < li key={todo.id} >
-                  <h3>{todo.task}</h3>
-                  <p>Get your shit done</p>
-                  {/* {todo.completed ? <p>complete</p> : null} */}
-                </li>
-              )
-            }
-            else if (todo.urgency === 2) {
-              return (
-                < li key={todo.id} >
-                  <h3>{todo.task}</h3>
-                  <p>Hey, it&apos;s time to get onto this one</p>
-                </li>
-              )
-            }
-            else if (todo.urgency === 1) {
-              return (
-                < li key={todo.id} >
-                  <h3>{todo.task}</h3>
-                  <p>You, can do it!</p>
-                </li>
-              )
-            }
-          })
-        }
+        {filteredByUrgency.map((todo) => (
+          <li key={todo.id} >
+            <h3>{todo.task}</h3>
+            <p>Get your shit done</p>
+          </li>
+        ))}
       </ul >
     </>
   )
