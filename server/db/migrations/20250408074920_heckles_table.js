@@ -4,7 +4,7 @@
  */
 export function up(knex) {
   return knex.schema.createTable('heckles', (table) => {
-    table.increment('id')
+    table.increments('id')
     table.string('heckle')
     table.integer('severity')
     table.integer('avatar_id')
