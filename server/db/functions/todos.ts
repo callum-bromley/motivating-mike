@@ -1,5 +1,5 @@
-import { TodoData } from "../../../client/Models/todos"
-import connection from "../connection"
+import { Todo, TodoData } from '../../../client/Models/todos'
+import connection from '../connection'
 // import connection from './connection'
 
 //This where the functions for
@@ -10,10 +10,9 @@ import connection from "../connection"
 // deleteTodo
 // AddTodo
 
-
 // add todo
 export async function addTodo(data: TodoData) {
-  const { task, urgency, created, due, completed, userId} = data
+  const { task, urgency, created, due, completed, userId } = data
   const newTodo = {
     // id,
     task,
@@ -27,8 +26,19 @@ export async function addTodo(data: TodoData) {
   return results
 }
 
-// edit todo 
+// edit todo
 
+export async function updateTodo(updatedTodo: Todo) {
+  const todo: Todo = await connection('todos')
+    .where('todos.id', updatedTodo.id)
+    .update('task', updatedTodo.task)
+    .update('urgency', updatedTodo.urgency)
+    .update('created', updatedTodo.created)
+    .update('due', updatedTodo.due)
+    .update('completed', updatedTodo.completed)
+    .update('userId', updatedTodo.userId)
 
+  return todo
+}
 
 // delete todo
