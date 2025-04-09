@@ -7,7 +7,7 @@ const router = express.Router()
 router.get('/', async (req, res) => {
   try {
     const todos = await db.getTodos()
-    console.log('Through route', todos)
+    // console.log('Through route', todos)
     res.json(todos)
   } catch (error) {
     console.error(error)
