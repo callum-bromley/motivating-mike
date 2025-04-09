@@ -1,30 +1,42 @@
-import { Todo } from "../../../client/models/todos";
-import db from '../connection.ts'
+import db from './../connection.ts'
+// import { Todo } from '../../../client/models/todos.ts'
 
-//This where the functions for
-// getTodos
-export async function getTodos(): Promise<Todo[]> {
-  const todoList = await db('todos')
-    .select()
+// function convertTodosToSnakeCase(data: Todo) {
+//   return {
+//     id: data.id,
+//     task: data.task,
+//     completed: data.completed,
+//     urgency: data.urgency,
+//     created: data.created,
+//     due: data.due,
+//     user_id: data.userId,
+//   }
+// }
 
-  console.log(todoList)
+export const todoKeys = [
+  'todos.id as id',
+  'todos.task as task',
+  'todos.completed as completed',
+  'todos.urgency as urgency',
+  'todos.created as created',
+  'todos.due as due',
+  'todos.user_id as userId',
+]
 
-  return todoList
+// CREATE
+
+// READ
+
+export async function getTodos() {
+  try {
+    const result = db('todos').select(todoKeys)
+    console.log(result)
+    return result
+  } catch (error) {
+    console.error(error)
+  }
 }
 
-// getTodosBy____
+// UPDATE
 
-// getTodosByUserId
-export async function getTodosByUserId(userId: number): Promise<Todo[]> {
-  const todoList = await db('todos')
-    .where('todos.user_id', userId)
-    .select()
-
-  console.log('db function getTodosByUserId: ', todoList)
-
-  return todoList
-}
-
-// editTodo
-// deleteTodo
-// AddTodo
+// DELETE

@@ -3,15 +3,15 @@ import * as db from '../db/functions/todos'
 
 const router = express.Router()
 
-
 // GET /api/v1/todos
 router.get('/', async (req, res) => {
   try {
     const todos = await db.getTodos()
+    console.log('Through route', todos)
     res.json(todos)
-  } catch (err) {
-    console.error(err)
-    res.sendStatus(500)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('No todos loaded')
   }
 })
 
