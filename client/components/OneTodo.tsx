@@ -48,7 +48,6 @@ export default function OneTodo() {
 
 
   // const { data: todos, isPending, error } = useTodos()
-  console.log(todos)
 
   // if (isPending) {
   //   return (<h2>Loading...</h2>)
@@ -73,12 +72,14 @@ export default function OneTodo() {
     <>
       <h1>All Todos will update to single todo</h1>
       <ul>
-        {filteredByUrgency.map((todo) => (
-          <li key={todo.id} >
-            <h3>{todo.task}</h3>
-            <p>Get your shit done</p>
-          </li>
-        ))}
+        {filteredByUrgency
+          .filter((todo) => todo.completed === null)
+          .map((todo) => (
+            <li key={todo.id} >
+              <h3>{todo.task}</h3>
+              <p>Get your shit done</p>
+            </li>
+          ))}
       </ul >
     </>
   )
