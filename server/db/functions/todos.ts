@@ -42,3 +42,8 @@ export async function updateTodo(updatedTodo: Todo) {
 }
 
 // delete todo
+
+export async function deleteTodo(id: number) {
+  const results = await connection ('todos').del().where('todos.id', id)
+  return results
+}
