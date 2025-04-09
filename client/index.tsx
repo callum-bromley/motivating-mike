@@ -6,7 +6,6 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import routes from './routes'
 import { ChakraProvider } from '@chakra-ui/react'
 
-
 const router = createBrowserRouter(routes)
 const queryClient = new QueryClient()
 
@@ -17,6 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <RouterProvider router={router} />
         <ReactQueryDevtools />
       </QueryClientProvider>
-    </ChakraProvider>
+    </ChakraProvider>,
   )
 })
