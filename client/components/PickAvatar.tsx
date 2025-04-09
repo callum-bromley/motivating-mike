@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { Box, Circle, Image, Text, VStack, HStack } from '@chakra-ui/react'
 
-const Home = () => {
+const PickAvatar = () => {
   const navigate = useNavigate()
 
   const handleSelect = (category: string) => {
@@ -44,4 +44,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default PickAvatar
