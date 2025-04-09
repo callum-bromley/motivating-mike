@@ -9,7 +9,7 @@ export function up(knex) {
     table.integer('urgency')
     table.string('created')
     table.string('due')
-    table.string('completed')
+    table.string('completed').nullable()
     table.integer('user_id')
   })
 }
