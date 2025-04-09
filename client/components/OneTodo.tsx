@@ -11,7 +11,7 @@ const todos = [{
   urgency: 3,
   created: '2025',
   due: '2026',
-  completed: '',
+  completed: null,
   userId: 1,
 },
 {
@@ -20,7 +20,7 @@ const todos = [{
   urgency: 3,
   created: '2025',
   due: '2026',
-  completed: '',
+  completed: null,
   userId: 1,
 },
 {
@@ -29,7 +29,7 @@ const todos = [{
   urgency: 1,
   created: '2025',
   due: '2026',
-  completed: '',
+  completed: null,
   userId: 1,
 },
 {
@@ -64,22 +64,36 @@ export default function OneTodo() {
     <>
       <h1>All Todos will update to single todo</h1>
       <ul>
-        {todos.map((todo) => {
-          if (todo.userId === userId) {
-            return (
-              < li key={todo.id} >
-                <h3>{todo.task}</h3>
-                {todo.completed ? <p>complete</p> : null}
-              </li>
-            )
-          }
-          else {
-            return (
-      <p>You&apos;re all caught up</p>
-      <button>Add Todo</button>
-            )
-          }
-        })}
+        {todos
+          .filter((todo) => todo.completed === null)
+          .map((todo) => {
+            if (todo.urgency === 3) {
+              return (
+                < li key={todo.id} >
+                  <h3>{todo.task}</h3>
+                  <p>Get your shit done</p>
+                  {/* {todo.completed ? <p>complete</p> : null} */}
+                </li>
+              )
+            }
+            else if (todo.urgency === 2) {
+              return (
+                < li key={todo.id} >
+                  <h3>{todo.task}</h3>
+                  <p>Hey, it&apos;s time to get onto this one</p>
+                </li>
+              )
+            }
+            else if (todo.urgency === 1) {
+              return (
+                < li key={todo.id} >
+                  <h3>{todo.task}</h3>
+                  <p>You, can do it!</p>
+                </li>
+              )
+            }
+          })
+        }
       </ul >
     </>
   )
