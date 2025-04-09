@@ -5,12 +5,21 @@ const router = express.Router()
 
 
 // GET /api/v1/todos
-//
+router.get('/', async (req, res) => {
+  try {
+    const todos = await db.getTodos()
+    res.json(todos)
+  } catch (err) {
+    console.error(err)
+    res.sendStatus(500)
+  }
+})
 
 // GET /api/v1/todos/userId
-router.get('/userId', async (req, res) => {
+router.get('/:userId', async (req, res) => {
   try {
-    const { userId } = req.body
+    const userId = 1
+    console.log(userId)
     const todos = await db.getTodosByUserId(userId)
     res.json(todos)
   } catch (err) {

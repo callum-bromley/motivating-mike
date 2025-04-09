@@ -6,7 +6,7 @@ export default function useUserTodos(userId: number) {
   return useQuery({
     queryKey: ['todos'],
     queryFn: async () => {
-      const res = await request.get('api/v1/todos/${userId}')
+      const res = await request.get(`api/v1/todos/${userId}`)
       if (res.ok) {
         return res.body as Todo[]
       }
