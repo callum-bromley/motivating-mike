@@ -1,5 +1,4 @@
 import useUserTodos from '../apis/use-user-todos'
-import { Todo } from '../models/todos'
 import DisplayHeckle from './DisplayHeckle'
 import FilterTodos from './FilterTodos'
 import { useNavigate } from 'react-router-dom'
@@ -28,24 +27,26 @@ export default function OneTodo(props: Props) {
 
   return (
     <>
-      {randomTodo ? (
-        <>
-          <DisplayHeckle
-            userId={props.userId}
-            avatarId={props.avatarId}
-            urgency={randomTodo.urgency}
-          />
+      {randomTodo
+        ? (
+          <>
+            <DisplayHeckle
+              userId={props.userId}
+              avatarId={props.avatarId}
+              urgency={randomTodo.urgency}
+            />
 
-          <h3>
-            <strong>{randomTodo.task}</strong>
-          </h3>
-        </>
-      ) : (
-        <>
-          <h4>You&apos;r all caught up!</h4>
-          <button onClick={() => navigate(`/todo-list`)}> Add Todo</button>
-        </>
-      )}
+            <h3>
+              <strong>{randomTodo.task}</strong>
+            </h3>
+          </>
+        ) : (
+          <>
+            <h4>You&apos;r all caught up!</h4>
+            <button onClick={() => navigate(`/todo-list`)}> Add Todo</button>
+          </>
+        )
+      }
     </>
   )
 }

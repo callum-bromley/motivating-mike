@@ -39,7 +39,6 @@ export default function DisplayHeckle(props: Props) {
   return (
     <>
       <p>{randomHeckle?.heckle}</p>
-      <p>{props.urgency}</p>
     </>
   )
 }

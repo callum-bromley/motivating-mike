@@ -1,4 +1,5 @@
 import useUserData from '../apis/use-user-data'
+import HomePageAvatar from '../components/HomePageAvatar'
 import OneTodo from '../components/OneTodo'
 
 const id = 1
@@ -19,6 +20,7 @@ export default function Home() {
   return (
     <>
       <h1>Home Page Component placeholder</h1>
+      <HomePageAvatar avatarId={user.avatarId} />
       <OneTodo userId={user.id} name={user.name} avatarId={user.avatarId} />
     </>
   )
