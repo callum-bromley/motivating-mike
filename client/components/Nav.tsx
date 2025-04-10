@@ -1,7 +1,13 @@
+import { useNavigate } from 'react-router-dom'
+
 export default function Nav() {
+  const navigate = useNavigate()
+
   return (
-    <h1>Nav component Placeholder</h1>
+    <>
+      <button onClick={() => navigate(`/`)}>Home</button>
+      <button onClick={() => navigate(`/profile`)}>Profile</button>
+      <button onClick={() => navigate(`/todo-list`)}>Todos</button>
+    </>
   )
 }
-
-
