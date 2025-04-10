@@ -1,6 +1,6 @@
 import useUserTodos from '../apis/use-user-todos'
 import { Todo } from '../models/todos'
-import DisplayMotivation from './DisplayMotivation'
+import DisplayHeckle from './DisplayHeckle'
 import FilterTodos from './FilterTodos'
 import { useNavigate } from 'react-router-dom'
 interface Props {
@@ -30,7 +30,7 @@ export default function OneTodo(props: Props) {
     <>
       {randomTodo ? (
         <>
-          <DisplayMotivation
+          <DisplayHeckle
             userId={props.userId}
             avatarId={props.avatarId}
             urgency={randomTodo.urgency}

@@ -16,7 +16,18 @@ router.get('/', async (req, res) => {
   }
 })
 // GET /api/v1/heckles/severity
-//
+router.get('/severity/:id', async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+    const heckles = await db.getHecklesBySeverity(id)
+
+    res.json(heckles)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('No heckles loaded')
+  }
+})
+
 // GET /api/v1/heckles/id
 //
 // GET /api/v1/heckles/avatar/id

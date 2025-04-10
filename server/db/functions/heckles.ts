@@ -22,5 +22,12 @@ export async function getHeckles(): Promise<Heckle[]> {
 }
 
 // getHecklesBySeverity
+export async function getHecklesBySeverity(severity: number): Promise<Heckle[]> {
+  return db('heckles').where('heckles.severity', severity).select(heckleKeys)
+}
+
+
+
+
 // getHecklesByAvatarId
 // getHecklesByID

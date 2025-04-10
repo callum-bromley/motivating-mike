@@ -1,5 +1,4 @@
 import useUserData from '../apis/use-user-data'
-import DisplayMotivation from '../components/DisplayMotivation'
 import OneTodo from '../components/OneTodo'
 
 const id = 1
