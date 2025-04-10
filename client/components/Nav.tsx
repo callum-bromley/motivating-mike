@@ -23,6 +23,8 @@ export default function Nav() {
       <button onClick={() => navigate(`/todo-list`)}>Todos</button>
       <IfAuthenticated>
         <button onClick={handleSignOut}>Sign Out</button>
+        {user && <p>Signed in as: {user?.name}</p>}
+        <img src={user?.picture} alt='user icon' />
       </IfAuthenticated>
       <IfNotAuthenticated>
         <button onClick={handleSignIn}>Sign In</button>

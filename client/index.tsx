@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
       clientId='9hXYVo8dg47dfbDtM4vdDCSeJSTpKIv8'
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: 'https//mm/api',
+        audience: 'https://mm/api',
       }}
     >
 
