@@ -1,4 +1,4 @@
-import { Todo } from '../Models/todos'
+import { Todo } from '../models/todos'
 import { useDeleteTodo } from '../apis/use-delete-todo'
 import { useState } from 'react'
 

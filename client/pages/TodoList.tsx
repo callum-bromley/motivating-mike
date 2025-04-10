@@ -1,4 +1,3 @@
-import { useAddTodo } from '../apis/use-add-todo'
 import useTodos from '../apis/use-todos'
 import AddTodo from '../components/AddTodo'
 import DeleteTodo from '../components/DeleteTodo'
@@ -29,18 +28,18 @@ export default function TodoList() {
       <ul>
         {todos.map((todo) => {
           {return  todo.id == editId ? <EditTodo key={todo.task} todo={todo} /> : <li
-            key={todo.task}
-            onClick={() => {
-              handleClick(todo.id)
-            }}
-          >
-            {todo.task}
-          </li>}
+          key={todo.task}
+          onClick={() => {
+            handleClick(todo.id)
+          }}
+        >
+          {todo.task}
+        </li>}
 })}
-      </ul>
-      <DeleteTodo todos={todos} />
-    </>
-  )
+    </ul>
+    <DeleteTodo todos={todos} />
+  </>
+)
 }
 
 //update

@@ -1,17 +1,15 @@
 import { useEditTodo } from '../apis/use-edit-todo'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
-import useTodos from '../apis/use-todos'
-import { Todo } from '../Models/todos'
+
+import { Todo } from '../models/todos'
 
 const initialState = { task: '', urgency: 0 }
 
 export interface Props {
-todo: Todo
+  todo: Todo
 }
 
-function EditTodo({todo}: Props) {
-  
+function EditTodo({ todo }: Props) {
   const [formState, setFormState] = useState({ task: todo.task, urgency: 0 })
   const addTodoMutation = useEditTodo(todo.id)
 
