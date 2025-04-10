@@ -7,7 +7,7 @@ interface Props {
   urgency: number
 }
 
-export default function DisplayHeckle(props: Props) {
+export default function OneHeckle(props: Props) {
   const { data: user, isPending, error } = useUserData(props.userId)
   const {
     data: heckles,

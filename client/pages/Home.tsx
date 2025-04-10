@@ -1,7 +1,9 @@
 import useUserData from '../apis/use-user-data'
 import useUserTodos from '../apis/use-user-todos'
+import OneHeckle from '../components/OneHeckle'
 import filterTodos from '../components/filteredTodos'
 import HomePageAvatar from '../components/HomePageAvatar'
+import OneTodo from '../components/OneTodo'
 
 const id = 1
 
@@ -20,16 +22,17 @@ export default function Home() {
   }
 
   const randomTodo = filterTodos(todos)
-  console.log(randomTodo)
-  // I want to use a helper function to go and get
-  // - a Todo,
-  // - and an appropriate heckle
-  // return those two values, so that I can then render them on the page below
-  // Then I will pass those into the <OneTodo/> <OneHeckle/> <DisplayAvatar/>
+
   return (
     <>
       <h1>Home Page Component placeholder</h1>
+      <OneHeckle
+        userId={user.id}
+        avatarId={user.avatarId}
+        urgency={randomTodo?.urgency}
+      />
       < HomePageAvatar avatarId={user.avatarId} />
+      <OneTodo todo={randomTodo} />
     </>
   )
 }
