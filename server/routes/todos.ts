@@ -1,5 +1,4 @@
 import express from 'express'
-
 import * as db from '../db/functions/todos'
 
 const router = express.Router()
@@ -8,7 +7,7 @@ const router = express.Router()
 router.get('/', async (req, res) => {
   try {
     const todos = await db.getTodos()
-    console.log('Through route', todos)
+    // console.log('Through route', todos)
     res.json(todos)
   } catch (error) {
     console.error(error)
@@ -17,7 +16,19 @@ router.get('/', async (req, res) => {
 })
 
 // GET /api/v1/todos/id
-//
+router.get('/:id', async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+    // console.log('server route: ', id)
+    const todos = await db.getTodosByUserId(id)
+    // console.log('route db data returned', todos)
+    res.json(todos)
+  } catch (err) {
+    console.error(err)
+    res.sendStatus(500)
+  }
+})
+
 // GET /api/v1/todos/urgency
 //
 // GET /api/v1/todos/status
