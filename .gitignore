@@ -16,3 +16,5 @@ coverage
 # Dotenv env settings
 .env
 
+# Auth0 Secret keys
+Auth0.md
