@@ -2,12 +2,15 @@ import useUserTodos from "../apis/use-user-todos"
 import FilterTodos from "./FilterTodos"
 import { useNavigate } from "react-router-dom"
 
+interface Props {
+  userId: number
+}
 
-export default function OneTodo() {
+export default function OneTodo(props: Props) {
   const navigate = useNavigate()
 
-  const userId = 3
-  const { data: todos, isPending, error } = useUserTodos(userId)
+  // const userId = 3
+  const { data: todos, isPending, error } = useUserTodos(props.userId)
 
   if (isPending) {
     return (<h2>Loading...</h2>)
