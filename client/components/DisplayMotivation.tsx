@@ -2,8 +2,8 @@ import useUserData from '../apis/use-user-data'
 
 interface Props {
   userId: number
-  name: string
   avatarId: number
+  urgency: number
 }
 
 export default function DisplayMotivation(props: Props) {
@@ -23,9 +23,8 @@ export default function DisplayMotivation(props: Props) {
   //Display random Motivation
   return (
     <>
-      <h1>{`User: ${user.id}`}</h1>
-      <p>{user.name}</p>
       <p>{user.avatarId}</p>
+      <p>{props.urgency}</p>
     </>
   )
 }

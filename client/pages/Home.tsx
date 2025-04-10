@@ -20,12 +20,7 @@ export default function Home() {
   return (
     <>
       <h1>Home Page Component placeholder</h1>
-      <DisplayMotivation
-        userId={user.id}
-        name={user.name}
-        avatarId={user.avatarId}
-      />
-      <OneTodo userId={user.id} />
+      <OneTodo userId={user.id} name={user.name} avatarId={user.avatarId} />
     </>
   )
 }
