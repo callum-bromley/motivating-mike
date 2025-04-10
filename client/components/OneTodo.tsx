@@ -1,7 +1,7 @@
 import useUserTodos from '../apis/use-user-todos'
 import DisplayHeckle from './DisplayHeckle'
-import FilterTodos from './FilterTodos'
 import { useNavigate } from 'react-router-dom'
+import filterTodos from './filteredTodos'
 interface Props {
   userId: number
   name: string
@@ -22,8 +22,7 @@ export default function OneTodo(props: Props) {
     return <h2>No todo data found</h2>
   }
 
-  //FilteredTodos Component Call
-  const randomTodo = FilterTodos(todos)
+  const randomTodo = filterTodos(todos)
 
   return (
     <>
