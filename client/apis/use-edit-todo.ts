@@ -10,7 +10,7 @@ export function useEditTodo(id: number) {
       await request.patch(`/api/v1/todos/${id}`).send(data)
     },
     onSuccess: async () => {
-      queryClient.invalidateQueries({ queryKey: ['todos', id] })
+      queryClient.invalidateQueries({ queryKey: ['todos'] })
     },
   })
 }

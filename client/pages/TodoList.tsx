@@ -27,7 +27,8 @@ export default function TodoList() {
       <AddTodo />
       <ul>
         {todos.map((todo) => {
-          {return  todo.id == editId ? <EditTodo key={todo.task} todo={todo} /> : <li
+          {return  todo.id == editId ? <EditTodo key={todo.task} todo={todo} editId={editId} 
+          onSave={() => setEditId(0)} /> : <li
           key={todo.task}
           onClick={() => {
             handleClick(todo.id)
