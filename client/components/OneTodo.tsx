@@ -11,7 +11,7 @@ export default function OneTodo(props: Props) {
 
   // const userId = 3
   const { data: todos, isPending, error } = useUserTodos(props.userId)
-  console.log(todos)
+
 
 
   if (isPending) {
@@ -26,6 +26,8 @@ export default function OneTodo(props: Props) {
 
   //FilteredTodos Component Call
   const randomTodo = FilterTodos(todos)
+  console.log(randomTodo)
+
 
   return (
     <>
