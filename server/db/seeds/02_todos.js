@@ -1,4 +1,5 @@
 export async function seed(knex) {
+  await knex('todos').insert(todos)
   const todos = [
     {
       id: 1,
@@ -208,6 +209,4 @@ export async function seed(knex) {
       user_id: 1,
     },
   ]
-
-  await knex('todos').insert(todos)
 }
