@@ -2,10 +2,15 @@ import request from 'superagent'
 import { TodoData } from '../Models/todos'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-export async function useAddTodo() {
+type TodoInput = {
+  task: string,
+  urgency: number
+}
+
+export function useAddTodo() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: async (data: TodoData) => {
+    mutationFn: async (data: TodoInput) => {
       await request.post('/api/v1/todos').send(data)
     },
     onSuccess: async () => {

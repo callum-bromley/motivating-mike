@@ -12,7 +12,7 @@ function AddTodo() {
     event.preventDefault()
     addTodoMutation.mutate({
       task: formState.task,
-      urgency: formState.urgency,
+      urgency: Number(formState.urgency),
     })
     setFormState(initialState)
   }
