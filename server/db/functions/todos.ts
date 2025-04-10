@@ -1,5 +1,5 @@
 import db from './../connection.ts'
-// import { Todo } from '../../../client/models/todos.ts'
+import { Todo } from '../../../client/models/todos.ts'
 
 // function convertTodosToSnakeCase(data: Todo) {
 //   return {
@@ -29,14 +29,26 @@ export const todoKeys = [
 
 export async function getTodos() {
   try {
-    const result = db('todos').select(todoKeys)
-    console.log(result)
+    const result = await db('todos').select(todoKeys)
+    // console.log(result)
     return result
   } catch (error) {
     console.error(error)
   }
 }
 
+// getTodosByUserId
+export async function getTodosByUserId(userId: number): Promise<Todo[]> {
+  const todoList = await db('todos')
+    .where('todos.user_id', userId)
+    .select()
+
+  console.log('getTodosByYserId: ', todoList)
+
+  return todoList
+}
+
 // UPDATE
 
 // DELETE
+//
