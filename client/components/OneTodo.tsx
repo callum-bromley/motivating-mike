@@ -11,6 +11,8 @@ export default function OneTodo(props: Props) {
 
   // const userId = 3
   const { data: todos, isPending, error } = useUserTodos(props.userId)
+  console.log(todos)
+
 
   if (isPending) {
     return (<h2>Loading...</h2>)
