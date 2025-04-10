@@ -19,9 +19,9 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    console.log('server route: ', id)
+    // console.log('server route: ', id)
     const todos = await db.getTodosByUserId(id)
-    console.log('route db data returned', todos)
+    // console.log('route db data returned', todos)
     res.json(todos)
   } catch (err) {
     console.error(err)

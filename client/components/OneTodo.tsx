@@ -1,12 +1,13 @@
 import useUserTodos from "../apis/use-user-todos"
 import FilterTodos from "./FilterTodos"
+import { useNavigate } from "react-router-dom"
 
 
 export default function OneTodo() {
+  const navigate = useNavigate()
 
-  const userId = 1
+  const userId = 3
   const { data: todos, isPending, error } = useUserTodos(userId)
-  console.log('before filter ', todos)
 
   if (isPending) {
     return (<h2>Loading...</h2>)
@@ -29,10 +30,12 @@ export default function OneTodo() {
         </>
       ) : (
         <>
-          <button>Add todo</button>
-          <p>You&apos;r all caught up!</p>
+
+          <h4>You&apos;r all caught up!</h4>
+          <button onClick={() => navigate(`/todo-list`)}> Add Todo</button>
         </>
-      )}
+      )
+      }
     </>
   )
 }

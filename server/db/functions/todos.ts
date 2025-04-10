@@ -43,7 +43,7 @@ export async function getTodosByUserId(userId: number): Promise<Todo[]> {
     .where('todos.user_id', userId)
     .select()
 
-  console.log('getTodosByYserId: ', todoList)
+  // console.log('getTodosByYserId: ', todoList)
 
   return todoList
 }
