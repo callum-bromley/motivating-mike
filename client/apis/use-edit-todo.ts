@@ -6,7 +6,7 @@ export function useEditTodo(id: number) {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (data: TodoData) => {
+    mutationFn: async (data: { task: string, urgency: number}) => {
       await request.patch(`/api/v1/todos/${id}`).send(data)
     },
     onSuccess: async () => {
