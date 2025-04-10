@@ -1,4 +1,5 @@
 import useUserTodos from "../apis/use-user-todos"
+import formatDate from "../utils/formatDate"
 import FilterTodos from "./FilterTodos"
 import { useNavigate } from "react-router-dom"
 
@@ -9,9 +10,7 @@ interface Props {
 export default function OneTodo(props: Props) {
   const navigate = useNavigate()
 
-  // const userId = 3
   const { data: todos, isPending, error } = useUserTodos(props.userId)
-  console.log(todos)
 
 
   if (isPending) {
@@ -26,12 +25,14 @@ export default function OneTodo(props: Props) {
 
   //FilteredTodos Component Call
   const randomTodo = FilterTodos(todos)
+  const dueDate = formatDate(randomTodo?.due as string)
 
   return (
     <>
       {randomTodo ? (
         <>
           <h3><strong>{randomTodo.task}</strong></h3>
+          <h4>{`due - ${dueDate}`}</h4>
         </>
       ) : (
         <>
