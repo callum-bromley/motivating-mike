@@ -5,14 +5,19 @@ import filterTodos from '../components/filteredTodos'
 import HomePageAvatar from '../components/HomePageAvatar'
 import OneTodo from '../components/OneTodo'
 import { IfAuthenticated, IfNotAuthenticated } from '../components/Authenticated'
-// import { useAuth0 } from '@auth0/auth0-react'
+import { useAuth0 } from '@auth0/auth0-react'
+import { useNavigate } from 'react-router-dom'
 
-const id = 1
+const id = 2
 
 export default function Home() {
   const { data: user, isPending, error } = useUserData(id)
   const { data: todos, isPending: todosPending, error: todosError } = useUserTodos(id)
-  // const { getAccessTokenSilently } = useAuth0()
+  const navigate = useNavigate()
+  const { loginWithPopup } = useAuth0()
+  const handleSignIn = () => {
+    loginWithPopup()
+  }
 
   if (isPending || todosPending) {
     return <h2>Loading...</h2>
@@ -20,11 +25,22 @@ export default function Home() {
   if (error || todosError) {
     return <h2>Error: {error?.message}</h2>
   }
-  if (!user) {
+  if (!user || user.id === undefined || user.avatarId === undefined) {
     return <h2>No user data found</h2>
   }
 
   const randomTodo = filterTodos(todos)
+
+  if (!randomTodo) {
+    return (
+      <>
+        <h2> you &apos;re all caught up</h2>
+        <p>Pat yourself on the back</p>
+        <button onClick={handleSignIn}>Add Todo</button>
+      </>
+    )
+
+  }
 
   return (
     <>
@@ -37,8 +53,11 @@ export default function Home() {
         />
         < HomePageAvatar avatarId={user.avatarId} />
         <OneTodo todo={randomTodo} />
+        <button onClick={() => navigate(`/todo-list`)}>Add Todo</button>
+
       </IfAuthenticated>
       <IfNotAuthenticated>
+        <button onClick={handleSignIn}>Add Todo</button>
         <p>Sign in to see your data</p>
       </IfNotAuthenticated>
     </>
