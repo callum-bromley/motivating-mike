@@ -1,7 +1,14 @@
+//Hooks
 import useUserTodos from '../apis/use-user-todos'
-import DisplayHeckle from './DisplayHeckle'
 import { useNavigate } from 'react-router-dom'
+
+//Components
+import DisplayHeckle from './DisplayHeckle'
+
+//Utils
 import filterTodos from './filteredTodos'
+import formatDate from '../utils/formatDate'
+
 interface Props {
   userId: number
   name: string
@@ -26,26 +33,24 @@ export default function OneTodo(props: Props) {
 
   return (
     <>
-      {randomTodo
-        ? (
-          <>
-            <DisplayHeckle
-              userId={props.userId}
-              avatarId={props.avatarId}
-              urgency={randomTodo.urgency}
-            />
+      {randomTodo ? (
+        <>
+          <DisplayHeckle
+            userId={props.userId}
+            avatarId={props.avatarId}
+            urgency={randomTodo.urgency}
+          />
 
-            <h3>
-              <strong>{randomTodo.task}</strong>
-            </h3>
-          </>
-        ) : (
-          <>
-            <h4>You&apos;r all caught up!</h4>
-            <button onClick={() => navigate(`/todo-list`)}> Add Todo</button>
-          </>
-        )
-      }
+          <h3>
+            <strong>{randomTodo.task}</strong>
+          </h3>
+        </>
+      ) : (
+        <>
+          <h4>You&apos;r all caught up!</h4>
+          <button onClick={() => navigate(`/todo-list`)}> Add Todo</button>
+        </>
+      )}
     </>
   )
 }
