@@ -3,6 +3,7 @@ import AddTodo from '../components/AddTodo'
 import DeleteTodo from '../components/DeleteTodo'
 import { useState } from 'react'
 import EditTodo from '../components/EditTodo'
+import { Box, Flex, VStack } from '@chakra-ui/react'
 
 export default function TodoList() {
   const [editId, setEditId] = useState(0)
@@ -23,24 +24,53 @@ export default function TodoList() {
   }
   return (
     <>
-      <h1>Todo list placeholder</h1>
-      <AddTodo />
-      <ul>
-        {todos.map((todo) => {
-          {return  todo.id == editId ? <EditTodo key={todo.task} todo={todo} editId={editId} 
-          onSave={() => setEditId(0)} /> : <li
-          key={todo.task}
-          onClick={() => {
-            handleClick(todo.id)
-          }}
+      <Flex height="100vh">
+        <Box
+          flex="1"
+          backgroundColor="#B1CFB7"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
         >
-          {todo.task}
-        </li>}
-})}
-    </ul>
-    <DeleteTodo todos={todos} />
-  </>
-)
+          <AddTodo />
+        </Box>
+        <Box
+          flex="1"
+          backgroundColor="#EFD9AA"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <VStack>
+            <ul>
+              {todos.map((todo) => {
+                {
+                  return todo.id == editId ? (
+                    <EditTodo
+                      key={todo.task}
+                      todo={todo}
+                      editId={editId}
+                      onSave={() => setEditId(0)}
+                    />
+                  ) : (
+                    <li
+                      key={todo.task}
+                      onClick={() => {
+                        handleClick(todo.id)
+                      }}
+                    >
+                      {todo.task}
+                    </li>
+                  )
+                }
+              })}
+            </ul>
+            {/* <DeleteTodo todos={todos} /> */}
+          </VStack>
+        </Box>
+      </Flex>
+    </>
+  )
 }
 
 //update
