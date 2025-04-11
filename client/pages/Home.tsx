@@ -1,12 +1,15 @@
 import useUserData from '../apis/use-user-data'
 import useUserTodos from '../apis/use-user-todos'
-import OneHeckle from '../components/OneHeckle'
+import { useUpdateStatus } from '../apis/use-update-status'
+import { useAuth0 } from '@auth0/auth0-react'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 import filterTodos from '../components/filteredTodos'
+import OneHeckle from '../components/OneHeckle'
 import HomePageAvatar from '../components/HomePageAvatar'
 import OneTodo from '../components/OneTodo'
 import { IfAuthenticated, IfNotAuthenticated } from '../components/Authenticated'
-import { useAuth0 } from '@auth0/auth0-react'
-import { useNavigate } from 'react-router-dom'
+import { Flex } from '@chakra-ui/react'
 
 const id = 2
 
@@ -18,6 +21,8 @@ export default function Home() {
   const handleSignIn = () => {
     loginWithPopup()
   }
+  const { mutateAsync: updateStatus } = useUpdateStatus()
+  const [isComplete, setIsComplete] = useState(false)
 
   if (isPending || todosPending) {
     return <h2>Loading...</h2>
@@ -28,7 +33,14 @@ export default function Home() {
   if (!user || user.id === undefined || user.avatarId === undefined) {
     return <h2>No user data found</h2>
   }
-
+  const handleCheck = async (id: number) => {
+    if (randomTodo) {
+      await updateStatus({
+        id,
+      })
+      setIsComplete(false)
+    }
+  }
   const randomTodo = filterTodos(todos)
 
   if (!randomTodo) {
@@ -52,9 +64,15 @@ export default function Home() {
           urgency={randomTodo?.urgency}
         />
         < HomePageAvatar avatarId={user.avatarId} />
-        <OneTodo todo={randomTodo} />
+        <Flex gap={2}>
+          <input
+            type="checkbox"
+            checked={isComplete}
+            onChange={() => handleCheck(randomTodo.id)}
+          />
+          <OneTodo todo={randomTodo} />
+        </Flex>
         <button onClick={() => navigate(`/todo-list`)}>Add Todo</button>
-
       </IfAuthenticated>
       <IfNotAuthenticated>
         <button onClick={handleSignIn}>Add Todo</button>
