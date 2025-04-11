@@ -1,6 +1,8 @@
 import { Todo } from '../models/todos'
 import { useDeleteTodo } from '../apis/use-delete-todo'
 import { useState } from 'react'
+import { DeleteIcon } from '@chakra-ui/icons'
+import { ListIcon } from '@chakra-ui/react'
 
 const initialState = { task: '', urgency: 0 }
 
@@ -27,9 +29,14 @@ function DeleteTodo(props: Props) {
     setFormState({ ...formState, [event.target.name as string]: inputText })
   }
 
+  function handleClick(id: any) {
+    throw new Error('Function not implemented.')
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="task">Task: </label>
+
       <input
         type="text"
         name="task"
@@ -37,7 +44,7 @@ function DeleteTodo(props: Props) {
         value={formState.task}
         onChange={handleChange} // Call handleChange on input change
       />
-      <button type="submit">Delete Todo</button>
+      <button type="submit"></button>
     </form>
   )
 }

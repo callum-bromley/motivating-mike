@@ -1,6 +1,16 @@
-import { Button, Input, VStack } from '@chakra-ui/react'
+import {
+  Button,
+  Input,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+  VStack,
+} from '@chakra-ui/react'
 import { useAddTodo } from '../apis/use-add-todo'
 import { useState } from 'react'
+import { ChevronDownIcon } from '@chakra-ui/icons'
 
 const initialState = { task: '', urgency: '' }
 
@@ -14,6 +24,7 @@ function AddTodo() {
     addTodoMutation.mutate({
       task: formState.task,
       urgency: Number(formState.urgency),
+      due: formState.due,
     })
     setFormState(initialState)
   }
@@ -30,6 +41,34 @@ function AddTodo() {
         <label htmlFor="task" aria-label="Add task"></label>
         <Input
           placeholder="What next"
+          type="text"
+          name="task"
+          id="task"
+          value={formState.task}
+          onChange={handleChange}
+        />
+        <Menu>
+          <MenuButton
+            px={4}
+            py={2}
+            transition="all 0.2s"
+            borderRadius="md"
+            borderWidth="1px"
+            _hover={{ bg: 'gray.400' }}
+            _expanded={{ bg: 'blue.400' }}
+            _focus={{ boxShadow: 'outline' }}
+          >
+            Urgency <ChevronDownIcon />
+          </MenuButton>
+          <MenuList>
+            <MenuItem>Chill</MenuItem>
+            <MenuItem>Probably should start</MenuItem>
+            <MenuDivider />
+            <MenuItem>Severe(whoops)</MenuItem>
+          </MenuList>
+        </Menu>
+        <Input
+          placeholder="Set Due Date"
           type="text"
           name="task"
           id="task"

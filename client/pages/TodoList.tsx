@@ -6,12 +6,25 @@ import EditTodo from '../components/EditTodo'
 import {
   Box,
   Flex,
+  Heading,
   List,
   ListIcon,
   ListItem,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Text,
   VStack,
 } from '@chakra-ui/react'
+import { MdCheckCircle } from 'react-icons/md'
+import {
+  ArrowDownIcon,
+  CalendarIcon,
+  ChevronDownIcon,
+  DeleteIcon,
+} from '@chakra-ui/icons'
+import UpdateTodoMenu from '../components/UpdateTodoMenu'
 
 export default function TodoList() {
   const [editId, setEditId] = useState(0)
@@ -50,8 +63,10 @@ export default function TodoList() {
           alignItems="center"
         >
           <VStack>
-            <List as="h3" fontSize="2xl" color="black" fontFamily="monospace">
-              <ListIcon as={MdCheckCircle} color="green.500" />
+            <Box justifyContent="left">
+              <Heading as="h3">Todos:</Heading>
+            </Box>
+            <List as="h3" fontSize="4xl" color="black" fontFamily="monospace">
               {todos.map((todo) => {
                 {
                   return todo.id == editId ? (
@@ -62,19 +77,27 @@ export default function TodoList() {
                       onSave={() => setEditId(0)}
                     />
                   ) : (
-                    <ListItem
-                      key={todo.task}
-                      onClick={() => {
-                        handleClick(todo.id)
-                      }}
-                    >
-                      {todo.task}
-                    </ListItem>
+                    <>
+                      <Flex>
+                        <UpdateTodoMenu />
+                        <ListItem
+                          key={todo.task}
+                          onClick={() => {
+                            handleClick(todo.id)
+                          }}
+                        >
+                          <Flex w="25vw" alignItems="center">
+                            {todo.task}
+                            {/* <DeleteTodo /> */}
+                          </Flex>
+                        </ListItem>
+                      </Flex>
+                    </>
                   )
                 }
               })}
             </List>
-            {/* <DeleteTodo todos={todos} /> */}
+            <DeleteTodo todos={todos} />
           </VStack>
         </Box>
         <Flex>
