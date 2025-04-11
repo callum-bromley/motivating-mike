@@ -25,6 +25,18 @@ import {
   DeleteIcon,
 } from '@chakra-ui/icons'
 import UpdateTodoMenu from '../components/UpdateTodoMenu'
+import DeleteSingleTodo from '../components/DeleteSingleTodo'
+
+import { keyframes } from '@chakra-ui/react'
+
+// Define the animation
+const phase = keyframes`
+  0% { text-shadow: 0 0 2px #fff, 0 0 5px #aaa; opacity: 1; }
+  50% { text-shadow: 0 0 8px #ccc, 0 0 15px #999; opacity: 0.7; }
+  100% { text-shadow: 0 0 2px #fff, 0 0 5px #aaa; opacity: 1; }
+`
+
+const phaseAnim = `${phase} 2s ease-in-out infinite`
 
 export default function TodoList() {
   const [editId, setEditId] = useState(0)
@@ -64,7 +76,9 @@ export default function TodoList() {
         >
           <VStack>
             <Box justifyContent="left">
-              <Heading as="h3">Todos:</Heading>
+              <Heading as="h3" font-family="Recoleta">
+                Todos:
+              </Heading>
             </Box>
             <List as="h3" fontSize="4xl" color="black" fontFamily="monospace">
               {todos.map((todo) => {
@@ -88,16 +102,16 @@ export default function TodoList() {
                         >
                           <Flex w="25vw" alignItems="center">
                             {todo.task}
-                            {/* <DeleteTodo /> */}
                           </Flex>
                         </ListItem>
+                        <DeleteSingleTodo todoId={todo.id} />
                       </Flex>
                     </>
                   )
                 }
               })}
             </List>
-            <DeleteTodo todos={todos} />
+            {/* <DeleteTodo todos={todos} /> */}
           </VStack>
         </Box>
         <Flex>
@@ -111,6 +125,8 @@ export default function TodoList() {
               fontSize="9xl"
               color="black"
               fontFamily="Bangers"
+              textShadow="0px 0px 10px purple"
+              animation={phaseAnim}
               textAlign="center"
               zIndex="1"
             >

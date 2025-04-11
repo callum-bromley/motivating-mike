@@ -2,6 +2,7 @@ import { useEditTodo } from '../apis/use-edit-todo'
 import { useState } from 'react'
 
 import { Todo } from '../models/todos'
+import { Button } from '@chakra-ui/react'
 
 const initialState = { task: '', urgency: 0 }
 
@@ -68,7 +69,7 @@ function EditTodo({ todo, onSave, editId }: Props) {
         onBlur={handleBlur}
         // onKeyDown={handleKeyDown}
       />
-      <button type="submit">Update Todo</button>
+      <Button type="submit">Update Todo</Button>
     </form>
   )
 }
