@@ -9,9 +9,9 @@ import OneHeckle from '../components/OneHeckle'
 import HomePageAvatar from '../components/HomePageAvatar'
 import OneTodo from '../components/OneTodo'
 import { IfAuthenticated, IfNotAuthenticated } from '../components/Authenticated'
-import { Flex } from '@chakra-ui/react'
+import { Box, Button, Flex, VStack } from '@chakra-ui/react'
 
-const id = 2
+const id = 3
 
 export default function Home() {
   const { data: user, isPending, error } = useUserData(id)
@@ -45,19 +45,34 @@ export default function Home() {
 
   if (!randomTodo) {
     return (
-      <>
+      <Box
+        height="100vh"
+        flex="1"
+        flexDir="column"
+        backgroundColor="#B1CFB7"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
         <h2> you &apos;re all caught up</h2>
         <p>Pat yourself on the back</p>
-        <button onClick={handleSignIn}>Add Todo</button>
-      </>
+        <Button onClick={() => navigate(`/todo-list`)} >Add Todo</Button>
+      </Box>
     )
 
   }
 
   return (
-    <>
+    <Box
+      height="100vh"
+      flex="1"
+      flexDir="column"
+      backgroundColor="#B1CFB7"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
       <IfAuthenticated>
-        <h1>Home Page Component placeholder</h1>
         <OneHeckle
           userId={user.id}
           avatarId={user.avatarId}
@@ -72,12 +87,12 @@ export default function Home() {
           />
           <OneTodo todo={randomTodo} />
         </Flex>
-        <button onClick={() => navigate(`/todo-list`)}>Add Todo</button>
+        {/* <Button onClick={() => navigate(`/todo-list`)}>Add Todo</Button> */}
       </IfAuthenticated>
       <IfNotAuthenticated>
-        <button onClick={handleSignIn}>Add Todo</button>
+        <Button onClick={handleSignIn}>Add Todo</Button>
         <p>Sign in to see your data</p>
       </IfNotAuthenticated>
-    </>
+    </Box>
   )
 }
