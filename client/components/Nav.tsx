@@ -1,4 +1,4 @@
-import { Flex, Icon, Input, useDisclosure, VStack } from '@chakra-ui/react'
+import { Box, Flex, Icon, Input, useDisclosure, VStack } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -24,45 +24,49 @@ export default function Nav() {
 
   return (
     <>
-      <Drawer
-        isOpen={isOpen}
-        placement='right'
-        onClose={onClose}
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton m={2} />
-          <DrawerHeader></DrawerHeader>
+      <Box position="absolute" right={6} top={4}>
+        <Drawer
+          isOpen={isOpen}
+          placement='right'
+          onClose={onClose}
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerCloseButton m={2} />
+            <DrawerHeader></DrawerHeader>
 
-          <DrawerBody>
-            <IfAuthenticated>
-              {user && <p>Username: {user?.name}</p>}
-              <VStack marginRight="auto">
-                <button onClick={() => navigate(`/`)}>Home</button>
-                <button onClick={() => navigate(`/profile`)}>Profile</button>
-                <button onClick={() => navigate(`/todo-list`)}>Todos</button>
-              </VStack>
-            </IfAuthenticated>
-            <IfNotAuthenticated>
-              <button onClick={() => navigate(`/`)}>Home</button>
-              <button onClick={() => navigate(`/login`)}>Profile</button>
-              <button onClick={() => navigate(`/todo-list`)}>Todos</button>
-            </IfNotAuthenticated>
-          </DrawerBody>
+            <DrawerBody>
+              <Flex direction="column" gap={4}>
+                <IfAuthenticated>
+                  {user && <p>Username: {user?.name}</p>}
+                  <VStack marginRight="auto">
+                    <button onClick={() => navigate(`/`)}>Home</button>
+                    <button onClick={() => navigate(`/profile`)}>Profile</button>
+                    <button onClick={() => navigate(`/todo-list`)}>Todos</button>
+                  </VStack>
+                </IfAuthenticated>
+                <IfNotAuthenticated>
+                  <button onClick={() => navigate(`/`)}>Home</button>
+                  <button onClick={() => navigate(`/login`)}>Profile</button>
+                  <button onClick={() => navigate(`/todo-list`)}>Todos</button>
+                </IfNotAuthenticated>
+              </Flex>
+            </DrawerBody>
 
-          <DrawerFooter>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-      <Flex justify="flex-end" gap={6}>
-        <IfAuthenticated>
-          <button onClick={handleSignOut}>Sign Out</button>
-        </IfAuthenticated>
-        <IfNotAuthenticated>
-          <button onClick={handleSignIn}>Sign In</button>
-        </IfNotAuthenticated>
-        <Icon as={HamburgerIcon} boxSize={6} color='red.500' onClick={onOpen} />
-      </Flex>
+            <DrawerFooter>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+        <Flex justify="flex-end" gap={6}>
+          <IfAuthenticated>
+            <button onClick={handleSignOut}>Sign Out</button>
+          </IfAuthenticated>
+          <IfNotAuthenticated>
+            <button onClick={handleSignIn}>Sign In</button>
+          </IfNotAuthenticated>
+          <Icon as={HamburgerIcon} boxSize={6} color='red.500' onClick={onOpen} />
+        </Flex>
+      </Box>
     </>
   )
 }

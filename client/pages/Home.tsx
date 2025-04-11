@@ -11,7 +11,7 @@ import OneTodo from '../components/OneTodo'
 import { IfAuthenticated, IfNotAuthenticated } from '../components/Authenticated'
 import { Box, Button, Flex, VStack } from '@chakra-ui/react'
 
-const id = 3
+const id = 1
 
 export default function Home() {
   const { data: user, isPending, error } = useUserData(id)
