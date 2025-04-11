@@ -3,7 +3,8 @@ import AddTodo from '../components/AddTodo'
 import DeleteTodo from '../components/DeleteTodo'
 import { useState } from 'react'
 import EditTodo from '../components/EditTodo'
-import { Box, Flex, VStack } from '@chakra-ui/react'
+import { Box, Flex, List, ListItem, Text, VStack } from '@chakra-ui/react'
+// import { extendTheme } from '@chakra-ui/react'
 
 export default function TodoList() {
   const [editId, setEditId] = useState(0)
@@ -42,7 +43,7 @@ export default function TodoList() {
           alignItems="center"
         >
           <VStack>
-            <ul>
+            <List color="green.500">
               {todos.map((todo) => {
                 {
                   return todo.id == editId ? (
@@ -53,21 +54,55 @@ export default function TodoList() {
                       onSave={() => setEditId(0)}
                     />
                   ) : (
-                    <li
+                    <ListItem
                       key={todo.task}
                       onClick={() => {
                         handleClick(todo.id)
                       }}
                     >
                       {todo.task}
-                    </li>
+                    </ListItem>
                   )
                 }
               })}
-            </ul>
+            </List>
             {/* <DeleteTodo todos={todos} /> */}
           </VStack>
         </Box>
+        <Flex>
+          <Box>
+            <Text
+              as="h1"
+              position="absolute"
+              top="10%"
+              left="38.5%"
+              transform="translate(-10%, -42%)"
+              fontSize="9xl"
+              color="black"
+              fontFamily="Bangers"
+              textAlign="center"
+              zIndex="1"
+            >
+              Motivating
+            </Text>
+          </Box>
+          <Box>
+            <Text
+              as="h1"
+              position="absolute"
+              top="20%"
+              left="59%"
+              transform="translate(-10%, -42%)"
+              fontSize="8xl"
+              color="black"
+              fontFamily="Bangers"
+              textAlign="center"
+              zIndex="1"
+            >
+              Mike
+            </Text>
+          </Box>
+        </Flex>
       </Flex>
     </>
   )

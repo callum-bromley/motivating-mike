@@ -1,4 +1,4 @@
-import { Button, VStack } from '@chakra-ui/react'
+import { Button, Input, VStack } from '@chakra-ui/react'
 import { useAddTodo } from '../apis/use-add-todo'
 import { useState } from 'react'
 
@@ -28,7 +28,7 @@ function AddTodo() {
     <form onSubmit={handleSubmit}>
       <VStack>
         <label htmlFor="task" aria-label="Add task"></label>
-        <input
+        <Input
           placeholder="What next"
           type="text"
           name="task"
