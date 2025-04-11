@@ -8,7 +8,6 @@ interface Props {
 export default function OneTodo(props: Props) {
   const navigate = useNavigate()
 
-
   return (
     <>
       {props ? (
