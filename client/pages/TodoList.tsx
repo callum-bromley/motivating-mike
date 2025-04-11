@@ -144,6 +144,7 @@ export default function TodoList() {
               top="20%"
               left="59%"
               transform="translate(-10%, -42%)"
+              textShadow="0px 0px 10px #0059b3"
               fontSize="8xl"
               color="#00BFFF" // Neon Blue color
               fontFamily="Bangers"
