@@ -1,4 +1,4 @@
-import OneTodo from "../components/OneTodo";
+import OneTodo from '../components/OneTodo'
 
 export default function Profile() {
   return (
@@ -7,4 +7,3 @@ export default function Profile() {
     </>
   )
 }
-
