@@ -32,6 +32,7 @@ export default function Home() {
         urgency={randomTodo?.urgency}
       />
       < HomePageAvatar avatarId={user.avatarId} />
+      <input type='checkbox' />
       <OneTodo todo={randomTodo} />
     </>
   )
