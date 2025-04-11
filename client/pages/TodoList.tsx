@@ -116,7 +116,7 @@ export default function TodoList() {
                 }
               })}
             </List>
-            {/* <DeleteTodo todos={todos} /> */}
+         
           </VStack>
         </Box>
         <Flex>

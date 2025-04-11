@@ -12,7 +12,7 @@ import { useAddTodo } from '../apis/use-add-todo'
 import { useState } from 'react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 
-const initialState = { task: '', urgency: '' }
+const initialState = { task: '', urgency: '', due: '' }
 
 function AddTodo() {
   const [formState, setFormState] = useState(initialState)
@@ -49,6 +49,7 @@ function AddTodo() {
         />
         <Menu>
           <MenuButton
+            as={Button}
             px={4}
             py={2}
             transition="all 0.2s"
@@ -61,10 +62,27 @@ function AddTodo() {
             Urgency <ChevronDownIcon />
           </MenuButton>
           <MenuList>
-            <MenuItem>Chill</MenuItem>
-            <MenuItem>Probably should start</MenuItem>
+            <MenuItem
+              onClick={() => setFormState({ ...formState, urgency: 'Chill' })}
+            >
+              Chill
+            </MenuItem>
             <MenuDivider />
-            <MenuItem>Severe(whoops)</MenuItem>
+            <MenuItem
+              onClick={() =>
+                setFormState({ ...formState, urgency: 'Probably should start' })
+              }
+            >
+              Probably should start
+            </MenuItem>
+            <MenuDivider />
+            <MenuItem
+              onClick={() =>
+                setFormState({ ...formState, urgency: 'Severe(whoops)' })
+              }
+            >
+              Severe(whoops)
+            </MenuItem>
           </MenuList>
         </Menu>
         <Input
@@ -72,7 +90,7 @@ function AddTodo() {
           type="text"
           name="task"
           id="task"
-          value={formState.task}
+          value={formState.due}
           onChange={handleChange}
         />
         <Button type="submit">Add Todo</Button>

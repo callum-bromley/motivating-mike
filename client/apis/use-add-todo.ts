@@ -3,8 +3,9 @@ import { TodoData } from '../Models/todos'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 type TodoInput = {
-  task: string,
+  task: string
   urgency: number
+  due: string
 }
 
 export function useAddTodo() {
