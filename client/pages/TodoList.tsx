@@ -3,8 +3,15 @@ import AddTodo from '../components/AddTodo'
 import DeleteTodo from '../components/DeleteTodo'
 import { useState } from 'react'
 import EditTodo from '../components/EditTodo'
-import { Box, Flex, List, ListItem, Text, VStack } from '@chakra-ui/react'
-// import { extendTheme } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  List,
+  ListIcon,
+  ListItem,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
 
 export default function TodoList() {
   const [editId, setEditId] = useState(0)
@@ -43,7 +50,8 @@ export default function TodoList() {
           alignItems="center"
         >
           <VStack>
-            <List color="green.500">
+            <List as="h3" fontSize="2xl" color="black" fontFamily="monospace">
+              <ListIcon as={MdCheckCircle} color="green.500" />
               {todos.map((todo) => {
                 {
                   return todo.id == editId ? (
