@@ -27,16 +27,21 @@ import {
 import UpdateTodoMenu from '../components/UpdateTodoMenu'
 import DeleteSingleTodo from '../components/DeleteSingleTodo'
 
-import { keyframes } from '@chakra-ui/react'
+import { keyframes } from '@emotion/react'
 
-// Define the animation
+// Define the phasing glow animation
 const phase = keyframes`
-  0% { text-shadow: 0 0 2px #fff, 0 0 5px #aaa; opacity: 1; }
-  50% { text-shadow: 0 0 8px #ccc, 0 0 15px #999; opacity: 0.7; }
-  100% { text-shadow: 0 0 2px #fff, 0 0 5px #aaa; opacity: 1; }
+  0% { opacity: 1 }
+  50% { opacity: 0.4 }
+  100% { opacity: 1 }
 `
 
-const phaseAnim = `${phase} 2s ease-in-out infinite`
+const animation = `${phase} 3s ease-in-out infinite`
+
+const fadeInOutBlue = keyframes`
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }`
 
 export default function TodoList() {
   const [editId, setEditId] = useState(0)
@@ -117,18 +122,17 @@ export default function TodoList() {
         <Flex>
           <Box>
             <Text
-              as="h1"
+              fontFamily="Bangers"
+              fontSize="9xl"
+              color="#D7C2DB"
+              animation={animation}
+              textShadow="0px 0px 10px #D100FF"
               position="absolute"
               top="10%"
               left="38.5%"
               transform="translate(-10%, -42%)"
-              fontSize="9xl"
-              color="black"
-              fontFamily="Bangers"
-              textShadow="0px 0px 10px purple"
-              animation={phaseAnim}
-              textAlign="center"
               zIndex="1"
+              textAlign="center"
             >
               Motivating
             </Text>
@@ -141,10 +145,12 @@ export default function TodoList() {
               left="59%"
               transform="translate(-10%, -42%)"
               fontSize="8xl"
-              color="black"
+              color="#00BFFF" // Neon Blue color
               fontFamily="Bangers"
               textAlign="center"
               zIndex="1"
+              // textShadow="0px 0px 10px #00BFFF" // Neon blue text shadow
+              animation={`${fadeInOutBlue} 3s ease-in-out infinite`} // Apply the animation
             >
               Mike
             </Text>
