@@ -9,7 +9,7 @@ import OneTodo from '../components/OneTodo'
 import { IfAuthenticated, IfNotAuthenticated } from '../components/Authenticated'
 import { Box, Button, Flex, Spinner } from '@chakra-ui/react'
 import useUserDataAuth from '../apis/use-user-data-auth'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 export default function Home() {
@@ -20,11 +20,18 @@ export default function Home() {
   const { data: todos, isPending: todosPending, error: todosError } = useUserTodos(userData?.id as number)
   const { loginWithPopup, isLoading } = useAuth0()
   const navigate = useNavigate()
-  console.log('home comp', todos)
   const { mutateAsync: updateStatus } = useUpdateStatus()
   const [isComplete, setIsComplete] = useState(false)
+  const [triggerTimeout, setTriggerTimeout] = useState(true)
 
-  if (isPending || todosPending || isLoading) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTriggerTimeout(false)
+    }, 1500)
+    return () => { clearTimeout(timer) }
+  }, [])
+
+  if (isPending || todosPending || isLoading || triggerTimeout) {
     return (
       <Box
         height="100vh"
@@ -35,7 +42,7 @@ export default function Home() {
         justifyContent="center"
         alignItems="center"
       >
-        <h1>Loading profile</h1>
+        <h2>Loading profile</h2>
         <Spinner />
       </Box>
     )
@@ -83,7 +90,7 @@ export default function Home() {
   }
   const randomTodo = filterTodos(todos)
 
-  if (!randomTodo) {
+  if (userData && !randomTodo) {
     return (
       <Box
         height="100vh"
@@ -129,10 +136,12 @@ export default function Home() {
         </Flex>
         {/* <Button onClick={() => navigate(`/todo-list`)}>Add Todo</Button> */}
       </IfAuthenticated>
-      <IfNotAuthenticated>
-        <Button onClick={handleSignIn}>Add Todo</Button>
-        <p>Sign in to see your data</p>
-      </IfNotAuthenticated>
+      {!triggerTimeout &&
+        <IfNotAuthenticated>
+          <Button onClick={handleSignIn}>Add Todo</Button>
+          <p>Sign in to see your data</p>
+        </IfNotAuthenticated>
+      }
     </Box>
   )
 }

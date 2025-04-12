@@ -16,10 +16,11 @@ const checkJwt = expressjwt({
 }
 )
 
-const logRequest = (req, res, next) => {
-  console.log('Request received:', req.method, req.path);
-  console.log('Authorization header:', req.headers.authorization);
-  next();
-};
+// NOTE: 4-lines down + logRequest in user routes used for conole.log
+// export const logRequest = (req, res, next) => {
+//   console.log('Request received:', req.method, req.path);
+//   console.log('Authorization header:', req.headers.authorization);
+//   next();
+// };
 
-export { checkJwt, logRequest }
+export { checkJwt }
