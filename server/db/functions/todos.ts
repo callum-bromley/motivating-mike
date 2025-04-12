@@ -1,17 +1,6 @@
 import db from './../connection.ts'
 import { Todo } from '../../../client/models/todos.ts'
 
-// function convertTodosToSnakeCase(data: Todo) {
-//   return {
-//     id: data.id,
-//     task: data.task,
-//     completed: data.completed,
-//     urgency: data.urgency,
-//     created: data.created,
-//     due: data.due,
-//     user_id: data.userId,
-//   }
-// }
 
 export const todoKeys = [
   'todos.id as id',
@@ -39,11 +28,12 @@ export async function getTodos() {
 
 // getTodosByUserId
 export async function getTodosByUserId(userId: number): Promise<Todo[]> {
+  console.log(userId)
   const todoList = await db('todos')
     .where('todos.user_id', userId)
     .select()
 
-  // console.log('getTodosByYserId: ', todoList)
+  console.log('getTodosByYserId: ', todoList)
 
   return todoList
 }

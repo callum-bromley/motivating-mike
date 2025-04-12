@@ -1,9 +1,7 @@
-import useUserData from '../apis/use-user-data'
 import useUserTodos from '../apis/use-user-todos'
 import { useUpdateStatus } from '../apis/use-update-status'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import filterTodos from '../components/filteredTodos'
 import OneHeckle from '../components/OneHeckle'
 import HomePageAvatar from '../components/HomePageAvatar'
@@ -11,33 +9,20 @@ import OneTodo from '../components/OneTodo'
 import { IfAuthenticated, IfNotAuthenticated } from '../components/Authenticated'
 import { Box, Button, Flex, Spinner } from '@chakra-ui/react'
 import useUserDataAuth from '../apis/use-user-data-auth'
+import { useState } from 'react'
 
-const id = 1
 
 export default function Home() {
-  // const { data: userData, isPending: apiIsPending, error } = useUserData(id)
   const {
     data: userData,
     isPending,
     error } = useUserDataAuth()
-  console.log('Home page: userData', userData)
   const { data: todos, isPending: todosPending, error: todosError } = useUserTodos(userData?.id as number)
   const { loginWithPopup, isLoading } = useAuth0()
   const navigate = useNavigate()
-
+  console.log('home comp', todos)
   const { mutateAsync: updateStatus } = useUpdateStatus()
   const [isComplete, setIsComplete] = useState(false)
-  // const [isPending, setIsPending] = useState(false)
-  // const [giveUp, setGiveUp] = useState(true)
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setGiveUp(false)
-  //     // setIsPending(false)
-  //   }, 2000)
-  //   return () => { clearTimeout(timer) }
-  // }, [])
-
 
   if (isPending || todosPending || isLoading) {
     return (
@@ -56,10 +41,30 @@ export default function Home() {
     )
   }
   if (error || todosError) {
-    return <h2>Error: {todosError?.message}</h2>
+    <Box
+      height="100vh"
+      flex="1"
+      flexDir="column"
+      backgroundColor="#B1CFB7"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+      return <h2>Error: {todosError?.message}</h2>
+    </Box>
   }
   if (!userData || userData.id === undefined || userData.avatarId === undefined) {
-    return <h2>No user data found</h2>
+    <Box
+      height="100vh"
+      flex="1"
+      flexDir="column"
+      backgroundColor="#B1CFB7"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+      return <h2>No user data found</h2>
+    </Box>
   }
 
 

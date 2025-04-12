@@ -1,14 +1,5 @@
 import { User } from '../../../client/models/users.ts'
 import db from './../connection.ts'
-// import { User } from '../../../client/models/users.ts'
-
-// function convertUsersToSnakeCase(data: user) {
-//   return {
-//     id: data.id,
-//     name: data.name,
-//     avatar_id: data.avatarId,
-//   }
-// }
 
 export const userKeys = [
   'users.id as id',
@@ -33,9 +24,9 @@ export async function getUserById(id: number) {
 }
 
 export async function getUserByAuthId(authId: string): Promise<User> {
-  const user = await db('users').where('users.auth_id', authId).select(userKeys)
+  const user = await db('users').where('users.auth_id', authId).select(userKeys).first()
   console.log(authId)
-  return user[0] as User
+  return user as User
 }
 // UPDATE
 

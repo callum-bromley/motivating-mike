@@ -8,13 +8,13 @@ export async function seed(knex) {
     },
     {
       id: 2,
-      auth_id: 'auth0|67f7a03499daeb618caf09e7',
+      auth_id: 'auth0|67fa332524fad18524c99d2f',
       name: 'Betty',
       avatar_id: 2
     },
     {
       id: 3,
-      auth_id: 'auth0|67f7a03499daeb618caf09e6',
+      auth_id: 'auth0|67fa332524fad18524c99d23',
       name: 'Brian',
       avatar_id: 1
     },
