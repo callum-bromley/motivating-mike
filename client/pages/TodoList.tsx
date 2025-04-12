@@ -29,6 +29,7 @@ import UpdateTodoMenu from '../components/UpdateTodoMenu'
 import DeleteSingleTodo from '../components/DeleteSingleTodo'
 
 import { keyframes } from '@emotion/react'
+import RefillForm from '../components/RefillForm'
 
 // Define the phasing glow animation
 const phase = keyframes`
@@ -168,6 +169,7 @@ export default function TodoList() {
           </Box>
         </Flex>
       </Flex>
+      <RefillForm></RefillForm>
     </>
   )
 }
