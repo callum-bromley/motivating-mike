@@ -20,13 +20,13 @@ export default function Home() {
     data: userData,
     isPending: userPending,
     error: userError } = useUserDataAuth()
+  console.log(userData)
   const { data: todos, isPending: todosPending, error: todosError } = useUserTodos(userData.id)
   const { loginWithPopup } = useAuth0()
   const navigate = useNavigate()
 
   const { mutateAsync: updateStatus } = useUpdateStatus()
   const [isComplete, setIsComplete] = useState(false)
-  console.log(userData)
 
   // if (isPending || todosPending || userPending) {
   if (todosPending || userPending) {

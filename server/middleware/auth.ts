@@ -8,12 +8,10 @@ const checkJwt = expressjwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    // TODO: replace line 10 with auth0 domain address
-    jwksUri: `https://YOUR_AUTH0_DOMAIN/`
+    jwksUri: `https://tohora-2025-joel.au.auth0.com`
   }),
-  // TODO: replace with auth0 api identifier
-  audience: 'YOUR_API_IDENTIFIER',
-  issuer: `https://YOUR_AUTH0_DOMAIN/`,
+  audience: 'https://mm/api',
+  issuer: `https://tohora-2025-joel.au.auth0.com`,
   algorithms: ['RS256']
 })
 
