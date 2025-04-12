@@ -12,6 +12,7 @@ import OneTodo from '../components/OneTodo'
 import { IfAuthenticated, IfNotAuthenticated } from '../components/Authenticated'
 
 import { Box, Button, Flex, Spinner } from '@chakra-ui/react'
+import { Todo } from '../models/todos'
 
 
 export default function Home() {
@@ -82,7 +83,7 @@ export default function Home() {
       setIsComplete(false)
     }
   }
-  const randomTodo = filterTodos(todos)
+  const randomTodo = filterTodos(todos as Todo[])
 
   if (!randomTodo) {
     return (

@@ -1,4 +1,4 @@
-import { Box, Flex, Icon, Input, useDisclosure, VStack } from '@chakra-ui/react'
+import { Box, Button, Flex, Icon, Input, useDisclosure, VStack } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -20,11 +20,10 @@ export default function Nav() {
   const handleSignIn = () => {
     loginWithRedirect({
       authorizationParams: {
-        redirect_uri: window.location.origin + '/signed-in',
+        redirect_uri: window.location.origin + '/login',
       },
     })
   }
-
 
   return (
     <>
@@ -44,15 +43,15 @@ export default function Nav() {
                 <IfAuthenticated>
                   {user && <p>Username: {user?.name}</p>}
                   <VStack marginRight="auto">
-                    <button onClick={() => navigate(`/`)}>Home</button>
-                    <button onClick={() => navigate(`/profile`)}>Profile</button>
-                    <button onClick={() => navigate(`/todo-list`)}>Todos</button>
+                    <Button onClick={() => navigate(`/`)}>Home</Button>
+                    <Button onClick={() => navigate(`/profile`)}>Profile</Button>
+                    <Button onClick={() => navigate(`/todo-list`)}>Todos</Button>
                   </VStack>
                 </IfAuthenticated>
                 <IfNotAuthenticated>
-                  <button onClick={() => navigate(`/`)}>Home</button>
-                  <button onClick={() => navigate(`/login`)}>Profile</button>
-                  <button onClick={() => navigate(`/todo-list`)}>Todos</button>
+                  <Button onClick={() => navigate(`/`)}>Home</Button>
+                  <Button onClick={() => navigate(`/login`)}>Profile</Button>
+                  <Button onClick={() => navigate(`/todo-list`)}>Todos</Button>
                 </IfNotAuthenticated>
               </Flex>
             </DrawerBody>
@@ -63,10 +62,10 @@ export default function Nav() {
         </Drawer>
         <Flex justify="flex-end" gap={6}>
           <IfAuthenticated>
-            <button onClick={handleSignOut}>Sign Out</button>
+            <Button onClick={handleSignOut}>Sign Out</Button>
           </IfAuthenticated>
           <IfNotAuthenticated>
-            <button onClick={handleSignIn}>Sign In</button>
+            <Button onClick={handleSignIn}>Sign In</Button>
           </IfNotAuthenticated>
           <Icon as={HamburgerIcon} boxSize={6} color='red.500' onClick={onOpen} />
         </Flex>

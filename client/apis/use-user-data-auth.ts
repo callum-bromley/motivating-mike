@@ -19,30 +19,31 @@ export default function useUserDataAuth() {
     }
   })
   // console.log('use user data auth: query', query)
-  return { ...query, add: useAddUser() }
+  return { ...query }
+  // return { ...query, add: useAddUser() }
 }
-const addUser = async ({
-  newUser,
-  token,
-}) => {
-  return await request
-    .post('api/v1/users')
-    .set('authorization', `Bearer ${token}`)
-    .send(newUser)
-    .then((res) => res.body.newUser)
-}
-
-function useAddUser() {
-  return useUserMutation(addUser)
-}
-
-function useUserMutation(mutationFunction) {
-  const queryClient = useQueryClient()
-  const mutation = useMutation({
-    mutationFn,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey })
-    }
-  })
-  return mutation
-}
+// const addUser = async ({
+//   newUser,
+//   token,
+// }) => {
+//   return await request
+//     .post('api/v1/users')
+//     .set('authorization', `Bearer ${token}`)
+//     .send(newUser)
+//     .then((res) => res.body.newUser)
+// }
+//
+// function useAddUser() {
+//   return useUserMutation(addUser)
+// }
+//
+// function useUserMutation(mutationFunction) {
+//   const queryClient = useQueryClient()
+//   const mutation = useMutation({
+//     mutationFn,
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({ queryKey })
+//     }
+//   })
+//   return mutation
+// }
