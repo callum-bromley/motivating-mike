@@ -14,7 +14,7 @@ router.get('/', checkJwt, async (req: Request
   , res) => {
   try {
     const authId = req.auth?.sub
-    const user = await db.getUserByAuthId(authId)
+    const user = await db.getUserByAuthId(authId as string)
     res.json(user)
   } catch (error) {
     console.error(error)

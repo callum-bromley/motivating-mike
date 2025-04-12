@@ -2,14 +2,16 @@ import useUserTodos from '../apis/use-user-todos'
 import { useUpdateStatus } from '../apis/use-update-status'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useNavigate } from 'react-router-dom'
+import useUserDataAuth from '../apis/use-user-data-auth'
+import { useState } from 'react'
+
 import filterTodos from '../components/filteredTodos'
 import OneHeckle from '../components/OneHeckle'
 import HomePageAvatar from '../components/HomePageAvatar'
 import OneTodo from '../components/OneTodo'
 import { IfAuthenticated, IfNotAuthenticated } from '../components/Authenticated'
+
 import { Box, Button, Flex, Spinner } from '@chakra-ui/react'
-import useUserDataAuth from '../apis/use-user-data-auth'
-import { useEffect, useState } from 'react'
 
 
 export default function Home() {
@@ -18,20 +20,12 @@ export default function Home() {
     isPending,
     error } = useUserDataAuth()
   const { data: todos, isPending: todosPending, error: todosError } = useUserTodos(userData?.id as number)
-  const { loginWithPopup, isLoading } = useAuth0()
+  const { loginWithPopup } = useAuth0()
   const navigate = useNavigate()
   const { mutateAsync: updateStatus } = useUpdateStatus()
   const [isComplete, setIsComplete] = useState(false)
-  const [triggerTimeout, setTriggerTimeout] = useState(true)
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setTriggerTimeout(false)
-    }, 1500)
-    return () => { clearTimeout(timer) }
-  }, [])
-
-  if (isPending || todosPending || isLoading || triggerTimeout) {
+  if (isPending || todosPending) {
     return (
       <Box
         height="100vh"
@@ -47,6 +41,7 @@ export default function Home() {
       </Box>
     )
   }
+
   if (error || todosError) {
     <Box
       height="100vh"
@@ -74,7 +69,6 @@ export default function Home() {
     </Box>
   }
 
-
   // -- Event handlers -- //
   const handleSignIn = () => {
     loginWithPopup()
@@ -90,7 +84,7 @@ export default function Home() {
   }
   const randomTodo = filterTodos(todos)
 
-  if (userData && !randomTodo) {
+  if (!randomTodo) {
     return (
       <Box
         height="100vh"
@@ -136,12 +130,10 @@ export default function Home() {
         </Flex>
         {/* <Button onClick={() => navigate(`/todo-list`)}>Add Todo</Button> */}
       </IfAuthenticated>
-      {!triggerTimeout &&
-        <IfNotAuthenticated>
-          <Button onClick={handleSignIn}>Add Todo</Button>
-          <p>Sign in to see your data</p>
-        </IfNotAuthenticated>
-      }
+      <IfNotAuthenticated>
+        <Button onClick={handleSignIn}>Add Todo</Button>
+        <p>Sign in to see your data</p>
+      </IfNotAuthenticated>
     </Box>
   )
 }
