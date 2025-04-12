@@ -1,3 +1,4 @@
+import { User } from '../../../client/models/users.ts'
 import db from './../connection.ts'
 // import { User } from '../../../client/models/users.ts'
 
@@ -30,6 +31,11 @@ export async function getUserById(id: number) {
   }
 }
 
+export async function getUserByAuthId(authId: string): Promise<User> {
+  const user = await db('users').where('users.auth_id', authId).select(userKeys)
+  console.log(authId)
+  return user[0] as User
+}
 // UPDATE
 
 // updateUser

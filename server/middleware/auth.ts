@@ -1,5 +1,7 @@
-import { expressjwt } from "express-jwt";
-import JwksRsa from "jwks-rsa";
+import { expressjwt } from "express-jwt"
+import JwksRsa from "jwks-rsa"
+import { Request } from "express"
+import { JwtPayload } from "jsonwebtoken"
 
 
 const checkJwt = expressjwt({
@@ -16,3 +18,7 @@ const checkJwt = expressjwt({
 })
 
 export { checkJwt }
+
+export interface RequestToken extends Request {
+  user: JwtPayload
+}

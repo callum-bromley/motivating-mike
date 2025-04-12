@@ -1,29 +1,29 @@
 import express from 'express'
-import { checkJwt } from '../middleware/auth'
-import jwt from 'jsonwebtoken'
+import { checkJwt, RequestToken } from '../middleware/auth'
 
 import * as db from '../db/functions/users'
 
 const router = express.Router()
 
 // GET /api/v1/user/
-router.get('/', checkJwt, async (req, res) => {
-  try {
-    console.log('routes/user: req.body', req.body)
-    const userId = req.user
-    console.log('routes/user: req.user', req.user)
-    const user = await db.getUserById(userId)
-
-    if (!user) {
-      return res.status(404).send('User not found')
-    }
-
-    res.json(user)
-  } catch (error) {
-    console.error(error)
-    res.status(500).send('Erros while retrieving user')
-  }
-})
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// router.get('/', checkJwt, async (req: RequestToken, res) => {
+//   try {
+//     console.log('routes/user: req.body', req.body)
+//     const userId = req.user.user_id
+//     console.log('routes/user: req.user', req.user)
+//     const user = await db.getUserById(userId)
+//
+//     if (!user) {
+//       return res.status(404).send('User not found')
+//     }
+//
+//     res.json(user)
+//   } catch (error) {
+//     console.error(error)
+//     res.status(500).send('Erros while retrieving user')
+//   }
+// })
 
 // GET /api/v1/user/id
 router.get('/:id', async (req, res) => {
