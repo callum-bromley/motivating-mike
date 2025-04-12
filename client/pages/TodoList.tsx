@@ -16,6 +16,7 @@ import {
   MenuList,
   Text,
   VStack,
+  Image,
 } from '@chakra-ui/react'
 import { MdCheckCircle } from 'react-icons/md'
 import {
@@ -116,7 +117,6 @@ export default function TodoList() {
                 }
               })}
             </List>
-         
           </VStack>
         </Box>
         <Flex>
@@ -155,16 +155,19 @@ export default function TodoList() {
             >
               Mike
             </Text>
+            <Image
+              src="../public/funPhotos/big-blue-fish.webp"
+              alt="A large fish"
+              boxSize="82px"
+              position="absolute"
+              top="14%"
+              left="74%"
+              zIndex="1"
+              width="auto"
+            />
           </Box>
         </Flex>
       </Flex>
     </>
   )
 }
-
-//update
-
-//useState - track task being edited (id)
-//When user dbl clicks, the state changes (click handler - on every list item in the map)
-//if task id is the clicked task id = show the form.
-//ternary on line 25. id = editedId ? show component or list item for the task
