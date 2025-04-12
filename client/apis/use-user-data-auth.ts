@@ -15,10 +15,9 @@ export default function useUserDataAuth() {
       const res = await request
         .get('/api/v1/users')
         .set('Authorization', `Bearer ${token}`)
-      console.log('use user data auth: res.body', res.body)
-      return res.body as User
+      return res.body
     }
   })
   console.log('use user data auth: query', query)
-  return { query }
+  return { ...query }
 }

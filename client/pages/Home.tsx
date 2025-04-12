@@ -3,7 +3,7 @@ import useUserTodos from '../apis/use-user-todos'
 import { useUpdateStatus } from '../apis/use-update-status'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import filterTodos from '../components/filteredTodos'
 import OneHeckle from '../components/OneHeckle'
 import HomePageAvatar from '../components/HomePageAvatar'
@@ -15,11 +15,11 @@ import useUserDataAuth from '../apis/use-user-data-auth'
 const id = 1
 
 export default function Home() {
-  const { data: userData, isPending, error } = useUserData(id)
-  // const {
-  //   data: userData,
-  //   isPending: userPending,
-  //   error: userError } = useUserDataAuth()
+  // const { data: userData, isPending: apiIsPending, error } = useUserData(id)
+  const {
+    data: userData,
+    isPending,
+    error } = useUserDataAuth()
   console.log('Home page: userData', userData)
   const { data: todos, isPending: todosPending, error: todosError } = useUserTodos(userData?.id as number)
   const { loginWithPopup, isLoading } = useAuth0()
@@ -27,9 +27,19 @@ export default function Home() {
 
   const { mutateAsync: updateStatus } = useUpdateStatus()
   const [isComplete, setIsComplete] = useState(false)
+  // const [isPending, setIsPending] = useState(false)
+  // const [giveUp, setGiveUp] = useState(true)
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setGiveUp(false)
+  //     // setIsPending(false)
+  //   }, 2000)
+  //   return () => { clearTimeout(timer) }
+  // }, [])
+
 
   if (isPending || todosPending || isLoading) {
-    // if (todosPending || userPending) {
     return (
       <Box
         height="100vh"
@@ -46,11 +56,9 @@ export default function Home() {
     )
   }
   if (error || todosError) {
-    // if (todosError || userError) {
     return <h2>Error: {todosError?.message}</h2>
   }
   if (!userData || userData.id === undefined || userData.avatarId === undefined) {
-    // if (!userData) {
     return <h2>No user data found</h2>
   }
 

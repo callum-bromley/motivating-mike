@@ -7,23 +7,23 @@ const router = express.Router()
 
 // GET /api/v1/user/
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-// router.get('/', checkJwt, async (req: RequestToken, res) => {
-//   try {
-//     console.log('routes/user: req.body', req.body)
-//     const userId = req.user.user_id
-//     console.log('routes/user: req.user', req.user)
-//     const user = await db.getUserById(userId)
-//
-//     if (!user) {
-//       return res.status(404).send('User not found')
-//     }
-//
-//     res.json(user)
-//   } catch (error) {
-//     console.error(error)
-//     res.status(500).send('Erros while retrieving user')
-//   }
-// })
+router.get('/', checkJwt, async (req: RequestToken, res) => {
+  try {
+    const userId = req.user
+    console.log('routes/user: req.user', req.user)
+    const user = await db.getUserById(userId)
+    console.log('routes/user: req.body', req)
+
+    // if (!user) {
+    //   return res.status(404).send('User not found')
+    // }
+    console.log('routes/user: further down')
+    res.json(user)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Errors while retrieving user')
+  }
+})
 
 // GET /api/v1/user/id
 router.get('/:id', async (req, res) => {
