@@ -12,6 +12,7 @@ import db from './../connection.ts'
 
 export const userKeys = [
   'users.id as id',
+  'users.auth_id as authId',
   'users.name as name',
   'users.avatar_id as avatarId',
 ]

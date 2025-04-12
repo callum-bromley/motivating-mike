@@ -11,10 +11,10 @@ const checkJwt = expressjwt({
     jwksUri: `https://tohora-2025-joel.au.auth0.com/.well-known/jwks.json`
   }),
   audience: 'https://mm/api',
-  issuer: `https://tohora-2025-joel.au.auth0.com`,
+  issuer: `https://tohora-2025-joel.au.auth0.com/`,
   algorithms: ['RS256']
 }
 )
 
-export { checkJwt }
 
+export { checkJwt }

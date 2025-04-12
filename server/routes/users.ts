@@ -1,5 +1,6 @@
 import express from 'express'
-import { checkJwt, RequestToken } from '../middleware/auth'
+import { checkJwt } from '../middleware/auth'
+import { Request } from 'express-jwt'
 
 import * as db from '../db/functions/users'
 
@@ -7,18 +8,17 @@ const router = express.Router()
 
 // GET /api/v1/user/
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-router.get('/', async (req, res) => {
+router.get('/', checkJwt, async (req: Request
+  , res) => {
   try {
-    const userId = 1
-    // const userId = req.user
-    // console.log('routes/user: req.user', req.user)
-    const user = await db.getUserById(userId)
-    // console.log('routes/user: req.body', req)
+    // const userId = 1
+    const userId = req.auth?.sub
+    console.log('routes/user: req.auth', req.auth?.sub)
+    const user = await db.getUserByAuthId(userId)
 
     // if (!user) {
     //   return res.status(404).send('User not found')
     // }
-    console.log('routes/user: further down')
     res.json(user)
   } catch (error) {
     console.error(error)
