@@ -7,6 +7,7 @@ import {
   MenuItem,
   MenuList,
   VStack,
+  Text,
 } from '@chakra-ui/react'
 import { useAddTodo } from '../apis/use-add-todo'
 import { useState } from 'react'
@@ -59,7 +60,17 @@ function AddTodo() {
             _expanded={{ bg: 'blue.400' }}
             _focus={{ boxShadow: 'outline' }}
           >
-            Urgency <ChevronDownIcon />
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+              }}
+            >
+              <strong>Urgency:</strong>
+              {formState.urgency || '...'}
+              <ChevronDownIcon />
+            </span>
           </MenuButton>
           <MenuList>
             <MenuItem
