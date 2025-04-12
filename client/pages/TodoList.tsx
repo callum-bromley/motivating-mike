@@ -101,7 +101,7 @@ export default function TodoList() {
                         <UpdateTodoMenu />
                         <ListItem
                           key={todo.task}
-                          onClick={() => {
+                          onDoubleClick={() => {
                             handleClick(todo.id)
                           }}
                         >
