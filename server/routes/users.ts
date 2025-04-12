@@ -7,12 +7,13 @@ const router = express.Router()
 
 // GET /api/v1/user/
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-router.get('/', checkJwt, async (req: RequestToken, res) => {
+router.get('/', async (req, res) => {
   try {
-    const userId = req.user
-    console.log('routes/user: req.user', req.user)
+    const userId = 1
+    // const userId = req.user
+    // console.log('routes/user: req.user', req.user)
     const user = await db.getUserById(userId)
-    console.log('routes/user: req.body', req)
+    // console.log('routes/user: req.body', req)
 
     // if (!user) {
     //   return res.status(404).send('User not found')
