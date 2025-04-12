@@ -18,7 +18,11 @@ export default function Nav() {
   }
 
   const handleSignIn = () => {
-    loginWithRedirect()
+    loginWithRedirect({
+      authorizationParams: {
+        redirect_uri: window.location.origin + '/signed-in',
+      },
+    })
   }
 
 

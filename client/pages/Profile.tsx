@@ -1,4 +1,3 @@
-import OneTodo from '../components/OneTodo'
 
 export default function Profile() {
   return (
@@ -8,4 +7,3 @@ export default function Profile() {
   )
 }
 
-//test
