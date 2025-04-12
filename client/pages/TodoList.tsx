@@ -73,6 +73,17 @@ export default function TodoList() {
           alignItems="center"
         >
           <AddTodo />
+          <Image
+            src="../public/funPhotos/bush-2.webp"
+            alt="A bush"
+            boxSize="100px"
+            position="absolute"
+          
+            left="16%"
+            top="54%"
+            zIndex="1"
+            width="auto"
+          />
         </Box>
         <Box
           flex="1"
@@ -119,6 +130,7 @@ export default function TodoList() {
               })}
             </List>
           </VStack>
+          
         </Box>
         <Flex>
           <Box>
@@ -169,7 +181,7 @@ export default function TodoList() {
           </Box>
         </Flex>
       </Flex>
-      <RefillForm></RefillForm>
+      {/* <RefillForm></RefillForm> */}
     </>
   )
 }
