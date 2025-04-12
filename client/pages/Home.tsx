@@ -9,7 +9,7 @@ import OneHeckle from '../components/OneHeckle'
 import HomePageAvatar from '../components/HomePageAvatar'
 import OneTodo from '../components/OneTodo'
 import { IfAuthenticated, IfNotAuthenticated } from '../components/Authenticated'
-import { Box, Button, Flex } from '@chakra-ui/react'
+import { Box, Button, Flex, Spinner } from '@chakra-ui/react'
 import useUserDataAuth from '../apis/use-user-data-auth'
 
 const id = 1
@@ -22,15 +22,28 @@ export default function Home() {
   //   error: userError } = useUserDataAuth()
   console.log('Home page: userData', userData)
   const { data: todos, isPending: todosPending, error: todosError } = useUserTodos(userData?.id as number)
-  const { loginWithPopup } = useAuth0()
+  const { loginWithPopup, isLoading } = useAuth0()
   const navigate = useNavigate()
 
   const { mutateAsync: updateStatus } = useUpdateStatus()
   const [isComplete, setIsComplete] = useState(false)
 
-  if (isPending || todosPending) {
+  if (isPending || todosPending || isLoading) {
     // if (todosPending || userPending) {
-    return <h2>Loading...</h2>
+    return (
+      <Box
+        height="100vh"
+        flex="1"
+        flexDir="column"
+        backgroundColor="#B1CFB7"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <h1>Loading profile</h1>
+        <Spinner />
+      </Box>
+    )
   }
   if (error || todosError) {
     // if (todosError || userError) {
