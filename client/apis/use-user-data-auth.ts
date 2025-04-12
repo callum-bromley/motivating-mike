@@ -13,12 +13,12 @@ export default function useUserDataAuth() {
     queryFn: async () => {
       const token = await getAccessTokenSilently()
       const res = await request
-        .get('/api/v1/users/')
+        .get('/api/v1/users')
         .set('Authorization', `Bearer ${token}`)
-      // console.log(res.body)
+      console.log('use user data auth: res.body', res.body)
       return res.body as User
     }
   })
-
+  console.log('use user data auth: query', query)
   return { query }
 }

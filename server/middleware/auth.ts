@@ -8,7 +8,7 @@ const checkJwt = expressjwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: `https://tohora-2025-joel.au.auth0.com`
+    jwksUri: `https://tohora-2025-joel.au.auth0.com/.well-known/jwks.json`
   }),
   audience: 'https://mm/api',
   issuer: `https://tohora-2025-joel.au.auth0.com`,

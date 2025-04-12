@@ -9,12 +9,13 @@ const router = express.Router()
 // GET /api/v1/user/
 router.get('/', checkJwt, async (req, res) => {
   try {
-    console.log(req.body)
-    const userId = req.user.user_id
+    console.log('routes/user: req.body', req.body)
+    const userId = req.user
+    console.log('routes/user: req.user', req.user)
     const user = await db.getUserById(userId)
 
     if (!user) {
-      return res.status(404).set('User not found')
+      return res.status(404).send('User not found')
     }
 
     res.json(user)

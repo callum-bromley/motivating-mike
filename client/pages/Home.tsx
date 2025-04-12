@@ -20,7 +20,7 @@ export default function Home() {
     data: userData,
     isPending: userPending,
     error: userError } = useUserDataAuth()
-  console.log(userData)
+  console.log('Home page: userData', userData)
   const { data: todos, isPending: todosPending, error: todosError } = useUserTodos(userData.id)
   const { loginWithPopup } = useAuth0()
   const navigate = useNavigate()
