@@ -9,30 +9,44 @@ import OneHeckle from '../components/OneHeckle'
 import HomePageAvatar from '../components/HomePageAvatar'
 import OneTodo from '../components/OneTodo'
 import { IfAuthenticated, IfNotAuthenticated } from '../components/Authenticated'
-import { Box, Button, Flex, VStack } from '@chakra-ui/react'
+import { Box, Button, Flex } from '@chakra-ui/react'
+import useUserDataAuth from '../apis/use-user-data-auth'
 
-const id = 1
+// const id = 1
 
 export default function Home() {
-  const { data: user, isPending, error } = useUserData(id)
-  const { data: todos, isPending: todosPending, error: todosError } = useUserTodos(id)
-  const navigate = useNavigate()
+  // const { data: user, isPending, error } = useUserData(id)
+  const {
+    data: userData,
+    isPending: userPending,
+    error: userError } = useUserDataAuth()
+  const { data: todos, isPending: todosPending, error: todosError } = useUserTodos(userData.id)
   const { loginWithPopup } = useAuth0()
+  const navigate = useNavigate()
+
+  const { mutateAsync: updateStatus } = useUpdateStatus()
+  const [isComplete, setIsComplete] = useState(false)
+  console.log(userData)
+
+  // if (isPending || todosPending || userPending) {
+  if (todosPending || userPending) {
+    return <h2>Loading...</h2>
+  }
+  // if (error || todosError || userError) {
+  if (todosError || userError) {
+    return <h2>Error: {todosError?.message}</h2>
+  }
+  // if (!user || user.id === undefined || user.avatarId === undefined || !userData) {
+  if (!userData) {
+    return <h2>No user data found</h2>
+  }
+
+
+  // -- Event handlers -- //
   const handleSignIn = () => {
     loginWithPopup()
   }
-  const { mutateAsync: updateStatus } = useUpdateStatus()
-  const [isComplete, setIsComplete] = useState(false)
 
-  if (isPending || todosPending) {
-    return <h2>Loading...</h2>
-  }
-  if (error || todosError) {
-    return <h2>Error: {error?.message}</h2>
-  }
-  if (!user || user.id === undefined || user.avatarId === undefined) {
-    return <h2>No user data found</h2>
-  }
   const handleCheck = async (id: number) => {
     if (randomTodo) {
       await updateStatus({
@@ -74,11 +88,11 @@ export default function Home() {
     >
       <IfAuthenticated>
         <OneHeckle
-          userId={user.id}
-          avatarId={user.avatarId}
+          userId={userData.id}
+          avatarId={userData.avatarId}
           urgency={randomTodo?.urgency}
         />
-        < HomePageAvatar avatarId={user.avatarId} />
+        < HomePageAvatar avatarId={userData.avatarId} />
         <Flex gap={2}>
           <input
             type="checkbox"
