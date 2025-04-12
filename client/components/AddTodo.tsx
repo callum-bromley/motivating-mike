@@ -20,11 +20,17 @@ function AddTodo() {
 
   const addTodoMutation = useAddTodo()
 
+  const urgencyMap: Record<string, number> = {
+    Chill: 1,
+    'Probably should start': 2,
+    'Severe(whoops)': 3,
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     addTodoMutation.mutate({
       task: formState.task,
-      urgency: Number(formState.urgency),
+      urgency: urgencyMap[formState.urgency] || 0,
       due: formState.due,
     })
     setFormState(initialState)
