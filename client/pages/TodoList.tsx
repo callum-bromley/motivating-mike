@@ -178,7 +178,18 @@ export default function TodoList() {
               zIndex="1"
               width="auto"
             />
+            <Image
+            src="../public/funPhotos/pencil-paper.webp"
+            alt="A pencil & a book"
+            boxSize="108px"
+            position="absolute"
+            top="37%"
+            left="56%"
+            zIndex="1"
+            width="auto"
+          />
           </Box>
+          
         </Flex>
       </Flex>
       {/* <RefillForm></RefillForm> */}
