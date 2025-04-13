@@ -12,11 +12,13 @@ import {
 import { useAddTodo } from '../apis/use-add-todo'
 import { useState } from 'react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
+import DatePicker from './datePicker'
 
-const initialState = { task: '', urgency: '', due: '' }
+const initialState = { task: '', urgency: '' }
 
 function AddTodo() {
   const [formState, setFormState] = useState(initialState)
+  const [dueDate, setDueDate] = useState<Date | null>(null)
 
   const addTodoMutation = useAddTodo()
 
@@ -31,9 +33,10 @@ function AddTodo() {
     addTodoMutation.mutate({
       task: formState.task,
       urgency: urgencyMap[formState.urgency] || 0,
-      due: formState.due,
+      due: dueDate ? dueDate.toISOString() : '', // convert to string or use empty string
     })
     setFormState(initialState)
+    setDueDate(null)
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,14 +105,18 @@ function AddTodo() {
             </MenuItem>
           </MenuList>
         </Menu>
-        <Input
+        <DatePicker
+          selectedDate={dueDate}
+          onChange={(date) => setDueDate(date)}
+        ></DatePicker>
+        {/* <Input
           placeholder="Set Due Date"
           type="text"
           name="task"
           id="task"
           value={formState.due}
           onChange={handleChange}
-        />
+        /> */}
         <Button type="submit">Add Todo</Button>
       </VStack>
     </form>

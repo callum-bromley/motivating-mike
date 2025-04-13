@@ -78,7 +78,6 @@ export default function TodoList() {
             alt="A bush"
             boxSize="100px"
             position="absolute"
-          
             left="16%"
             top="54%"
             zIndex="1"
@@ -130,7 +129,6 @@ export default function TodoList() {
               })}
             </List>
           </VStack>
-          
         </Box>
         <Flex>
           <Box>
@@ -179,17 +177,16 @@ export default function TodoList() {
               width="auto"
             />
             <Image
-            src="../public/funPhotos/pencil-paper.webp"
-            alt="A pencil & a book"
-            boxSize="108px"
-            position="absolute"
-            top="37%"
-            left="56%"
-            zIndex="1"
-            width="auto"
-          />
+              src="../public/funPhotos/pencil-paper.webp"
+              alt="A pencil & a book"
+              boxSize="108px"
+              position="absolute"
+              top="37%"
+              left="56%"
+              zIndex="1"
+              width="auto"
+            />
           </Box>
-          
         </Flex>
       </Flex>
       {/* <RefillForm></RefillForm> */}
