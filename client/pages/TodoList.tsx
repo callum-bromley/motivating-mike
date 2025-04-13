@@ -3,6 +3,8 @@ import AddTodo from '../components/AddTodo'
 import DeleteTodo from '../components/DeleteTodo'
 import { useState } from 'react'
 import EditTodo from '../components/EditTodo'
+import Notepad from '../components/Notepad'
+import '@fontsource/indie-flower'
 import {
   Box,
   Flex,
@@ -66,6 +68,7 @@ export default function TodoList() {
   }
   return (
     <>
+    
       <Flex height="100vh">
         <Box
           flex="1"
@@ -75,6 +78,7 @@ export default function TodoList() {
           alignItems="center"
         >
           <AddTodo />
+          
         </Box>
         <Box
           flex="1"
@@ -86,48 +90,43 @@ export default function TodoList() {
           <VStack overflowY="scroll">
             <Box justifyContent="left">
               <Heading as="h3" font-family="Bangers">
-                Todos:
+                <Notepad>Todos:</Notepad>
               </Heading>
             </Box>
-            <Box maxHeight="42vh" overflowY="auto" px={4}>
-              <List
-                overflowY="scroll"
-                as="h3"
-                fontSize="4xl"
-                color="black"
-                fontFamily="monospace"
+            <Notepad>
+    <Box maxHeight="32vh" overflowY="auto">
+    <List
+  spacing={0} 
+  fontSize="md"
+  lineHeight="30px"
+  fontFamily="'Courier New', monospace" 
+>
+        {todos.map((todo) =>
+          todo.id === editId ? (
+            <EditTodo
+              key={todo.task}
+              todo={todo}
+              editId={editId}
+              onSave={() => setEditId(0)}
+            />
+          ) : (
+            <Flex key={todo.id}>
+              <UpdateTodoMenu />
+              <ListItem
+                onDoubleClick={() => handleClick(todo.id)}
               >
-                {todos.map((todo) => {
-                  {
-                    return todo.id == editId ? (
-                      <EditTodo
-                        key={todo.task}
-                        todo={todo}
-                        editId={editId}
-                        onSave={() => setEditId(0)}
-                      />
-                    ) : (
-                      <>
-                        <Flex>
-                          <UpdateTodoMenu />
-                          <ListItem
-                            key={todo.task}
-                            onDoubleClick={() => {
-                              handleClick(todo.id)
-                            }}
-                          >
-                            <Flex w="25vw" alignItems="center">
-                              {todo.task}
-                            </Flex>
-                          </ListItem>
-                          <DeleteSingleTodo todoId={todo.id} />
-                        </Flex>
-                      </>
-                    )
-                  }
-                })}
-              </List>
-            </Box>
+                <Flex w="25vw" alignItems="center">
+                  {todo.task}
+                </Flex>
+              </ListItem>
+              <DeleteSingleTodo todoId={todo.id} />
+            </Flex>
+          )
+        )}
+      </List>
+    </Box>
+  </Notepad>
+            
             <Box pt={4}>
               <Link to={'/Home'}>
                 <Button colorScheme="blue">Lesh go!</Button>

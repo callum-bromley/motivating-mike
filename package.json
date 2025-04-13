@@ -36,6 +36,7 @@
     "@devacademy/eslint-config": "^1.10.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@fontsource/indie-flower": "^5.2.5",
     "date-fns": "^4.1.0",
     "express": "^4.17.2",
     "framer-motion": "^12.6.3",
