@@ -17,6 +17,7 @@ import {
   Text,
   VStack,
   Image,
+  Button,
 } from '@chakra-ui/react'
 import { MdCheckCircle } from 'react-icons/md'
 import {
@@ -30,6 +31,7 @@ import DeleteSingleTodo from '../components/DeleteSingleTodo'
 
 import { keyframes } from '@emotion/react'
 import RefillForm from '../components/RefillForm'
+import { Link } from 'react-router-dom'
 
 // Define the phasing glow animation
 const phase = keyframes`
@@ -81,13 +83,20 @@ export default function TodoList() {
           justifyContent="center"
           alignItems="center"
         >
-          <VStack>
+          <VStack overflowY="scroll">
             <Box justifyContent="left">
               <Heading as="h3" font-family="Recoleta">
                 Todos:
               </Heading>
             </Box>
-            <List as="h3" fontSize="4xl" color="black" fontFamily="monospace">
+
+            <List
+              overflowY="scroll"
+              as="h3"
+              fontSize="4xl"
+              color="black"
+              fontFamily="monospace"
+            >
               {todos.map((todo) => {
                 {
                   return todo.id == editId ? (
@@ -118,6 +127,17 @@ export default function TodoList() {
                 }
               })}
             </List>
+            <Box pt={4}>
+            <Link to={'/Home'}>
+              <Button
+                colorScheme="blue"
+            
+              >
+                Lesh go!
+               
+              </Button>
+              </Link>
+            </Box>
           </VStack>
         </Box>
         <Flex>
@@ -167,7 +187,7 @@ export default function TodoList() {
               width="auto"
             />
             <Image
-              src="../public/funPhotos/pencil-paper.webp"
+              src="/funPhotos/pencil-paper.webp"
               alt="A pencil & a book"
               boxSize="110px"
               position="absolute"
@@ -177,7 +197,7 @@ export default function TodoList() {
               width="auto"
             />
             <Image
-              src="../public/funPhotos/hammer.webp"
+              src="funPhotos/hammer.webp"
               alt="a hammer"
               boxSize="128px"
               position="absolute"
@@ -187,7 +207,7 @@ export default function TodoList() {
               width="auto"
             />
             <Image
-              src="../public/funPhotos/tree.webp"
+              src="/funPhotos/tree.webp"
               alt="A lovely tree"
               boxSize="280px"
               position="absolute"
@@ -197,7 +217,7 @@ export default function TodoList() {
               width="auto"
             />
             <Image
-              src="../public/funPhotos/bush-2.webp"
+              src="/funPhotos/bush-2.webp"
               alt="A bush"
               boxSize="150px"
               position="absolute"
@@ -207,7 +227,7 @@ export default function TodoList() {
               width="auto"
             />
             <Image
-              src="../public/funPhotos/bush-1.webp"
+              src="/funPhotos/bush-1.webp"
               alt="A bush"
               boxSize="150px"
               position="absolute"
@@ -217,7 +237,7 @@ export default function TodoList() {
               width="auto"
             />
             <Image
-              src="../public/funPhotos/bush-3.webp"
+              src="/funPhotos/bush-3.webp"
               alt="A bush"
               boxSize="150px"
               position="absolute"
@@ -227,7 +247,7 @@ export default function TodoList() {
               width="auto"
             />
             <Image
-              src="../public/funPhotos/squirell.webp"
+              src="/funPhotos/squirell.webp"
               alt="A squirell holding an acorn"
               boxSize="120px"
               position="absolute"
