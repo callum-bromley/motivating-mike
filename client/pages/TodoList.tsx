@@ -73,17 +73,6 @@ export default function TodoList() {
           alignItems="center"
         >
           <AddTodo />
-      
-          <Image
-            src="../public/funPhotos/bush-2.webp"
-            alt="A bush"
-            boxSize="100px"
-            position="absolute"
-            left="13%"
-            top="64%"
-            zIndex="1"
-            width="auto"
-          />
         </Box>
         <Box
           flex="1"
@@ -180,10 +169,70 @@ export default function TodoList() {
             <Image
               src="../public/funPhotos/pencil-paper.webp"
               alt="A pencil & a book"
-              boxSize="108px"
+              boxSize="110px"
               position="absolute"
-              top="37%"
-              left="56%"
+              top="32%"
+              left="55%"
+              zIndex="1"
+              width="auto"
+            />
+            <Image
+              src="../public/funPhotos/hammer.webp"
+              alt="a hammer"
+              boxSize="128px"
+              position="absolute"
+              top="15%"
+              left="29%"
+              zIndex="1"
+              width="auto"
+            />
+            <Image
+              src="../public/funPhotos/tree.webp"
+              alt="A lovely tree"
+              boxSize="280px"
+              position="absolute"
+              top="70%"
+              left="84%"
+              zIndex="1"
+              width="auto"
+            />
+            <Image
+              src="../public/funPhotos/bush-2.webp"
+              alt="A bush"
+              boxSize="150px"
+              position="absolute"
+              left="5%"
+              top="82%"
+              zIndex="2"
+              width="auto"
+            />
+            <Image
+              src="../public/funPhotos/bush-1.webp"
+              alt="A bush"
+              boxSize="150px"
+              position="absolute"
+              left="10%"
+              top="81%"
+              zIndex="1"
+              width="auto"
+            />
+            <Image
+              src="../public/funPhotos/bush-3.webp"
+              alt="A bush"
+              boxSize="150px"
+              position="absolute"
+              left="2%"
+              top="81%"
+              zIndex="1"
+              width="auto"
+            />
+            <Image
+              src="../public/funPhotos/squirell.webp"
+              alt="A squirell holding an acorn"
+              boxSize="120px"
+              position="absolute"
+              left="9%"
+              top="79%"
               zIndex="1"
               width="auto"
             />
