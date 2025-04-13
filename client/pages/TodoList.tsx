@@ -30,7 +30,7 @@ import UpdateTodoMenu from '../components/UpdateTodoMenu'
 import DeleteSingleTodo from '../components/DeleteSingleTodo'
 
 import { keyframes } from '@emotion/react'
-import RefillForm from '../components/RefillForm'
+
 import { Link } from 'react-router-dom'
 
 // Define the phasing glow animation
@@ -59,7 +59,7 @@ export default function TodoList() {
     return <p>no todos ever</p>
   }
 
-  console.log(editId)
+
 
   const handleClick = (id: number) => {
     setEditId(id)
@@ -85,57 +85,52 @@ export default function TodoList() {
         >
           <VStack overflowY="scroll">
             <Box justifyContent="left">
-              <Heading as="h3" font-family="Recoleta">
+              <Heading as="h3" font-family="Bangers">
                 Todos:
               </Heading>
             </Box>
-
-            <List
-              overflowY="scroll"
-              as="h3"
-              fontSize="4xl"
-              color="black"
-              fontFamily="monospace"
-            >
-              {todos.map((todo) => {
-                {
-                  return todo.id == editId ? (
-                    <EditTodo
-                      key={todo.task}
-                      todo={todo}
-                      editId={editId}
-                      onSave={() => setEditId(0)}
-                    />
-                  ) : (
-                    <>
-                      <Flex>
-                        <UpdateTodoMenu />
-                        <ListItem
-                          key={todo.task}
-                          onDoubleClick={() => {
-                            handleClick(todo.id)
-                          }}
-                        >
-                          <Flex w="25vw" alignItems="center">
-                            {todo.task}
-                          </Flex>
-                        </ListItem>
-                        <DeleteSingleTodo todoId={todo.id} />
-                      </Flex>
-                    </>
-                  )
-                }
-              })}
-            </List>
-            <Box pt={4}>
-            <Link to={'/Home'}>
-              <Button
-                colorScheme="blue"
-            
+            <Box maxHeight="42vh" overflowY="auto" px={4}>
+              <List
+                overflowY="scroll"
+                as="h3"
+                fontSize="4xl"
+                color="black"
+                fontFamily="monospace"
               >
-                Lesh go!
-               
-              </Button>
+                {todos.map((todo) => {
+                  {
+                    return todo.id == editId ? (
+                      <EditTodo
+                        key={todo.task}
+                        todo={todo}
+                        editId={editId}
+                        onSave={() => setEditId(0)}
+                      />
+                    ) : (
+                      <>
+                        <Flex>
+                          <UpdateTodoMenu />
+                          <ListItem
+                            key={todo.task}
+                            onDoubleClick={() => {
+                              handleClick(todo.id)
+                            }}
+                          >
+                            <Flex w="25vw" alignItems="center">
+                              {todo.task}
+                            </Flex>
+                          </ListItem>
+                          <DeleteSingleTodo todoId={todo.id} />
+                        </Flex>
+                      </>
+                    )
+                  }
+                })}
+              </List>
+            </Box>
+            <Box pt={4}>
+              <Link to={'/Home'}>
+                <Button colorScheme="blue">Lesh go!</Button>
               </Link>
             </Box>
           </VStack>
@@ -191,8 +186,8 @@ export default function TodoList() {
               alt="A pencil & a book"
               boxSize="110px"
               position="absolute"
-              top="32%"
-              left="55%"
+              top="25%"
+              left="53%"
               zIndex="1"
               width="auto"
             />
