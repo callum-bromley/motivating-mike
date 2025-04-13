@@ -33,6 +33,12 @@ function AddTodo() {
     'Severe(whoops)': 3,
   }
 
+  const urgencyMap: Record<string, number> = {
+    Chill: 1,
+    'Probably should start': 2,
+    'Severe(whoops)': 3,
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     addTodoMutation.mutate({
