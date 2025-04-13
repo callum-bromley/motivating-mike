@@ -1,5 +1,5 @@
-import TaskHistory from './TaskHistory'
-import UserProfile from './UserProfile'
+import TaskHistory from '../components/TaskHistory'
+import UserProfile from '../components/UserProfile'
 
 export default function UserHomePage() {
   return (

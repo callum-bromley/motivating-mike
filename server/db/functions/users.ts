@@ -10,7 +10,11 @@ export const userKeys = [
 
 // CREATE
 
-// addUser
+export async function addNewUser(data: User) {
+  const results = await db('users').insert(data)
+
+  return results
+}
 
 // READ
 
@@ -32,6 +36,9 @@ export async function getUserByAuthId(authId: string): Promise<User> {
 
 // updateUser
 
+export async function updateUserAvatar(userId: number, avatarId: number) {
+  return db('users').where({ id: userId }).update({ avatar_id: avatarId })
+}
 // DELETE
 
 // deleteUser

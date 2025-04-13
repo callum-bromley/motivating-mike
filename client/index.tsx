@@ -11,22 +11,21 @@ const queryClient = new QueryClient()
 
 document.addEventListener('DOMContentLoaded', () => {
   createRoot(document.getElementById('app') as HTMLElement).render(
-
     <Auth0Provider
-      domain='tohora-2025-joel.au.auth0.com'
-      clientId='9hXYVo8dg47dfbDtM4vdDCSeJSTpKIv8'
+      domain="tohora-2025-joel.au.auth0.com"
+      clientId="9hXYVo8dg47dfbDtM4vdDCSeJSTpKIv8"
       authorizationParams={{
         redirect_uri: window.location.origin,
         audience: 'https://mm/api',
       }}
     >
-
       <ChakraProvider>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
           <ReactQueryDevtools />
         </QueryClientProvider>
-      </ChakraProvider>,
-    </Auth0Provider>
+      </ChakraProvider>
+      ,
+    </Auth0Provider>,
   )
 })

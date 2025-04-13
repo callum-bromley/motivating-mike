@@ -1,7 +1,7 @@
 import request from 'superagent'
 import { useQuery } from '@tanstack/react-query'
 
-import { Todo } from '../models/todos.ts'
+import { Todo } from '../models/todos'
 
 export default function useTodos() {
   return useQuery({
