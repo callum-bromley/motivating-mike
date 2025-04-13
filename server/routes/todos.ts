@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 })
 
 // GET /api/v1/todos/id
-router.get('/:id', async (req, res) => {
+router.get('/user/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
     // console.log('server route: ', id)

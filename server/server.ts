@@ -4,8 +4,7 @@ import * as Path from 'node:path'
 import todosRoutes from './routes/todos'
 import usersRoutes from './routes/users'
 import avatarsRoutes from './routes/avatars'
-
-import todoRoutes from './routes/todos'
+import hecklesRoutes from './routes/heckles'
 
 const server = express()
 server.use(express.json())
@@ -13,8 +12,7 @@ server.use(express.json())
 server.use('/api/v1/todos', todosRoutes)
 server.use('/api/v1/users', usersRoutes)
 server.use('/api/v1/avatars', avatarsRoutes)
-// ADD YOUR API ROUTES HERE
-server.use('/api/v1/todos', todoRoutes)
+server.use('/api/v1/heckles', hecklesRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))
