@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient, MutationFunction } from "@tanstack/react-query";
 import request from "superagent";
 import { User, UserData } from "../models/users";
 
@@ -43,7 +43,7 @@ function useAddUser() {
   return useUserMutation(addUser)
 }
 
-function useUserMutation(mutationFn) {
+function useUserMutation<Tdata = unknown, Tvariables = unknown>(mutationFn: MutationFunction<Tdata, Tvariables>) {
   const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn,

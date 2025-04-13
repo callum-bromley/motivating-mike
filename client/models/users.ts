@@ -1,5 +1,5 @@
 export interface UserData {
-  auth_id: string
+  authId: string
   name: string
   avatarId: number
 }
