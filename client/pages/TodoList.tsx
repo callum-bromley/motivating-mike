@@ -93,8 +93,22 @@ export default function TodoList() {
                 <Notepad>Todos:</Notepad>
               </Heading>
             </Box>
-            <Notepad>
-    <Box maxHeight="32vh" overflowY="auto">
+            
+    <Box maxHeight="32vh" overflowY="auto"
+        bg="yellow.50"
+        border="1px solid #ccc"
+        borderRadius="md"
+        px={4}
+        py={2}
+        boxShadow="md"
+        fontFamily="'Indie Flower', cursive"
+        // backgroundImage="linear-gradient(to bottom, transparent 29px, #ccc 30px)"
+        backgroundSize="100% 30px"
+        whiteSpace="pre-wrap"
+        width="100%"
+        overflowY="auto"
+        maxHeight="60vh"
+        backgroundAttachment="local">
     <List
   spacing={0} 
   fontSize="md"
@@ -112,7 +126,7 @@ export default function TodoList() {
           ) : (
             <Flex key={todo.id}>
               <UpdateTodoMenu />
-              <ListItem
+              <ListItem borderBottom="1px solid #ccc" pb={2} mb={2}
                 onDoubleClick={() => handleClick(todo.id)}
               >
                 <Flex w="25vw" alignItems="center">
@@ -125,7 +139,7 @@ export default function TodoList() {
         )}
       </List>
     </Box>
-  </Notepad>
+  
             
             <Box pt={4}>
               <Link to={'/Home'}>
