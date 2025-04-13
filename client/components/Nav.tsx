@@ -12,6 +12,7 @@ export default function Nav() {
   const navigate = useNavigate()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user, logout, loginWithRedirect } = useAuth0()
+  console.log(user)
 
   const handleSignOut = () => {
     logout()
@@ -50,7 +51,7 @@ export default function Nav() {
                 </IfAuthenticated>
                 <IfNotAuthenticated>
                   <Button onClick={() => navigate(`/`)}>Home</Button>
-                  <Button onClick={() => navigate(`/login`)}>Profile</Button>
+                  <Button onClick={() => navigate(`/Profile/`)}>Profile</Button>
                   <Button onClick={() => navigate(`/todo-list`)}>Todos</Button>
                 </IfNotAuthenticated>
               </Flex>
