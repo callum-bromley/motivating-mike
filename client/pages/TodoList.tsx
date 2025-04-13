@@ -73,13 +73,14 @@ export default function TodoList() {
           alignItems="center"
         >
           <AddTodo />
+      
           <Image
             src="../public/funPhotos/bush-2.webp"
             alt="A bush"
             boxSize="100px"
             position="absolute"
-            left="16%"
-            top="54%"
+            left="13%"
+            top="64%"
             zIndex="1"
             width="auto"
           />

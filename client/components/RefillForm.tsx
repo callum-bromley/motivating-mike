@@ -18,7 +18,7 @@ function RefillForm() {
   return (
     <Box maxW="md" mx="auto" mt={10} p={6} boxShadow="lg" borderRadius="lg">
       <Heading mb={6} fontSize="2xl" textAlign="center">
-        Add Todo optional form
+    
       </Heading>
       <form>
         <VStack spacing={4}>
@@ -27,11 +27,12 @@ function RefillForm() {
             <Input placeholder="e.g. Water Bottles" />
           </FormControl>
           <FormControl>
+            
             <FormLabel>Due</FormLabel>
             <Input type="number" placeholder="How many?" />
           </FormControl>
           <Button colorScheme="blue" type="submit">
-            Refill
+           Add Todo
           </Button>
         </VStack>
       </form>

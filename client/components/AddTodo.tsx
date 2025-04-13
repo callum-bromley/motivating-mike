@@ -8,11 +8,16 @@ import {
   MenuList,
   VStack,
   Text,
+  FormLabel,
+  FormControl,
+  Box,
+  Heading,
 } from '@chakra-ui/react'
 import { useAddTodo } from '../apis/use-add-todo'
 import { useState } from 'react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import DatePicker from './datePicker'
+import ReactDatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 const initialState = { task: '', urgency: '' }
 
@@ -46,80 +51,113 @@ function AddTodo() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <VStack>
-        <label htmlFor="task" aria-label="Add task"></label>
-        <Input
-          placeholder="What next"
-          type="text"
-          name="task"
-          id="task"
-          value={formState.task}
-          onChange={handleChange}
-        />
-        <Menu>
-          <MenuButton
-            as={Button}
-            px={4}
-            py={2}
-            transition="all 0.2s"
-            borderRadius="md"
-            borderWidth="1px"
-            _hover={{ bg: 'gray.400' }}
-            _expanded={{ bg: 'blue.400' }}
-            _focus={{ boxShadow: 'outline' }}
-          >
-            <span
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-              }}
+    <Box
+      width="330px"
+      mx="auto"
+      mt={10}
+      p={6}
+      boxShadow="lg"
+      borderRadius="lg"
+      bg="#FAF9F6"
+    >
+      <Heading mb={6} fontSize="2xl" textAlign="center">
+        New Todo
+      </Heading>
+      <form onSubmit={handleSubmit}>
+        <VStack spacing={4}>
+          <FormControl>
+            <FormLabel>Task</FormLabel>
+            <Input
+              placeholder="e.g. Do dishes"
+              type="text"
+              name="task"
+              id="task"
+              value={formState.task}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl>
+            <Menu>
+              <MenuButton
+                as={Button}
+                px={4}
+                py={2}
+                transition="all 0.2s"
+                borderRadius="md"
+                borderWidth="1px"
+                _hover={{ bg: 'gray.400' }}
+                _expanded={{ bg: 'blue.400' }}
+                _focus={{ boxShadow: 'outline' }}
+              >
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                  }}
+                >
+                  <strong>Urgency:</strong>
+                  {formState.urgency || '...'}
+                  <ChevronDownIcon />
+                </span>
+              </MenuButton>
+              <MenuList>
+                <MenuItem
+                  onClick={() =>
+                    setFormState({ ...formState, urgency: 'Chill' })
+                  }
+                >
+                  Chill
+                </MenuItem>
+                <MenuDivider />
+                <MenuItem
+                  onClick={() =>
+                    setFormState({
+                      ...formState,
+                      urgency: 'Probably should start',
+                    })
+                  }
+                >
+                  Probably should start
+                </MenuItem>
+                <MenuDivider />
+                <MenuItem
+                  onClick={() =>
+                    setFormState({ ...formState, urgency: 'Severe(whoops)' })
+                  }
+                >
+                  Severe(whoops)
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Due Date</FormLabel>
+            <Box
+              as="div"
+              width="100%"
+              p="8px 12px"
+              borderRadius="8px"
+              border="1px solid #CBD5E0"
+              boxShadow="0 1px 3px rgba(0, 0, 0, 0.1)"
             >
-              <strong>Urgency:</strong>
-              {formState.urgency || '...'}
-              <ChevronDownIcon />
-            </span>
-          </MenuButton>
-          <MenuList>
-            <MenuItem
-              onClick={() => setFormState({ ...formState, urgency: 'Chill' })}
-            >
-              Chill
-            </MenuItem>
-            <MenuDivider />
-            <MenuItem
-              onClick={() =>
-                setFormState({ ...formState, urgency: 'Probably should start' })
-              }
-            >
-              Probably should start
-            </MenuItem>
-            <MenuDivider />
-            <MenuItem
-              onClick={() =>
-                setFormState({ ...formState, urgency: 'Severe(whoops)' })
-              }
-            >
-              Severe(whoops)
-            </MenuItem>
-          </MenuList>
-        </Menu>
-        <DatePicker
-          selectedDate={dueDate}
-          onChange={(date) => setDueDate(date)}
-        ></DatePicker>
-        {/* <Input
-          placeholder="Set Due Date"
-          type="text"
-          name="task"
-          id="task"
-          value={formState.due}
-          onChange={handleChange}
-        /> */}
-        <Button type="submit">Add Todo</Button>
-      </VStack>
-    </form>
+              <ReactDatePicker
+                selected={dueDate}
+                onChange={(date: Date | null) => setDueDate(date)} // Ensure the date passed is Date or null
+                dateFormat="MMMM d, yyyy"
+                placeholderText="Select a due date"
+                className="chakra-input"
+              />
+            </Box>
+          </FormControl>
+
+          <Button colorScheme="blue" type="submit">
+            Add Todo
+          </Button>
+        </VStack>
+      </form>
+    </Box>
   )
 }
 
