@@ -12,8 +12,7 @@ export default function Layout() {
       <main>
         <Outlet />
       </main>
-      <footer>
-      </footer>
+      <Footer />
     </>
   )
 }

@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
   }
 })
 
-// GET /api/v1/todos/id
+// GET /api/v1/todos/
 router.get('/user/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
