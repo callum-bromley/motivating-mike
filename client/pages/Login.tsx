@@ -60,49 +60,49 @@ export default function Login() {
       navigate('/')
     }
 
-
-
-    // If a user signs up/signs in check to see if they have a name if not
-    // render user fields Name* and Pick Avatar
-    // If user does have a name, navigate to home page
-
-    return (
-      <Box
-        height="100vh"
-        flex="1"
-        flexDir="column"
-        backgroundColor="#B1CFB7"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <IfNotAuthenticated>
-          <Button onClick={handleSignIn}>Login</Button>
-          <Button onClick={handleSignIn}>Signup</Button>
-          <h1>placeholder Login page - user not logged in</h1>
-          <p>Sign in to see your data</p>
-          {/* <IfAuthenticated> */}
-          <form onSubmit={handleSubmit}>
-            <FormLabel htmlFor="name">
-              What shall we call you?
-            </FormLabel>
-            <Input id="name" type="text" spellCheck="false" value={formState.name} onChange={handleChange} />
-            <FormLabel htmlFor="avatarId">
-              Choose your Motivational avatar
-            </FormLabel>
-            <SimpleGrid columns={3} spacing={4}>
-              {avatars.map((avatar) => {
-
-                <Image key={avatar.id} id={avatar.id} src={avatar.src} />
-              }
-          </SimpleGrid>
-            <Button type="submit">
-              submit
-            </Button>
-          </form>
-          <h1>placeholder Login page - user logged in</h1>
-        </IfNotAuthenticated>
-        {/* </IfAuthenticated> */}
-      </Box >
-    )
   }
+
+  // If a user signs up/signs in check to see if they have a name if not
+  // render user fields Name* and Pick Avatar
+  // If user does have a name, navigate to home page
+
+  return (
+    <Box
+      height="100vh"
+      flex="1"
+      flexDir="column"
+      backgroundColor="#B1CFB7"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <IfNotAuthenticated>
+        <Button onClick={handleSignIn}>Login</Button>
+        <Button onClick={handleSignIn}>Signup</Button>
+        <h1>placeholder Login page - user not logged in</h1>
+        <p>Sign in to see your data</p>
+        {/* <IfAuthenticated> */}
+        <form onSubmit={handleSubmit}>
+          <FormLabel htmlFor="name">
+            What shall we call you?
+          </FormLabel>
+          <Input id="name" type="text" spellCheck="false" value={formState.name} onChange={handleChange} />
+          <FormLabel htmlFor="avatarId">
+            Choose your Motivational avatar
+          </FormLabel>
+          <SimpleGrid columns={3} spacing={4}>
+            {avatars.map((avatar) => (
+
+              <Image key={avatar.id} id={avatar.id} src={avatar.src} />
+            ))}
+          </SimpleGrid>
+          <Button type="submit">
+            submit
+          </Button>
+        </form>
+        <h1>placeholder Login page - user logged in</h1>
+      </IfNotAuthenticated>
+      {/* </IfAuthenticated> */}
+    </Box >
+  )
+}
