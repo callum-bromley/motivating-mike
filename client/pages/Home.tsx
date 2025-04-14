@@ -14,6 +14,7 @@ import {
 } from '../components/Authenticated'
 
 import { Box, Button, Flex, Spinner } from '@chakra-ui/react'
+import OneHeckle from '../components/OneHeckle'
 
 // import ConfettiExplosion from 'react-confetti-explosion'
 
@@ -142,34 +143,76 @@ export default function Home() {
   return (
     <Box
       height="100vh"
-      flex="1"
-      flexDir="column"
       backgroundColor="#B1CFB7"
       display="flex"
       justifyContent="center"
       alignItems="center"
     >
       <IfAuthenticated>
-        {userData && <HomePageAvatar avatarId={userData.avatarId} />}
-        <Flex gap={2}>
-          {showProcrastinate ? (
-            <Procrastinate userId={userData.id} />
-          ) : showDopamineHit ? (
-            <DopamineHit userId={userData.id} />
-          ) : (
-            <OneTodo userId={userData.id} />
-          )}
-        </Flex>
-        <Button onClick={toggleDopamineHit}>
-          {showDopamineHit ? 'Get Real' : 'Dopamine Hit'}
-        </Button>
-        <Button onClick={toggleProcratinate}>
-          {showProcrastinate ? "I'm sorry!" : 'Procrastinate'}
-        </Button>
+        {userData && (
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            gap={6}
+          >
+            {/* Avatar at top */}
+            <Box position="relative" display="inline-block">
+              <Box boxSize="150px" borderRadius="full" overflow="hidden">
+                <HomePageAvatar avatarId={userData.avatarId} />
+              </Box>
+              <Box
+                position="absolute"
+                bottom="100%"
+                left="50%"
+                transform="translateX(-50%)"
+                mb={2}
+              >
+                <OneHeckle
+                  userId={userData.id}
+                  avatarId={userData.avatarId}
+                  urgency={3}
+                />
+              </Box>
+            </Box>
+
+            {/* Main content box */}
+            <Box
+              bg="white"
+              p={6}
+              borderRadius="lg"
+              boxShadow="lg"
+              minW="300px"
+              maxW="90vw"
+              textAlign="center"
+            >
+              {showProcrastinate ? (
+                <Procrastinate userId={userData.id} />
+              ) : showDopamineHit ? (
+                <DopamineHit userId={userData.id} />
+              ) : (
+                <OneTodo userId={userData.id} />
+              )}
+            </Box>
+
+            {/* Action buttons */}
+            <Flex gap={4}>
+              <Button onClick={toggleDopamineHit}>
+                {showDopamineHit ? 'Get Real' : 'Dopamine Hit'}
+              </Button>
+              <Button onClick={toggleProcratinate}>
+                {showProcrastinate ? "I'm sorry!" : 'Procrastinate'}
+              </Button>
+            </Flex>
+          </Box>
+        )}
       </IfAuthenticated>
+
       <IfNotAuthenticated>
-        <Button onClick={handleSignIn}>Add Todo</Button>
-        <p>Sign in to see your data</p>
+        <Box textAlign="center">
+          <Button onClick={handleSignIn}>Add Todo</Button>
+          <p>Sign in to see your data</p>
+        </Box>
       </IfNotAuthenticated>
     </Box>
   )

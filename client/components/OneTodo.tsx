@@ -1,6 +1,6 @@
 import useUserTodos from '../apis/use-user-todos'
 import useUserDataAuth from '../apis/use-user-data-auth'
-import { Box, Spinner } from '@chakra-ui/react'
+import { Box, List, Spinner } from '@chakra-ui/react'
 import OneHeckle from './OneHeckle'
 import { useNavigate } from 'react-router-dom'
 
@@ -64,7 +64,26 @@ export default function OneTodo({ userId }: Props) {
       {randomTodo ? (
         <>
           <h3>
-            <strong>{randomTodo.task}</strong>
+            <List
+              bg="yellow.50"
+              border="1px solid #ccc"
+              borderRadius="md"
+              px={4}
+              py={2}
+              boxShadow="md"
+              backgroundSize="100% 30px"
+              whiteSpace="pre-wrap"
+              width="100%"
+              maxHeight="60vh"
+              
+              backgroundAttachment="local"
+              spacing={0}
+              fontSize="md"
+              lineHeight="30px"
+              fontFamily="'Courier New', monospace"
+            >
+              <strong>{randomTodo.task}</strong>
+            </List>
           </h3>
           <OneHeckle
             userId={userData.id}
