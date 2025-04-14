@@ -28,7 +28,7 @@ function AddTodo() {
   const addTodoMutation = useAddTodo()
 
   const urgencyMap: Record<string, number> = {
-    Chill: 1,
+    'Chill': 1,
     'Probably should start': 2,
     'Severe(whoops)': 3,
   }

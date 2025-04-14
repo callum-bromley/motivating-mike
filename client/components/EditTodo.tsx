@@ -1,8 +1,21 @@
 import { useEditTodo } from '../apis/use-edit-todo'
 import { useState } from 'react'
-
 import { Todo } from '../models/todos'
-import { Button } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+  Text,
+} from '@chakra-ui/react'
+import { ChevronDownIcon } from '@chakra-ui/icons'
+import ReactDatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 const initialState = { task: '', urgency: 0 }
 
@@ -12,17 +25,34 @@ export interface Props {
   onSave: () => void
 }
 
+const urgencyMap: Record<string, number> = {
+  Chill: 0,
+  'Probably should start': 1,
+  'Severe(whoops)': 2,
+}
+
+const reverseUrgencyMap: Record<number, string> = {
+  0: 'Chill',
+  1: 'Probably should start',
+  2: 'Severe(whoops)',
+}
 function EditTodo({ todo, onSave, editId }: Props) {
-  const [formState, setFormState] = useState({ task: todo.task, urgency: 0 })
-  const addTodoMutation = useEditTodo(todo.id)
-  console.log(todo)
+  const [formState, setFormState] = useState({
+    task: todo.task,
+    urgency: todo.urgency,
+  })
+
+  const [dueDate, setDueDate] = useState(todo.due ? new Date(todo.due) : null)
+
+  const editTodoMutation = useEditTodo(todo.id)
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    addTodoMutation.mutate(
+    editTodoMutation.mutate(
       {
         task: formState.task,
-        urgency: Number(formState.urgency),
+        urgency: formState.urgency,
+        due: dueDate ? dueDate.toISOString() : null,
       },
       {
         onSuccess: () => {
@@ -36,39 +66,83 @@ function EditTodo({ todo, onSave, editId }: Props) {
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputText = event.target.value
-    console.log(inputText)
-    setFormState({ ...formState, [event.target.name as string]: inputText })
+    setFormState({ ...formState, [event.target.name]: event.target.value })
   }
+
+  const handleUrgencyChange = (urgencyLabel: string) => {
+    const urgencyValue = urgencyMap[urgencyLabel]
+    setFormState({ ...formState, urgency: urgencyValue })
+  }
+
   const handleBlur = (event: React.FormEvent<HTMLFormElement>) => {
     if (formState.task !== todo.task) {
       handleSubmit(event)
     }
   }
-  // const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-  //   if (e.key === 'Enter') {
-  //     e.preventDefault()
-  //     addTodoMutation.mutate({
-  //       task: formState.task,
-  //       urgency: Number(formState.urgency)
-  //     })
-  //     await handleBlur()
-  // setFormState(initialState)
 
-  //   }
-  // }
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="task"></label>
-      <input
-        type="text"
-        name="task"
-        id="task"
-        value={formState.task}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        // onKeyDown={handleKeyDown}
-      />
+      <FormControl mb={4}>
+        <FormLabel htmlFor="task">
+          <Text fontWeight="bold">Task</Text>
+        </FormLabel>
+        <input
+          type="text"
+          name="task"
+          id="task"
+          value={formState.task}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+      </FormControl>
+
+      <FormControl mb={4}>
+        <FormLabel htmlFor="urgency">
+          <Text fontWeight="bold">Urgency</Text>
+        </FormLabel>
+        <Menu>
+          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            {reverseUrgencyMap[formState.urgency] || 'Select urgency'}
+          </MenuButton>
+          <MenuList>
+            <MenuItem onClick={() => handleUrgencyChange('Chill')}>
+              Chill
+            </MenuItem>
+            <MenuDivider />
+            <MenuItem
+              onClick={() => handleUrgencyChange('Probably should start')}
+            >
+              Probably should start
+            </MenuItem>
+            <MenuDivider />
+            <MenuItem onClick={() => handleUrgencyChange('Severe(whoops)')}>
+              Severe(whoops)
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      </FormControl>
+
+      <FormControl mb={4}>
+        <FormLabel>
+          <Text fontWeight="bold">Due Date</Text>
+        </FormLabel>
+        <Box
+          as="div"
+          width="100%"
+          p="8px 12px"
+          borderRadius="8px"
+          border="1px solid #CBD5E0"
+          boxShadow="0 1px 3px rgba(0, 0, 0, 0.1)"
+        >
+          <ReactDatePicker
+            selected={dueDate}
+            onChange={(date: Date | null) => setDueDate(date)}
+            dateFormat="MMMM d, yyyy"
+            className="chakra-input"
+          />
+        </Box>
+      </FormControl>
+
       <Button type="submit">Update Todo</Button>
     </form>
   )

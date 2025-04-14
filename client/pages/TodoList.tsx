@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
 import AddTodo from '../components/AddTodo'
-import UpdateTodoMenu from '../components/UpdateTodoMenu'
 import DeleteSingleTodo from '../components/DeleteSingleTodo'
 import EditTodo from '../components/EditTodo'
-import { IfAuthenticated, IfNotAuthenticated } from '../components/Authenticated'
+import {
+  IfAuthenticated,
+  IfNotAuthenticated,
+} from '../components/Authenticated'
 
 import { useState } from 'react'
 import useUserTodos from '../apis/use-user-todos'
@@ -22,6 +24,7 @@ import {
   Image,
   Button,
   Spinner,
+  Badge,
 } from '@chakra-ui/react'
 import { useAuth0 } from '@auth0/auth0-react'
 
@@ -39,12 +42,14 @@ const fadeInOutBlue = keyframes`
   50% { opacity: 0.4; }
   100% { opacity: 1; }`
 
-
 export default function TodoList() {
   const { data: userData, isPending, error } = useUserDataAuth()
-  const { data: todos, isPending: todoPending, error: todosError } = useUserTodos(userData?.id)
-  const { loginWithPopup
-  } = useAuth0()
+  const {
+    data: todos,
+    isPending: todoPending,
+    error: todosError,
+  } = useUserTodos(userData?.id)
+  const { loginWithPopup } = useAuth0()
   const [editId, setEditId] = useState(0)
   if (isPending || todoPending) {
     return (
@@ -87,7 +92,7 @@ export default function TodoList() {
   }
   return (
     <>
-      <IfAuthenticated >
+      <IfAuthenticated>
         <Flex height="100vh">
           <Box
             flex="1"
@@ -98,6 +103,7 @@ export default function TodoList() {
           >
             <AddTodo />
           </Box>
+
           <Box
             flex="1"
             backgroundColor="#EFD9AA"
@@ -107,8 +113,16 @@ export default function TodoList() {
           >
             <VStack overflowY="scroll">
               <Box justifyContent="left">
-                <Heading as="h3" fontFamily="Bangers">
-                  <Text fontFamily="'Indie Flower', cursive" bg="yellow.50" border="1px solid #ccc" borderRadius="md" boxShadow="md">Todos:</Text>
+                <Heading as="h3" font-family="Bangers">
+                  <Text
+                    fontFamily="'Indie Flower', cursive"
+                    bg="yellow.50"
+                    border="1px solid #ccc"
+                    borderRadius="md"
+                    boxShadow="md"
+                  >
+                    Todos:
+                  </Text>
                 </Heading>
               </Box>
 
@@ -119,7 +133,7 @@ export default function TodoList() {
                 px={4}
                 py={2}
                 boxShadow="md"
-                fontFamily="'Indie Flower', cursive"
+                // fontFamily="'Indie Flower', cursive"
                 backgroundSize="100% 30px"
                 whiteSpace="pre-wrap"
                 width="100%"
@@ -127,47 +141,67 @@ export default function TodoList() {
                 overflowY="auto"
                 backgroundAttachment="local"
               >
-                <List
-                  spacing={0}
-                  fontSize="md"
-                  lineHeight="30px"
-                  fontFamily="'Courier New', monospace"
-                >
-                  {todos.map((todo) =>
-                    todo.id === editId ? (
-                      <EditTodo
-                        key={todo.task}
-                        todo={todo}
-                        editId={editId}
-                        onSave={() => setEditId(0)}
-                      />
-                    ) : (
+                {editId === 0 ? (
+                  <List
+                    spacing={0}
+                    fontSize="md"
+                    lineHeight="30px"
+                    fontFamily="'Courier New', monospace"
+                  >
+                    {todos.map((todo) => (
                       <Flex key={todo.id}>
-                        <UpdateTodoMenu />
                         <ListItem
                           borderBottom="1px solid #ccc"
                           pb={2}
                           mb={2}
-                          onDoubleClick={() => handleClick(todo.id)}
+                          onDoubleClick={() => handleClick(todo.id)} // Set editId on double-click
                         >
                           <Flex w="25vw" alignItems="center">
                             {todo.task}
+                            <Badge
+                              ml={2}
+                              colorScheme={
+                                todo.urgency === 3
+                                  ? 'red'
+                                  : todo.urgency === 2
+                                    ? 'yellow'
+                                    : 'green'
+                              }
+                            >
+                              {todo.urgency === 3
+                                ? 'Severe'
+                                : todo.urgency === 2
+                                  ? 'Should do'
+                                  : 'Chill'}
+                            </Badge>
                           </Flex>
                         </ListItem>
                         <DeleteSingleTodo todoId={todo.id} />
                       </Flex>
-                    ),
-                  )}
-                </List>
+                    ))}
+                  </List>
+                ) : (
+                  todos
+                    .filter((todo) => todo.id === editId)
+                    .map((todo) => (
+                      <EditTodo
+                        key={todo.id}
+                        todo={todo}
+                        editId={editId}
+                        onSave={() => setEditId(0)} // After save, reset editId to 0 to show the list again
+                      />
+                    ))
+                )}
               </Box>
 
               <Box pt={4}>
-                <Link to={'/'}>
+                <Link to="/">
                   <Button colorScheme="blue">Lesh go!</Button>
                 </Link>
               </Box>
             </VStack>
           </Box>
+
           <Flex>
             <Box>
               <Text
@@ -195,12 +229,11 @@ export default function TodoList() {
                 transform="translate(-10%, -42%)"
                 textShadow="0px 0px 10px #0059b3"
                 fontSize="8xl"
-                color="#00BFFF" // Neon Blue color
+                color="#00BFFF"
                 fontFamily="Bangers"
                 textAlign="center"
                 zIndex="1"
-                // textShadow="0px 0px 10px #00BFFF" // Neon blue text shadow
-                animation={`${fadeInOutBlue} 3s ease-in-out infinite`} // Apply the animation
+                animation={`${fadeInOutBlue} 3s ease-in-out infinite`}
               >
                 Mike
               </Text>
@@ -219,8 +252,8 @@ export default function TodoList() {
                 alt="A pencil & a book"
                 boxSize="110px"
                 position="absolute"
-                top="25%"
-                left="53%"
+                top="31%"
+                left="54.5%"
                 zIndex="1"
                 width="auto"
               />
@@ -284,15 +317,15 @@ export default function TodoList() {
                 zIndex="1"
                 width="auto"
               />
+              {/* Add other images here */}
             </Box>
           </Flex>
         </Flex>
-      </IfAuthenticated >
+      </IfAuthenticated>
       <IfNotAuthenticated>
         <Button onClick={handleSignIn}>Add Todo</Button>
         <p>Sign in to see your data</p>
       </IfNotAuthenticated>
-      {/* <RefillForm></RefillForm> */}
     </>
   )
 }
