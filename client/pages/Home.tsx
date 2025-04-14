@@ -2,7 +2,7 @@ import useUserDataAuth from '../apis/use-user-data-auth'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useState } from 'react'
 import Complete from '../components/CompleteButton'
-import HomePageAvatar from '../components/HomePageAvatar'
+
 import OneTodo from '../components/OneTodo'
 import DopamineHit from '../components/DopamineHit'
 import Procrastinate from '../components/Procrastinate'
