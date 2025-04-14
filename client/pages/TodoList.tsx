@@ -20,6 +20,7 @@ import {
   VStack,
   Image,
   Button,
+  Badge,
 } from '@chakra-ui/react'
 import { MdCheckCircle } from 'react-icons/md'
 import {
@@ -51,8 +52,6 @@ const fadeInOutBlue = keyframes`
 
 export default function TodoList() {
   const [editId, setEditId] = useState(0)
-  
-
 
   const { data: todos, isPending, error } = useTodos()
 
@@ -89,7 +88,13 @@ export default function TodoList() {
           <VStack overflowY="scroll">
             <Box justifyContent="left">
               <Heading as="h3" font-family="Bangers">
-                <Text fontFamily="'Indie Flower', cursive" bg="yellow.50" border="1px solid #ccc" borderRadius="md" boxShadow="md">
+                <Text
+                  fontFamily="'Indie Flower', cursive"
+                  bg="yellow.50"
+                  border="1px solid #ccc"
+                  borderRadius="md"
+                  boxShadow="md"
+                >
                   Todos:
                 </Text>
               </Heading>
@@ -127,6 +132,22 @@ export default function TodoList() {
                       >
                         <Flex w="25vw" alignItems="center">
                           {todo.task}
+                          <Badge
+                            ml={2}
+                            colorScheme={
+                              todo.urgency === 3
+                                ? 'red'
+                                : todo.urgency === 2
+                                  ? 'yellow'
+                                  : 'green'
+                            }
+                          >
+                            {todo.urgency === 3
+                              ? 'Severe'
+                              : todo.urgency === 2
+                                ? 'Should do'
+                                : 'Chill'}
+                          </Badge>
                         </Flex>
                       </ListItem>
                       <DeleteSingleTodo todoId={todo.id} />
@@ -148,7 +169,7 @@ export default function TodoList() {
             </Box>
 
             <Box pt={4}>
-              <Link to="/Home">
+              <Link to="/">
                 <Button colorScheme="blue">Lesh go!</Button>
               </Link>
             </Box>
