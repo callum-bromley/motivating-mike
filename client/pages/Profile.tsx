@@ -83,39 +83,70 @@ export default function UserHomePage() {
       overflow="auto"
     >
       <IfAuthenticated>
-        <Flex>
+        <Flex
+          direction={['column', 'row']}
+          justify="space-between"
+          align="flex-start"
+          px={[4, 8]}
+          py={8}
+          gap={[8, 4]}
+          bg="#FAF9F6"
+          minH="100vh"
+        >
+          {/* Left Panel: Profile + Avatar Change */}
           <Box
+            flexBasis={['100%', '35%']}
             display="flex"
-            flexBasis="40%"
             flexDirection="column"
-            justifyContent="flex-start"
+            alignItems="center"
+            gap={6}
+            bg="white"
+            p={6}
+            borderRadius="xl"
+            boxShadow="lg"
+            position="relative"
+            top="100px"
           >
             <UserProfile userId={userData?.id} selectedAvatarId={userData?.avatarId} />
-            <Button onClick={openDrawer} width={200} borderRadius="0.5rem">
+            <Button
+              onClick={openDrawer}
+              width="100%"
+              maxW="200px"
+              borderRadius="lg"
+              colorScheme="teal"
+              mt={2}
+            >
               Change Avatar
             </Button>
-            <PickAvatar
-              isOpen={isDrawerOpen}
-              onClose={closeDrawer}
-              setSelectedAvatarId={setSelectedAvatarId}
-              userId={userData?.id}
-            />
           </Box>
+
+          {/* Middle Panel: Task History */}
           <Box
+            flexBasis={['100%', '60%']}
             display="flex"
-            flexBasis="40%"
             flexDirection="column"
-            justifyContent="flex-start"
+            gap={3}
+            bg="white"
+            p={6}
+            borderRadius="xl"
+            boxShadow="lg"
+            overflowY="auto"
+            position="relative"
+            top="100px"
           >
             <TaskHistory userId={userData?.id} />
           </Box>
-          <Box
-            display="flex"
-            flexBasis="20%"
-            flexDirection="column"
-            justifyContent="flex-start"
-          ></Box >
-        </Flex >
+
+          {/* Right Panel (optional/empty) */}
+          {/* <Box flexBasis="20%" /> */}
+
+          <PickAvatar
+            isOpen={isDrawerOpen}
+            onClose={closeDrawer}
+            setSelectedAvatarId={setSelectedAvatarId}
+            userId={userData?.id}
+          />
+        </Flex>
         {/* <Button onClick={() => navigate(`/todo-list`)}>Add Todo</Button> */}
       </IfAuthenticated >
       <IfNotAuthenticated>
