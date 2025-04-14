@@ -86,7 +86,7 @@ export default function TodoList() {
           <VStack overflowY="scroll">
             <Box justifyContent="left">
               <Heading as="h3" font-family="Bangers">
-                <Text font-family="'Indie Flower', cursive" bg="yellow.50" border="1px solid #ccc" borderRadius="md" boxShadow="md">Todos:</Text>
+                <Text fontFamily="'Indie Flower', cursive" bg="yellow.50" border="1px solid #ccc" borderRadius="md" boxShadow="md">Todos:</Text>
               </Heading>
             </Box>
 
