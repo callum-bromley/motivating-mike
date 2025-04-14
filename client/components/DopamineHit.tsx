@@ -1,28 +1,58 @@
 import useUserTodos from '../apis/use-user-todos'
+import useUserDataAuth from '../apis/use-user-data-auth'
+import { Box, Spinner } from '@chakra-ui/react'
+import OneHeckle from './OneHeckle'
 import { useNavigate } from 'react-router-dom'
+import { Todo } from '../models/todos'
 import ReverseFilterTodos from './ReverseFilterTodos'
 
 interface Props {
   userId: number
 }
 
-export default function DopamineHit(props: Props) {
+export default function DopamineHit({ userId }: Props) {
   const navigate = useNavigate()
+  const { data: userData, isPending, error } = useUserDataAuth()
+  const {
+    data: todos,
+    isPending: todosPending,
+    error: todosError,
+  } = useUserTodos(userId)
 
-  const { data: todos, isPending, error } = useUserTodos(props.userId)
-  console.log(todos)
+  if (isPending || todosPending) {
+    return (
+      <Box
+        height="100vh"
+        flex="1"
+        flexDir="column"
+        backgroundColor="#B1CFB7"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <h2>Loading profile</h2>
+        <Spinner />
+      </Box>
+    )
+  }
 
-  if (isPending) {
-    return <h2>Loading...</h2>
-  }
-  if (error) {
-    return <h2>Error: {error.message}</h2>
-  }
-  if (!todos) {
-    return <h2>No todo data found</h2>
+  if (error || todosError || !userData) {
+    return (
+      <Box
+        height="100vh"
+        flex="1"
+        flexDir="column"
+        backgroundColor="#B1CFB7"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <h2>{todosError?.message || 'No user data found'}</h2>
+      </Box>
+    )
   }
 
-  const randomTodo = ReverseFilterTodos(todos)
+  const randomTodo = ReverseFilterTodos(todos as Todo[])
 
   return (
     <>
@@ -31,11 +61,16 @@ export default function DopamineHit(props: Props) {
           <h3>
             <strong>{randomTodo.task}</strong>
           </h3>
+          <OneHeckle
+            userId={userData.id}
+            avatarId={userData.avatarId}
+            urgency={randomTodo?.urgency}
+          />
         </>
       ) : (
         <>
-          <h4>You&apos;r all caught up!</h4>
-          <button onClick={() => navigate(`/todo-list`)}> Add Todo</button>
+          <h4>You&apos;re all caught up!</h4>
+          <button onClick={() => navigate(`/todo-list`)}>Add Todo</button>
         </>
       )}
     </>

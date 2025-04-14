@@ -1,6 +1,6 @@
 import { Todo } from '../models/todos'
 
-export default function filterTodos(todos: Todo[]) {
+export default function FilteredTodos(todos: Todo[]) {
   if (todos.length === 0) {
     return null
   }
