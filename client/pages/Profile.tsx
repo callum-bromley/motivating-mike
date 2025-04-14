@@ -72,7 +72,7 @@ export default function UserHomePage() {
   }
 
   return (
-    <Box height="100vh" bg="#FAF9F6">
+    <Box minHeight="100vh" bg="#FAF9F6">
       <IfAuthenticated>
         <Flex
           direction={['column', 'column', 'row', 'row']}
@@ -81,12 +81,13 @@ export default function UserHomePage() {
           px={[4, 8]}
           py={8}
           gap={[8, 4]}
-          bg="#FAF9F6"
+          bg="#B1CFB7;"
           paddingTop={['10rem', '12rem', '14rem', '17rem']}
+          overflow="hidden"
         >
           {/* Left Panel: Profile + Avatar Change */}
           <Box
-            flexBasis={['100%', '35%']}
+            flexBasis={['100%', '30%']}
             display="flex"
             flexDirection="column"
             marginX="auto"
