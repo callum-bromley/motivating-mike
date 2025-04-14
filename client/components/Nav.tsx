@@ -28,7 +28,7 @@ export default function Nav() {
 
   return (
     <>
-      <Box position="absolute" right={6} top={4}>
+      <Box position="absolute" right={3} top={2}>
         <Drawer
           isOpen={isOpen}
           placement='right'
@@ -59,8 +59,8 @@ export default function Nav() {
 
             <DrawerFooter>
             </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
+          </DrawerContent >
+        </Drawer >
         <Flex justify="flex-end" gap={6}>
           <IfAuthenticated>
             <Button onClick={handleSignOut}>Sign Out</Button>
@@ -70,7 +70,7 @@ export default function Nav() {
           </IfNotAuthenticated>
           <Icon as={HamburgerIcon} boxSize={6} color='red.500' onClick={onOpen} />
         </Flex>
-      </Box>
+      </Box >
     </>
   )
 }
