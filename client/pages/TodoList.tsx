@@ -85,7 +85,7 @@ export default function TodoList() {
             justifyContent="center"
             alignItems="center"
           >
-            <AddTodo />
+            <AddTodo userId={todos.userId} />
           </Box>
 
           <Box
@@ -132,37 +132,81 @@ export default function TodoList() {
                     lineHeight="30px"
                     fontFamily="'Courier New', monospace"
                   >
-                    {todos.map((todo) => (
-                      <Flex key={todo.id}>
-                        <ListItem
-                          borderBottom="1px solid #ccc"
-                          pb={2}
-                          mb={2}
-                          onDoubleClick={() => handleClick(todo.id)} // Set editId on double-click
-                        >
-                          <Flex w="25vw" alignItems="center">
-                            {todo.task}
-                            <Badge
-                              ml={2}
-                              colorScheme={
-                                todo.urgency === 3
-                                  ? 'red'
+                    {todos
+                      .filter((todo) => !todo.completed)
+                      .map((todo) => (
+                        <Flex key={todo.id}>
+                          <ListItem
+                            borderBottom="1px solid #ccc"
+                            pb={2}
+                            mb={2}
+                            onDoubleClick={() => handleClick(todo.id)} // Set editId on double-click
+                          >
+                            <Flex w="25vw" alignItems="center">
+                              {todo.task}
+                              <Badge
+                                ml={2}
+                                colorScheme={
+                                  todo.urgency === 3
+                                    ? 'red'
+                                    : todo.urgency === 2
+                                      ? 'yellow'
+                                      : 'green'
+                                }
+                              >
+                                {todo.urgency === 3
+                                  ? 'Severe'
                                   : todo.urgency === 2
-                                    ? 'yellow'
-                                    : 'green'
-                              }
-                            >
-                              {todo.urgency === 3
-                                ? 'Severe'
-                                : todo.urgency === 2
-                                  ? 'Should do'
-                                  : 'Chill'}
-                            </Badge>
-                          </Flex>
-                        </ListItem>
-                        <DeleteSingleTodo todoId={todo.id} />
-                      </Flex>
-                    ))}
+                                    ? 'Should do'
+                                    : 'Chill'}
+                              </Badge>
+                            </Flex>
+                          </ListItem>
+                          <DeleteSingleTodo todoId={todo.id} />
+                        </Flex>
+                      ))}
+                    <ListItem
+                      p={2}
+                      fontSize="25"
+                      lineHeight="30px"
+                      fontFamily="'Courier New', monospace"
+                      textAlign="center"
+                    >
+                      Completed
+                    </ListItem>
+                    {todos
+                      .filter((todo) => todo.completed)
+                      .map((todo) => (
+                        <Flex key={todo.id}>
+                          <ListItem
+                            borderBottom="1px solid #ccc"
+                            pb={2}
+                            mb={2}
+                            onDoubleClick={() => handleClick(todo.id)} // Set editId on double-click
+                          >
+                            <Flex w="25vw" alignItems="center">
+                              {todo.task}
+                              <Badge
+                                ml={2}
+                                colorScheme={
+                                  todo.urgency === 3
+                                    ? 'red'
+                                    : todo.urgency === 2
+                                      ? 'yellow'
+                                      : 'green'
+                                }
+                              >
+                                {todo.urgency === 3
+                                  ? 'Severe'
+                                  : todo.urgency === 2
+                                    ? 'Should do'
+                                    : 'Chill'}
+                              </Badge>
+                            </Flex>
+                          </ListItem>
+                          <DeleteSingleTodo todoId={todo.id} />
+                        </Flex>
+                      ))}
                   </List>
                 ) : (
                   todos

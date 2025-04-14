@@ -1,6 +1,6 @@
-import request from "superagent";
-import { Todo } from "../models/todos";
-import { useQuery } from "@tanstack/react-query";
+import request from 'superagent'
+import { Todo } from '../models/todos'
+import { useQuery } from '@tanstack/react-query'
 
 export default function useUserTodos(userId: number | undefined) {
   return useQuery({
@@ -12,7 +12,6 @@ export default function useUserTodos(userId: number | undefined) {
         return res.body as Todo[]
       }
       throw new Error(res.text)
-    }
+    },
   })
 }
-
