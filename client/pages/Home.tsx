@@ -6,13 +6,12 @@ import HomePageAvatar from '../components/HomePageAvatar'
 import OneTodo from '../components/OneTodo'
 import DopamineHit from '../components/DopamineHit'
 import Procrastinate from '../components/Procrastinate'
-import Footer from '../components/Footer'
 import {
   IfAuthenticated,
   IfNotAuthenticated,
 } from '../components/Authenticated'
 
-import { Box, Button, Flex, Spinner } from '@chakra-ui/react'
+import { Box, Button, Flex, Spinner, VStack } from '@chakra-ui/react'
 import ConfettiExplosionEffect from '../components/ConfettiExplosion'
 
 export default function Home() {
@@ -26,33 +25,25 @@ export default function Home() {
 
   if (isPending) {
     return (
-      <Box
-        height="100vh"
-        flex="1"
-        flexDir="column"
-        backgroundColor="#B1CFB7"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <h2>Loading profile</h2>
-        <Spinner />
+      <Box height="100vh" backgroundColor="#B1CFB7">
+        <Flex height="100%" align="center" justify="center">
+          <VStack>
+            <h2>Loading profile</h2>
+            <Spinner />
+          </VStack>
+        </Flex>
       </Box>
     )
   }
 
   if (error) {
     return (
-      <Box
-        height="100vh"
-        flex="1"
-        flexDir="column"
-        backgroundColor="#B1CFB7"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <h2>Error: {error?.message}</h2>
+      <Box height="100vh" backgroundColor="#B1CFB7">
+        <Flex height="100%" align="center" justify="center">
+          <VStack>
+            <h2>Error: {error?.message}</h2>
+          </VStack>
+        </Flex>
       </Box>
     )
   }
@@ -63,16 +54,12 @@ export default function Home() {
     userData.avatarId === undefined
   ) {
     return (
-      <Box
-        height="100vh"
-        flex="1"
-        flexDir="column"
-        backgroundColor="#B1CFB7"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <h2>No user data found</h2>
+      <Box height="100vh" backgroundColor="#B1CFB7">
+        <Flex height="100%" align="center" justify="center">
+          <VStack>
+            <h2>No user data found</h2>
+          </VStack>
+        </Flex>
       </Box>
     )
   }
@@ -98,19 +85,8 @@ export default function Home() {
   }
 
   return (
-    <Box
-      minHeight="100vh"
-      display="flex"
-      flexDirection="column"
-      backgroundColor="#B1CFB7"
-    >
-      <Box
-        flex="1"
-        display="flex"
-        flexDir="column"
-        alignItems="center"
-        paddingTop={['12rem', '14rem', '17rem', '20rem']}
-      >
+    <Box height="100vh" backgroundColor="#B1CFB7">
+      <VStack paddingTop={['12rem', '14rem', '17rem', '20rem']}>
         <IfAuthenticated>
           {userData && <HomePageAvatar avatarId={userData.avatarId} />}
           <Flex gap={2}>
@@ -145,9 +121,7 @@ export default function Home() {
           <Button onClick={handleSignIn}>Add Todo</Button>
           <p>Sign in to see your data</p>
         </IfNotAuthenticated>
-      </Box>
-
-      <Footer />
+      </VStack>
     </Box>
   )
 }
