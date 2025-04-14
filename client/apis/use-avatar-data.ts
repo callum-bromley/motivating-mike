@@ -9,7 +9,7 @@ import { Avatar } from '../models/avatars'
 //   return { selectedAvatarId, setSelectedAvatarId }
 // }
 
-export default function useAvatarData(id: number) {
+export default function useAvatarData(id: number | null | undefined) {
   const query = useQuery({
     queryKey: ['avatars', id],
     queryFn: async () => {

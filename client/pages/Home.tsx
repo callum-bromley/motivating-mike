@@ -122,11 +122,11 @@ export default function Home() {
     >
       <IfAuthenticated>
         <OneHeckle
-          userId={userData.id}
-          avatarId={userData.avatarId}
+          userId={userData?.id}
+          avatarId={userData?.avatarId}
           urgency={randomTodo?.urgency}
         />
-        <HomePageAvatar avatarId={userData.avatarId} />
+        <HomePageAvatar avatarId={userData?.avatarId} />
         <Flex gap={2}>
           <input
             type="checkbox"

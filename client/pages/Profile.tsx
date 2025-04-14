@@ -73,13 +73,14 @@ export default function UserHomePage() {
 
   return (
     <Box
+      height="100vh"
       flex="1"
       flexDir="column"
       backgroundColor="#B1CFB7"
       display="flex"
       justifyContent="center"
       alignItems="center"
-      overflow="visible"
+      overflow="auto"
     >
       <IfAuthenticated>
         <Flex>

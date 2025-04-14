@@ -28,7 +28,7 @@ export default function TaskHistory({ userId }: Props) {
   return (
     <>
       <Heading>History</Heading>
-      <Box>
+      <Box paddingBottom={16}>
         {history.map((todo) => (
           <Box key={todo.id}>
             <Text>Task: {todo.task}</Text>

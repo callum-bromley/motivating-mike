@@ -1,7 +1,7 @@
 import useAvatarData from "../apis/use-avatar-data"
 
 interface Props {
-  avatarId: number
+  avatarId: number | null | undefined
 }
 export default function HomePageAvatar(props: Props) {
   const { data: avatar, isPending, error } = useAvatarData(props.avatarId)
