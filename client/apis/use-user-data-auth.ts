@@ -50,7 +50,7 @@ function useUserMutation<Tdata = unknown, Tvariables = unknown>(mutationFn: Muta
     mutationFn,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['users']
+        queryKey: ['active-user']
       })
     }
   })

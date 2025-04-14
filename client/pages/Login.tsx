@@ -1,9 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import useUserDataAuth from "../apis/use-user-data-auth";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { Box, Button, FormLabel, Image, Input, SimpleGrid } from "@chakra-ui/react";
+import { Box, Button, FormLabel, Image, Input, SimpleGrid, Text } from "@chakra-ui/react";
 import { IfAuthenticated, IfNotAuthenticated } from "../components/Authenticated";
 
 type FormState = {
@@ -17,22 +17,25 @@ const avatars = [
   { id: 3, src: '/images/avatars/slappy-the-seal.WebP' },
 ]
 export default function Login() {
-  const { user, loginWithRedirect, getAccessTokenSilently } = useAuth0()
+  const { user, getAccessTokenSilently } = useAuth0()
   const { data: userData, add } = useUserDataAuth()
   const [formState, setFormState] = useState<FormState>({ name: '', avatarId: null })
+  const [currentAvatar, setCurrentAvatar] = useState<number | undefined | null>()
   const navigate = useNavigate()
 
-  const handleSignIn = () => {
-    loginWithRedirect()
-  }
 
+  useEffect(() => {
+    if (userData) {
+      navigate('/')
+    }
+  }, [userData, navigate])
 
   const addUserData = async () => {
     const token = await getAccessTokenSilently()
 
     if (user) {
       add.mutateAsync({
-        newUser: { name: formState.name, authId: user.sub as string, avatarId: formState.avatarId },
+        newUser: { name: formState.name, authId: user.sub as string, avatarId: currentAvatar },
         token,
       })
     }
@@ -42,6 +45,9 @@ export default function Login() {
     setFormState({ ...formState, [event.target.id]: event.target.value })
   }
 
+  const handleSelectAvatar = (avatarId: number) => {
+    setCurrentAvatar(avatarId)
+  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -54,12 +60,16 @@ export default function Login() {
     }
 
     await addUserData()
-    navigate('/')
   }
 
   // If a user signs up/signs in check to see if they have a name if not
   // render user fields Name* and Pick Avatar
   // If user does have a name, navigate to home page
+  //
+  // Custom button would have an onclick to set a state for currently selected avatar id
+  // each image is connected to the button
+  // in addUserData the avatarId would come from custom avatarButton state thingy
+  // type=button and preventDefault()
 
   return (
     <Box
@@ -72,11 +82,9 @@ export default function Login() {
       alignItems="center"
     >
       <IfNotAuthenticated>
-        <Button onClick={handleSignIn}>Login</Button>
-        <Button onClick={handleSignIn}>Signup</Button>
-        <h1>placeholder Login page - user not logged in</h1>
-        <p>Sign in to see your data</p>
-        {/* <IfAuthenticated> */}
+        <Text>Please Login</Text>
+      </IfNotAuthenticated>
+      <IfAuthenticated>
         <form onSubmit={handleSubmit}>
           <FormLabel htmlFor="name">
             What shall we call you?
@@ -87,8 +95,9 @@ export default function Login() {
           </FormLabel>
           <SimpleGrid columns={3} spacing={4}>
             {avatars.map((avatar) => (
-
-              <Image key={avatar.id} id={avatar.id} src={avatar.src} />
+              <Button key={avatar.id} type="button" onClick={() => handleSelectAvatar(avatar.id)}>
+                <Image key={avatar.id} src={avatar.src} />
+              </Button>
             ))}
           </SimpleGrid>
           <Button type="submit">
@@ -96,8 +105,7 @@ export default function Login() {
           </Button>
         </form>
         <h1>placeholder Login page - user logged in</h1>
-      </IfNotAuthenticated>
-      {/* </IfAuthenticated> */}
+      </IfAuthenticated>
     </Box >
   )
 }
