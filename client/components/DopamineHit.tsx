@@ -8,7 +8,7 @@ interface Props {
   userId: number
 }
 
-export default function OneTodo({ userId }: Props) {
+export default function DopamineHit({ userId }: Props) {
   const navigate = useNavigate()
   const { data: userData, isPending, error } = useUserDataAuth()
   const {
@@ -50,10 +50,10 @@ export default function OneTodo({ userId }: Props) {
     )
   }
 
-  const maxUrgency = Math.max(
+  const minUrgency = Math.min(
     ...todos.filter((todo) => todo.urgency > 0).map((todo) => todo.urgency),
   )
-  const filteredTodos = todos.filter((todo) => todo.urgency === maxUrgency)
+  const filteredTodos = todos.filter((todo) => todo.urgency === minUrgency)
   const randomTodo =
     filteredTodos.length > 0
       ? filteredTodos[Math.floor(Math.random() * filteredTodos.length)]

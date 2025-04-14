@@ -1,9 +1,21 @@
-import { Box, Button, Flex, Icon, Input, useDisclosure, VStack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  useDisclosure,
+  VStack,
+} from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 import { useAuth0 } from '@auth0/auth0-react'
 import {
-  Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerContent,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
   DrawerCloseButton,
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
@@ -29,11 +41,7 @@ export default function Nav() {
   return (
     <>
       <Box position="absolute" right={3} top={2}>
-        <Drawer
-          isOpen={isOpen}
-          placement='right'
-          onClose={onClose}
-        >
+        <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton m={2} />
@@ -45,8 +53,12 @@ export default function Nav() {
                   {user && <p>Username: {user?.name}</p>}
                   <VStack marginRight="auto">
                     <Button onClick={() => navigate(`/`)}>Home</Button>
-                    <Button onClick={() => navigate(`/profile`)}>Profile</Button>
-                    <Button onClick={() => navigate(`/todo-list`)}>Todos</Button>
+                    <Button onClick={() => navigate(`/profile`)}>
+                      Profile
+                    </Button>
+                    <Button onClick={() => navigate(`/todo-list`)}>
+                      Todos
+                    </Button>
                   </VStack>
                 </IfAuthenticated>
                 <IfNotAuthenticated>
@@ -57,10 +69,9 @@ export default function Nav() {
               </Flex>
             </DrawerBody>
 
-            <DrawerFooter>
-            </DrawerFooter>
-          </DrawerContent >
-        </Drawer >
+            <DrawerFooter></DrawerFooter>
+          </DrawerContent>
+        </Drawer>
         <Flex justify="flex-end" gap={6}>
           <IfAuthenticated>
             <Button onClick={handleSignOut}>Sign Out</Button>
@@ -68,9 +79,14 @@ export default function Nav() {
           <IfNotAuthenticated>
             <Button onClick={handleSignIn}>Sign In</Button>
           </IfNotAuthenticated>
-          <Icon as={HamburgerIcon} boxSize={6} color='red.500' onClick={onOpen} />
+          <Icon
+            as={HamburgerIcon}
+            boxSize={6}
+            color="red.500"
+            onClick={onOpen}
+          />
         </Flex>
-      </Box >
+      </Box>
     </>
   )
 }
