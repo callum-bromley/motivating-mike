@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import useUserDataAuth from "../apis/use-user-data-auth";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { Box, Button, FormLabel, Image, Input, SimpleGrid } from "@chakra-ui/react";
 import { IfAuthenticated, IfNotAuthenticated } from "../components/Authenticated";
@@ -26,11 +26,6 @@ export default function Login() {
     loginWithRedirect()
   }
 
-  useEffect(() => {
-    if (userData) {
-      navigate('/')
-    }
-  }, [userData, navigate])
 
   const addUserData = async () => {
     const token = await getAccessTokenSilently()
@@ -56,10 +51,10 @@ export default function Login() {
       return
 
 
-      await addUserData()
-      navigate('/')
     }
 
+    await addUserData()
+    navigate('/')
   }
 
   // If a user signs up/signs in check to see if they have a name if not
