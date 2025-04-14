@@ -2,7 +2,7 @@ import request from "superagent";
 import { Todo } from "../models/todos";
 import { useQuery } from "@tanstack/react-query";
 
-export default function useUserTodos(userId: number) {
+export default function useUserTodos(userId: number | undefined) {
   return useQuery({
     queryKey: ['todos', userId],
     queryFn: async () => {

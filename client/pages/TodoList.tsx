@@ -1,40 +1,32 @@
-import useTodos from '../apis/use-todos'
+import { Link } from 'react-router-dom'
 import AddTodo from '../components/AddTodo'
-import DeleteTodo from '../components/DeleteTodo'
-import { useState } from 'react'
+import DeleteSingleTodo from '../components/DeleteSingleTodo'
 import EditTodo from '../components/EditTodo'
+import {
+  IfAuthenticated,
+  IfNotAuthenticated,
+} from '../components/Authenticated'
 
+import { useState } from 'react'
+import useUserTodos from '../apis/use-user-todos'
+import useUserDataAuth from '../apis/use-user-data-auth'
+
+import { keyframes } from '@emotion/react'
 import '@fontsource/indie-flower'
 import {
   Box,
   Flex,
   Heading,
   List,
-  ListIcon,
   ListItem,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Text,
   VStack,
   Image,
   Button,
+  Spinner,
   Badge,
 } from '@chakra-ui/react'
-import { MdCheckCircle } from 'react-icons/md'
-import {
-  ArrowDownIcon,
-  CalendarIcon,
-  ChevronDownIcon,
-  DeleteIcon,
-} from '@chakra-ui/icons'
-import UpdateTodoMenu from '../components/UpdateTodoMenu'
-import DeleteSingleTodo from '../components/DeleteSingleTodo'
-
-import { keyframes } from '@emotion/react'
-
-import { Link } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 
 // Define the phasing glow animation
 const phase = keyframes`
@@ -51,15 +43,48 @@ const fadeInOutBlue = keyframes`
   100% { opacity: 1; }`
 
 export default function TodoList() {
+  const { data: userData, isPending, error } = useUserDataAuth()
+  const {
+    data: todos,
+    isPending: todoPending,
+    error: todosError,
+  } = useUserTodos(userData?.id)
+  const { loginWithPopup } = useAuth0()
   const [editId, setEditId] = useState(0)
-
-  const { data: todos, isPending, error } = useTodos()
-
-  if (isPending) {
-    return <p>no todos yet</p>
+  if (isPending || todoPending) {
+    return (
+      <Box
+        height="100vh"
+        flex="1"
+        flexDir="column"
+        backgroundColor="#B1CFB7"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <h2>Loading profile</h2>
+        <Spinner />
+      </Box>
+    )
   }
-  if (error) {
-    return <p>no todos ever</p>
+  if (error || todosError) {
+    return (
+      <Box
+        height="100vh"
+        flex="1"
+        flexDir="column"
+        backgroundColor="#B1CFB7"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <p>Error loading todos, take it as a sign to take a break</p>
+      </Box>
+    )
+  }
+
+  const handleSignIn = () => {
+    loginWithPopup()
   }
 
   const handleClick = (id: number) => {
@@ -67,234 +92,240 @@ export default function TodoList() {
   }
   return (
     <>
-      <Flex height="100vh">
-        <Box
-          flex="1"
-          backgroundColor="#B1CFB7"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <AddTodo />
-        </Box>
+      <IfAuthenticated>
+        <Flex height="100vh">
+          <Box
+            flex="1"
+            backgroundColor="#B1CFB7"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <AddTodo />
+          </Box>
 
-        <Box
-          flex="1"
-          backgroundColor="#EFD9AA"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <VStack overflowY="scroll">
-            <Box justifyContent="left">
-              <Heading as="h3" font-family="Bangers">
-                <Text
-                  fontFamily="'Indie Flower', cursive"
-                  bg="yellow.50"
-                  border="1px solid #ccc"
-                  borderRadius="md"
-                  boxShadow="md"
-                >
-                  Todos:
-                </Text>
-              </Heading>
-            </Box>
+          <Box
+            flex="1"
+            backgroundColor="#EFD9AA"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <VStack overflowY="scroll">
+              <Box justifyContent="left">
+                <Heading as="h3" font-family="Bangers">
+                  <Text
+                    fontFamily="'Indie Flower', cursive"
+                    bg="yellow.50"
+                    border="1px solid #ccc"
+                    borderRadius="md"
+                    boxShadow="md"
+                  >
+                    Todos:
+                  </Text>
+                </Heading>
+              </Box>
 
-            <Box
-              bg="yellow.50"
-              border="1px solid #ccc"
-              borderRadius="md"
-              px={4}
-              py={2}
-              boxShadow="md"
-              // fontFamily="'Indie Flower', cursive"
-              backgroundSize="100% 30px"
-              whiteSpace="pre-wrap"
-              width="100%"
-              maxHeight="60vh"
-              overflowY="auto"
-              backgroundAttachment="local"
-            >
-              {editId === 0 ? (
-                <List
-                  spacing={0}
-                  fontSize="md"
-                  lineHeight="30px"
-                  fontFamily="'Courier New', monospace"
-                >
-                  {todos.map((todo) => (
-                    <Flex key={todo.id}>
-                      <ListItem
-                        borderBottom="1px solid #ccc"
-                        pb={2}
-                        mb={2}
-                        onDoubleClick={() => handleClick(todo.id)} // Set editId on double-click
-                      >
-                        <Flex w="25vw" alignItems="center">
-                          {todo.task}
-                          <Badge
-                            ml={2}
-                            colorScheme={
-                              todo.urgency === 3
-                                ? 'red'
+              <Box
+                bg="yellow.50"
+                border="1px solid #ccc"
+                borderRadius="md"
+                px={4}
+                py={2}
+                boxShadow="md"
+                // fontFamily="'Indie Flower', cursive"
+                backgroundSize="100% 30px"
+                whiteSpace="pre-wrap"
+                width="100%"
+                maxHeight="60vh"
+                overflowY="auto"
+                backgroundAttachment="local"
+              >
+                {editId === 0 ? (
+                  <List
+                    spacing={0}
+                    fontSize="md"
+                    lineHeight="30px"
+                    fontFamily="'Courier New', monospace"
+                  >
+                    {todos.map((todo) => (
+                      <Flex key={todo.id}>
+                        <ListItem
+                          borderBottom="1px solid #ccc"
+                          pb={2}
+                          mb={2}
+                          onDoubleClick={() => handleClick(todo.id)} // Set editId on double-click
+                        >
+                          <Flex w="25vw" alignItems="center">
+                            {todo.task}
+                            <Badge
+                              ml={2}
+                              colorScheme={
+                                todo.urgency === 3
+                                  ? 'red'
+                                  : todo.urgency === 2
+                                    ? 'yellow'
+                                    : 'green'
+                              }
+                            >
+                              {todo.urgency === 3
+                                ? 'Severe'
                                 : todo.urgency === 2
-                                  ? 'yellow'
-                                  : 'green'
-                            }
-                          >
-                            {todo.urgency === 3
-                              ? 'Severe'
-                              : todo.urgency === 2
-                                ? 'Should do'
-                                : 'Chill'}
-                          </Badge>
-                        </Flex>
-                      </ListItem>
-                      <DeleteSingleTodo todoId={todo.id} />
-                    </Flex>
-                  ))}
-                </List>
-              ) : (
-                todos
-                  .filter((todo) => todo.id === editId)
-                  .map((todo) => (
-                    <EditTodo
-                      key={todo.id}
-                      todo={todo}
-                      editId={editId}
-                      onSave={() => setEditId(0)} // After save, reset editId to 0 to show the list again
-                    />
-                  ))
-              )}
-            </Box>
+                                  ? 'Should do'
+                                  : 'Chill'}
+                            </Badge>
+                          </Flex>
+                        </ListItem>
+                        <DeleteSingleTodo todoId={todo.id} />
+                      </Flex>
+                    ))}
+                  </List>
+                ) : (
+                  todos
+                    .filter((todo) => todo.id === editId)
+                    .map((todo) => (
+                      <EditTodo
+                        key={todo.id}
+                        todo={todo}
+                        editId={editId}
+                        onSave={() => setEditId(0)} // After save, reset editId to 0 to show the list again
+                      />
+                    ))
+                )}
+              </Box>
 
-            <Box pt={4}>
-              <Link to="/">
-                <Button colorScheme="blue">Lesh go!</Button>
-              </Link>
-            </Box>
-          </VStack>
-        </Box>
+              <Box pt={4}>
+                <Link to="/">
+                  <Button colorScheme="blue">Lesh go!</Button>
+                </Link>
+              </Box>
+            </VStack>
+          </Box>
 
-        <Flex>
-          <Box>
-            <Text
-              fontFamily="Bangers"
-              fontSize="9xl"
-              color="#D7C2DB"
-              animation={animation}
-              textShadow="0px 0px 10px #D100FF"
-              position="absolute"
-              top="10%"
-              left="38.5%"
-              transform="translate(-10%, -42%)"
-              zIndex="1"
-              textAlign="center"
-            >
-              Motivating
-            </Text>
-          </Box>
-          <Box>
-            <Text
-              as="h1"
-              position="absolute"
-              top="20%"
-              left="59%"
-              transform="translate(-10%, -42%)"
-              textShadow="0px 0px 10px #0059b3"
-              fontSize="8xl"
-              color="#00BFFF"
-              fontFamily="Bangers"
-              textAlign="center"
-              zIndex="1"
-              animation={`${fadeInOutBlue} 3s ease-in-out infinite`}
-            >
-              Mike
-            </Text>
-            <Image
-              src="/funPhotos/big-blue-fish.webp"
-              alt="A large fish"
-              boxSize="82px"
-              position="absolute"
-              top="14%"
-              left="74%"
-              zIndex="1"
-              width="auto"
-            />
-            <Image
-              src="/funPhotos/pencil-paper.webp"
-              alt="A pencil & a book"
-              boxSize="110px"
-              position="absolute"
-              top="31%"
-              left="54.5%"
-              zIndex="1"
-              width="auto"
-            />
-            <Image
-              src="/funPhotos/hammer.webp"
-              alt="a hammer"
-              boxSize="128px"
-              position="absolute"
-              top="15%"
-              left="29%"
-              zIndex="1"
-              width="auto"
-            />
-            <Image
-              src="/funPhotos/tree.webp"
-              alt="A lovely tree"
-              boxSize="280px"
-              position="absolute"
-              top="70%"
-              left="84%"
-              zIndex="1"
-              width="auto"
-            />
-            <Image
-              src="/funPhotos/bush-2.webp"
-              alt="A bush"
-              boxSize="150px"
-              position="absolute"
-              left="5%"
-              top="82%"
-              zIndex="2"
-              width="auto"
-            />
-            <Image
-              src="/funPhotos/bush-1.webp"
-              alt="A bush"
-              boxSize="150px"
-              position="absolute"
-              left="10%"
-              top="81%"
-              zIndex="1"
-              width="auto"
-            />
-            <Image
-              src="/funPhotos/bush-3.webp"
-              alt="A bush"
-              boxSize="150px"
-              position="absolute"
-              left="2%"
-              top="81%"
-              zIndex="1"
-              width="auto"
-            />
-            <Image
-              src="/funPhotos/squirell.webp"
-              alt="A squirell holding an acorn"
-              boxSize="120px"
-              position="absolute"
-              left="9%"
-              top="79%"
-              zIndex="1"
-              width="auto"
-            />
-            {/* Add other images here */}
-          </Box>
+          <Flex>
+            <Box>
+              <Text
+                fontFamily="Bangers"
+                fontSize="9xl"
+                color="#D7C2DB"
+                animation={animation}
+                textShadow="0px 0px 10px #D100FF"
+                position="absolute"
+                top="10%"
+                left="38.5%"
+                transform="translate(-10%, -42%)"
+                zIndex="1"
+                textAlign="center"
+              >
+                Motivating
+              </Text>
+            </Box>
+            <Box>
+              <Text
+                as="h1"
+                position="absolute"
+                top="20%"
+                left="59%"
+                transform="translate(-10%, -42%)"
+                textShadow="0px 0px 10px #0059b3"
+                fontSize="8xl"
+                color="#00BFFF"
+                fontFamily="Bangers"
+                textAlign="center"
+                zIndex="1"
+                animation={`${fadeInOutBlue} 3s ease-in-out infinite`}
+              >
+                Mike
+              </Text>
+              <Image
+                src="/funPhotos/big-blue-fish.webp"
+                alt="A large fish"
+                boxSize="82px"
+                position="absolute"
+                top="14%"
+                left="74%"
+                zIndex="1"
+                width="auto"
+              />
+              <Image
+                src="/funPhotos/pencil-paper.webp"
+                alt="A pencil & a book"
+                boxSize="110px"
+                position="absolute"
+                top="31%"
+                left="54.5%"
+                zIndex="1"
+                width="auto"
+              />
+              <Image
+                src="/funPhotos/hammer.webp"
+                alt="a hammer"
+                boxSize="128px"
+                position="absolute"
+                top="15%"
+                left="29%"
+                zIndex="1"
+                width="auto"
+              />
+              <Image
+                src="/funPhotos/tree.webp"
+                alt="A lovely tree"
+                boxSize="280px"
+                position="absolute"
+                top="70%"
+                left="84%"
+                zIndex="1"
+                width="auto"
+              />
+              <Image
+                src="/funPhotos/bush-2.webp"
+                alt="A bush"
+                boxSize="150px"
+                position="absolute"
+                left="5%"
+                top="82%"
+                zIndex="2"
+                width="auto"
+              />
+              <Image
+                src="/funPhotos/bush-1.webp"
+                alt="A bush"
+                boxSize="150px"
+                position="absolute"
+                left="10%"
+                top="81%"
+                zIndex="1"
+                width="auto"
+              />
+              <Image
+                src="/funPhotos/bush-3.webp"
+                alt="A bush"
+                boxSize="150px"
+                position="absolute"
+                left="2%"
+                top="81%"
+                zIndex="1"
+                width="auto"
+              />
+              <Image
+                src="/funPhotos/squirell.webp"
+                alt="A squirell holding an acorn"
+                boxSize="120px"
+                position="absolute"
+                left="9%"
+                top="79%"
+                zIndex="1"
+                width="auto"
+              />
+              {/* Add other images here */}
+            </Box>
+          </Flex>
         </Flex>
-      </Flex>
+      </IfAuthenticated>
+      <IfNotAuthenticated>
+        <Button onClick={handleSignIn}>Add Todo</Button>
+        <p>Sign in to see your data</p>
+      </IfNotAuthenticated>
     </>
   )
 }

@@ -16,6 +16,7 @@ export default function useUserDataAuth() {
       const res = await request
         .get('/api/v1/users')
         .set('Authorization', `Bearer ${token}`)
+      console.log('res.body', res.body)
       return res.body as User
     }
   })

@@ -10,7 +10,6 @@ export default createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />} />
     <Route path="/profile" element={<Profile />} />
-    <Route path="/profile/:id" element={<UserProfilePage />} />
     <Route path="/todo-list" element={<TodoList />} />
     <Route path="/login" element={<Login />} />
   </Route>,

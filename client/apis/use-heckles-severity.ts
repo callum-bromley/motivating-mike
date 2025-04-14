@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { Heckle } from '../models/heckles'
 
-export default function useHecklesSeverity(severity: number) {
+export default function useHecklesSeverity(severity: number | undefined) {
   return useQuery({
     queryKey: ['heckles', severity],
     queryFn: async () => {

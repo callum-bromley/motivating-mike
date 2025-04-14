@@ -2,9 +2,9 @@ import useHecklesSeverity from '../apis/use-heckles-severity'
 import useUserData from '../apis/use-user-data'
 
 interface Props {
-  userId: number
-  avatarId: number
-  urgency: number
+  userId: number | undefined
+  avatarId: number | null | undefined
+  urgency: number | undefined
 }
 
 export default function OneHeckle(props: Props) {

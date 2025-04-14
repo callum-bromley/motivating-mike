@@ -9,6 +9,7 @@ import {
   Circle,
   Image,
   Text,
+  useColorModeValue
 } from '@chakra-ui/react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import request from 'superagent'
@@ -61,25 +62,60 @@ export default function PickAvatar({
     onClose()
   }
 
+  const drawerBg = useColorModeValue('#fff8e1', 'gray.800') // Cat cream
+  const hoverBorder = useColorModeValue('#66bb6a', '#81c784') // Pet green
+  const textColor = useColorModeValue('gray.800', 'gray.100')
+
   return (
-    <Drawer isOpen={isOpen} onClose={onClose}>
+    <Drawer isOpen={isOpen} onClose={onClose} size="md" placement="right">
       <DrawerOverlay />
-      <DrawerContent>
+      <DrawerContent bg={drawerBg}>
         <DrawerCloseButton />
-        <DrawerHeader>Select Your Avatar</DrawerHeader>
+        <DrawerHeader fontSize="2xl" fontWeight="bold" color={textColor}>
+          Select Your Avatar
+        </DrawerHeader>
         <DrawerBody>
-          <Box display="flex" justifyContent="center" gap={4}>
+          <Box
+            display="flex"
+            flexWrap="wrap"
+            justifyContent="center"
+            gap={6}
+            py={4}
+          >
             {avatars.map((avatar) => (
               <Box
                 key={avatar.id}
                 onClick={() => handleAvatarClick(avatar.id)}
                 cursor="pointer"
-                _hover={{ opacity: 0.8 }}
+                textAlign="center"
+                _hover={{
+                  transform: 'scale(1.05)',
+                  boxShadow: `0 0 0 3px ${hoverBorder}`,
+                  transition: 'all 0.2s ease-in-out',
+                }}
+                p={4}
+                borderRadius="xl"
+                bg="white"
+                boxShadow="md"
+                transition="all 0.2s ease-in-out"
               >
-                <Circle size="100px" overflow="hidden" boxShadow="md">
-                  <Image src={avatar.image} alt={avatar.name} />
+                <Circle size="100px" overflow="hidden" boxShadow="base">
+                  <Image
+                    src={avatar.image}
+                    alt={avatar.name}
+                    objectFit="cover"
+                    width="100%"
+                    height="100%"
+                  />
                 </Circle>
-                <Text mt={2}>{avatar.name}</Text>
+                <Text
+                  mt={3}
+                  fontWeight="semibold"
+                  fontSize="md"
+                  color={textColor}
+                >
+                  {avatar.name}
+                </Text>
               </Box>
             ))}
           </Box>

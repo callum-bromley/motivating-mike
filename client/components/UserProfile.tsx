@@ -1,23 +1,42 @@
-import { useParams } from 'react-router-dom'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import useUserData from '../apis/use-user-data'
 import useAvatarData from '../apis/use-avatar-data'
-import { Text, Heading, Image } from '@chakra-ui/react'
+import { FaPaw } from 'react-icons/fa'
+import {
+  Box,
+  Skeleton,
+  Icon,
+  Text,
+  Heading,
+  Image
+} from '@chakra-ui/react'
 
 interface UserProfileProps {
-  selectedAvatarId: number | null
+  selectedAvatarId: number | null | undefined
+  userId: number | null | undefined
+
 }
 
-export default function UserProfile({ selectedAvatarId }: UserProfileProps) {
-  const { id } = useParams<{ id: string }>()
-  const userId = Number(id)
+export default function UserProfile({ selectedAvatarId, userId }: UserProfileProps) {
 
   const {
     data: user,
     isPending: userIsPending,
     error: userError,
-  } = useUserData(userId)
-
-  // console.log(user)
+  } = useUserData(Number(userId))
 
   const avatarId =
     selectedAvatarId !== null ? selectedAvatarId : user ? user.avatarId : null
@@ -27,39 +46,58 @@ export default function UserProfile({ selectedAvatarId }: UserProfileProps) {
     error: avatarError,
   } = useAvatarData(Number(avatarId))
 
+
   if (userIsPending || avatarIsPending) {
-    return <Text>Loading...</Text>
+    return <Skeleton height="300px" borderRadius="xl" />
   }
 
   if (userError) {
-    return <Text>Whoops! There was a problem fetching the user data.</Text>
+    return <Text color="red.500">Whoops! Error fetching user data 🐾</Text>
   }
 
   if (avatarError) {
-    return <Text>Whoops! There was a problem fetching the avatar data.</Text>
+    return <Text color="red.500">Oops! Avatar is being shy today 🐶</Text>
   }
 
-  if (!user) {
-    return <Text>User not found</Text>
-  }
-
-  if (!avatar) {
-    return <Text>Avatar not found</Text>
-  }
+  if (!user) return <Text>User not found</Text>
+  if (!avatar) return <Text>Avatar not found</Text>
 
   const altImage = avatar.image.replace('-', ' ').replace('.webp', '')
 
   return (
-    <>
-      <Heading>{user.name}</Heading>
-      <Text>Avatar: {avatar.name}</Text>
+    <Box
+      width="330px"
+      mx="auto"
+      mt={10}
+      p={6}
+      boxShadow="lg"
+      borderRadius="lg"
+      bg="#FAF9F6"
+      textAlign="center"
+      transition="all 0.3s ease"
+      _hover={{ transform: 'scale(1.02)' }}
+    >
+      <Heading mb={6} fontSize="2xl" textAlign="center">
+        {user.name}
+      </Heading>
       <Image
         src={avatar.image}
         alt={altImage}
-        borderRadius="0.5rem"
-        height="auto"
-        width={200}
+        borderRadius="full"
+        boxSize="150px"
+        mx="auto"
+        mb={4}
+        border="4px solid #4fc3f7"
       />
-    </>
+
+      <Heading size="lg" mb={2} color="#b39ddb" fontFamily="">
+        {/* User Name: {user.name} */}
+      </Heading>
+
+      <Text fontSize="md" color="gray.600" mb={2}>
+        <Icon as={FaPaw} mr={1} color="pink.400" />
+        Avatar: <strong>{avatar.name}</strong>
+      </Text>
+    </Box>
   )
 }
