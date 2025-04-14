@@ -9,11 +9,13 @@ import {
   IfAuthenticated,
   IfNotAuthenticated,
 } from '../components/Authenticated'
+import Procrastinate from '../components/Procrastinate'
 
 export default function Home() {
   const { data: userData, isPending, error } = useUserDataAuth()
   const { loginWithPopup } = useAuth0()
   const [showDopamineHit, setShowDopamineHit] = useState(false)
+  const [showProcrastinate, setShowProcrastinate] = useState(false)
 
   const handleSignIn = () => {
     loginWithPopup()
@@ -21,6 +23,10 @@ export default function Home() {
 
   const toggleDopamineHit = () => {
     setShowDopamineHit((prev) => !prev)
+  }
+
+  const toggleProcratinate = () => {
+    setShowProcrastinate((prev) => !prev)
   }
 
   if (isPending) {
@@ -69,7 +75,9 @@ export default function Home() {
       <IfAuthenticated>
         {userData && <HomePageAvatar avatarId={userData.avatarId} />}
         <Flex gap={2}>
-          {showDopamineHit ? (
+          {showProcrastinate ? (
+            <Procrastinate userId={userData.id} />
+          ) : showDopamineHit ? (
             <DopamineHit userId={userData.id} />
           ) : (
             <OneTodo userId={userData.id} />
@@ -77,6 +85,9 @@ export default function Home() {
         </Flex>
         <Button onClick={toggleDopamineHit}>
           {showDopamineHit ? 'Get Real' : 'Dopamine Hit'}
+        </Button>
+        <Button onClick={toggleProcratinate}>
+          {showProcrastinate ? "I'm sorry!" : 'Procrastinate'}
         </Button>
       </IfAuthenticated>
       <IfNotAuthenticated>
