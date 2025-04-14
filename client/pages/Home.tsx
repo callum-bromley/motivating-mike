@@ -16,6 +16,7 @@ import {
 
 import { Box, Button, Flex, Spinner } from '@chakra-ui/react'
 import { Todo } from '../models/todos'
+import DopamineHit from '../components/DopamineHit'
 
 export default function Home() {
   const { data: userData, isPending, error } = useUserDataAuth()
@@ -28,6 +29,7 @@ export default function Home() {
   const navigate = useNavigate()
   const { mutateAsync: updateStatus } = useUpdateStatus()
   const [isComplete, setIsComplete] = useState(false)
+  const [showDopamineHit, setShowDopamineHit] = useState(false)
   // console.log(userData)
 
   if (isPending || todosPending) {
@@ -111,6 +113,9 @@ export default function Home() {
     )
   }
 
+  const toggleDopamineHit = () => {
+    setShowDopamineHit((prev) => !prev) // Toggle the display of DopamineHit component
+  }
   return (
     <Box
       height="100vh"
@@ -134,8 +139,15 @@ export default function Home() {
             checked={isComplete}
             onChange={() => handleCheck(randomTodo.id)}
           />
-          <OneTodo todo={randomTodo} />
+          {showDopamineHit ? (
+            <DopamineHit userId={userData.id} />
+          ) : (
+            <OneTodo todo={randomTodo} />
+          )}
         </Flex>
+        <Button onClick={toggleDopamineHit}>
+          {showDopamineHit ? 'Get Real' : 'Dopamine Hit'}
+        </Button>
         {/* <Button onClick={() => navigate(`/todo-list`)}>Add Todo</Button> */}
       </IfAuthenticated>
       <IfNotAuthenticated>
