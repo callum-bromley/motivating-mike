@@ -1,8 +1,8 @@
 import request from 'superagent'
-import { TodoData } from '../Models/todos'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 type TodoInput = {
+  userId: number
   task: string
   urgency: number
   due: string

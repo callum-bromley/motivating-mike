@@ -13,16 +13,17 @@ export const todoKeys = [
 
 // CREATE
 export async function addTodo(data: TodoData) {
-  const { task, urgency, created, due, completed, userId } = data
+  const { task, urgency, due, completed, userId } = data
   const newTodo = {
     task,
     urgency,
-    created,
+    created: db.raw('CURRENT_TIMESTAMP'),
     due,
     completed,
     user_id: userId,
   }
   const results = await db('todos').insert(newTodo)
+  console.log(newTodo)
   return results
 }
 

@@ -6,6 +6,7 @@ import HomePageAvatar from '../components/HomePageAvatar'
 import OneTodo from '../components/OneTodo'
 import DopamineHit from '../components/DopamineHit'
 import Procrastinate from '../components/Procrastinate'
+import Footer from '../components/Footer'
 import {
   IfAuthenticated,
   IfNotAuthenticated,
@@ -97,15 +98,18 @@ export default function Home() {
   }
 
   return (
-    <>
+    <Box
+      minHeight="100vh"
+      display="flex"
+      flexDirection="column"
+      backgroundColor="#B1CFB7"
+    >
       <Box
-        height="100vh"
         flex="1"
-        flexDir="column"
-        backgroundColor="#B1CFB7"
         display="flex"
+        flexDir="column"
         alignItems="center"
-        paddingTop={["12rem", "14rem", "17rem", "20rem"]}
+        paddingTop={['12rem', '14rem', '17rem', '20rem']}
       >
         <IfAuthenticated>
           {userData && <HomePageAvatar avatarId={userData.avatarId} />}
@@ -142,6 +146,8 @@ export default function Home() {
           <p>Sign in to see your data</p>
         </IfNotAuthenticated>
       </Box>
-    </>
+
+      <Footer />
+    </Box>
   )
 }
