@@ -1,8 +1,12 @@
 import useUserTodos from '../apis/use-user-todos'
 import useUserDataAuth from '../apis/use-user-data-auth'
-import { Box, Spinner } from '@chakra-ui/react'
+import { Box, Button, Spinner } from '@chakra-ui/react'
 import OneHeckle from './OneHeckle'
 import { useNavigate } from 'react-router-dom'
+import Complete from './CompleteButton'
+import ConfettiExplosionEffect from './ConfettiExplosion'
+import useUpdateTodoStatus from '../apis/use-update-status'
+import { useState } from 'react'
 
 interface Props {
   userId: number
@@ -16,6 +20,10 @@ export default function OneTodo({ userId }: Props) {
     isPending: todosPending,
     error: todosError,
   } = useUserTodos(userId)
+
+  const updateStatus = useUpdateTodoStatus()
+  const [isExploding, setIsExploding] = useState(false)
+  const [showComplete, setShowComplete] = useState(false)
 
   if (isPending || todosPending) {
     return (
@@ -50,6 +58,15 @@ export default function OneTodo({ userId }: Props) {
     )
   }
 
+  const handleComplete = () => {
+    setShowComplete((prev) => !prev)
+    if (todos.id) {
+      setIsExploding(true)
+      setTimeout(() => setIsExploding(false), 3000)
+      updateStatus.mutate(todos.id)
+    }
+  }
+
   const maxUrgency = Math.max(
     ...todos.filter((todo) => todo.urgency > 0).map((todo) => todo.urgency),
   )
@@ -72,12 +89,26 @@ export default function OneTodo({ userId }: Props) {
             urgency={randomTodo?.urgency}
           />
         </>
+      ) : showComplete ? (
+        <>
+          <OneHeckle
+            userId={userData.id}
+            avatarId={userData.avatarId}
+            urgency={0}
+          />
+          <ConfettiExplosionEffect isExploding={isExploding} />
+        </>
       ) : (
         <>
           <h4>You&apos;re all caught up!</h4>
-          <button onClick={() => navigate(`/todo-list`)}>Add Todo</button>
+          <Button onClick={() => navigate(`/todo-list`)} colorScheme="teal">
+            Add Todo
+          </Button>
         </>
       )}
+      <Button onClick={handleComplete}>
+        {showComplete ? 'Smash Another Task!' : 'Complete!'}
+      </Button>
     </>
   )
 }

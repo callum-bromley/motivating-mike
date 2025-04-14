@@ -1,35 +1,30 @@
-import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-interface updateTodoStatus {
-  id: number
-  todo: string
-  isComplete: boolean
-  isActive: boolean
-}
-
-const updateTodoStatus = async (id: number) => {
-  const response = await fetch(`/api/v1/todostatus/${id}`, {
-    method: 'PATCH',
-    body: JSON.stringify({}),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-
-  if (!response.ok) {
-    throw new Error('Failed to update todo status')
-  }
-
-  return response.json()
-}
-
-export const useUpdateStatus = () => {
+const useUpdateTodoStatus = () => {
   const queryClient = useQueryClient()
 
+  const updateStatus = async (id: number) => {
+    const response = await fetch(`/api/v1/todostatus/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({}),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to update todo status')
+    }
+
+    return response.json()
+  }
+
   return useMutation({
-    mutationFn: ({ id }: { id: number }) => updateTodoStatus(id),
+    mutationFn: updateStatus,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['todos'] })
     },
   })
 }
+
+export default useUpdateTodoStatus
