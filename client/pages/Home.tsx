@@ -156,44 +156,13 @@ export default function Home() {
             alignItems="center"
             gap={6}
           >
-            {/* Avatar at top */}
-            <Box position="relative" display="inline-block">
-              <Box boxSize="150px" borderRadius="full" overflow="hidden">
-                <HomePageAvatar avatarId={userData.avatarId} />
-              </Box>
-              <Box
-                position="absolute"
-                bottom="100%"
-                left="50%"
-                transform="translateX(-50%)"
-                mb={2}
-              >
-                <OneHeckle
-                  userId={userData.id}
-                  avatarId={userData.avatarId}
-                  urgency={3}
-                />
-              </Box>
-            </Box>
-
-            {/* Main content box */}
-            <Box
-              bg="white"
-              p={6}
-              borderRadius="lg"
-              boxShadow="lg"
-              minW="300px"
-              maxW="90vw"
-              textAlign="center"
-            >
-              {showProcrastinate ? (
-                <Procrastinate userId={userData.id} />
-              ) : showDopamineHit ? (
-                <DopamineHit userId={userData.id} />
-              ) : (
-                <OneTodo userId={userData.id} />
-              )}
-            </Box>
+            {showProcrastinate ? (
+              <Procrastinate userId={userData.id} />
+            ) : showDopamineHit ? (
+              <DopamineHit userId={userData.id} />
+            ) : (
+              <OneTodo userId={userData.id} />
+            )}
 
             {/* Action buttons */}
             <Flex gap={4}>

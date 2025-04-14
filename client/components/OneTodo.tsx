@@ -3,6 +3,7 @@ import useUserDataAuth from '../apis/use-user-data-auth'
 import { Box, List, Spinner } from '@chakra-ui/react'
 import OneHeckle from './OneHeckle'
 import { useNavigate } from 'react-router-dom'
+import HomePageAvatar from './HomePageAvatar'
 
 interface Props {
   userId: number
@@ -63,33 +64,54 @@ export default function OneTodo({ userId }: Props) {
     <>
       {randomTodo ? (
         <>
-          <h3>
-            <List
-              bg="yellow.50"
-              border="1px solid #ccc"
-              borderRadius="md"
-              px={4}
-              py={2}
-              boxShadow="md"
-              backgroundSize="100% 30px"
-              whiteSpace="pre-wrap"
-              width="100%"
-              maxHeight="60vh"
-              
-              backgroundAttachment="local"
-              spacing={0}
-              fontSize="md"
-              lineHeight="30px"
-              fontFamily="'Courier New', monospace"
-            >
-              <strong>{randomTodo.task}</strong>
-            </List>
-          </h3>
-          <OneHeckle
-            userId={userData.id}
-            avatarId={userData.avatarId}
-            urgency={randomTodo?.urgency}
-          />
+          <Box
+            position="relative"
+            transform="translateX(40%)"
+           
+            mb={2}
+          >
+            <OneHeckle
+              userId={userData.id}
+              avatarId={userData.avatarId}
+              urgency={randomTodo?.urgency}
+            />
+          </Box>
+          <Box position="relative" display="inline-block">
+            <Box boxSize="150px" borderRadius="full" overflow="hidden">
+              <HomePageAvatar avatarId={userData.avatarId} />
+            </Box>
+          </Box>
+          <Box
+            bg="white"
+            p={6}
+            borderRadius="lg"
+            boxShadow="lg"
+            minW="300px"
+            maxW="90vw"
+            textAlign="center"
+          >
+            <h3>
+              <List
+                bg="yellow.50"
+                border="1px solid #ccc"
+                borderRadius="md"
+                px={4}
+                py={2}
+                boxShadow="md"
+                backgroundSize="100% 30px"
+                whiteSpace="pre-wrap"
+                width="100%"
+                maxHeight="60vh"
+                backgroundAttachment="local"
+                spacing={0}
+                fontSize="md"
+                lineHeight="30px"
+                fontFamily="'Courier New', monospace"
+              >
+                <strong>{randomTodo.task}</strong>
+              </List>
+            </h3>
+          </Box>
         </>
       ) : (
         <>
