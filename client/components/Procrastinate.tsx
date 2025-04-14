@@ -1,14 +1,14 @@
-import useUserTodos from '../apis/use-user-todos'
-import useUserDataAuth from '../apis/use-user-data-auth'
 import { Box, Spinner } from '@chakra-ui/react'
-import OneHeckle from './OneHeckle'
+import useUserDataAuth from '../apis/use-user-data-auth'
+import useUserTodos from '../apis/use-user-todos'
 import { useNavigate } from 'react-router-dom'
+import OneHeckle from './OneHeckle'
 
 interface Props {
   userId: number
 }
 
-export default function OneTodo({ userId }: Props) {
+export default function Procrastinate({ userId }: Props) {
   const navigate = useNavigate()
   const { data: userData, isPending, error } = useUserDataAuth()
   const {
@@ -50,34 +50,13 @@ export default function OneTodo({ userId }: Props) {
     )
   }
 
-  const maxUrgency = Math.max(
-    ...todos.filter((todo) => todo.urgency > 0).map((todo) => todo.urgency),
-  )
-  const filteredTodos = todos.filter((todo) => todo.urgency === maxUrgency)
-  const randomTodo =
-    filteredTodos.length > 0
-      ? filteredTodos[Math.floor(Math.random() * filteredTodos.length)]
-      : null
-
   return (
     <>
-      {randomTodo ? (
-        <>
-          <h3>
-            <strong>{randomTodo.task}</strong>
-          </h3>
-          <OneHeckle
-            userId={userData.id}
-            avatarId={userData.avatarId}
-            urgency={randomTodo?.urgency}
-          />
-        </>
-      ) : (
-        <>
-          <h4>You&apos;re all caught up!</h4>
-          <button onClick={() => navigate(`/todo-list`)}>Add Todo</button>
-        </>
-      )}
+      <OneHeckle
+        userId={userData.id}
+        avatarId={userData.avatarId}
+        urgency={4}
+      />
     </>
   )
 }
