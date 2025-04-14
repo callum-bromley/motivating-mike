@@ -1,4 +1,4 @@
-import { User } from '../../../client/models/users.ts'
+import { User, UserData } from '../../../client/models/users.ts'
 import db from './../connection.ts'
 
 export const userKeys = [
@@ -10,8 +10,12 @@ export const userKeys = [
 
 // CREATE
 
-export async function addNewUser(data: User) {
-  const results = await db('users').insert(data)
+export async function addNewUser(data: UserData) {
+  const results = await db('users').insert({
+    auth_id: data.authId,
+    name: data.name,
+    avatar_id: data.avatarId,
+  })
 
   return results
 }
@@ -29,7 +33,7 @@ export async function getUserById(id: number) {
 
 export async function getUserByAuthId(authId: string): Promise<User> {
   const user = await db('users').where('users.auth_id', authId).select(userKeys).first()
-  console.log(authId)
+  // console.log('db func, getUserByAuthId', authId)
   return user as User
 }
 // UPDATE

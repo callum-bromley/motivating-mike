@@ -95,7 +95,7 @@ export default function TodoList() {
             justifyContent="center"
             alignItems="center"
           >
-            <VStack overflowY="scroll">
+            <VStack >
               <Box justifyContent="left">
                 <Heading as="h3" font-family="Bangers">
                   <Text

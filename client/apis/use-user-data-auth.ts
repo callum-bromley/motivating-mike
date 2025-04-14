@@ -16,7 +16,7 @@ export default function useUserDataAuth() {
       const res = await request
         .get('/api/v1/users')
         .set('Authorization', `Bearer ${token}`)
-      console.log('res.body', res.body)
+      // console.log('res.body', res.body)
       return res.body as User
     }
   })
@@ -50,7 +50,7 @@ function useUserMutation<Tdata = unknown, Tvariables = unknown>(mutationFn: Muta
     mutationFn,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['users']
+        queryKey: ['active-user']
       })
     }
   })
