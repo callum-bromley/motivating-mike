@@ -18,5 +18,17 @@ export async function seed(knex) {
       name: 'Brian',
       avatar_id: 1
     },
+    {
+      id: 4,
+      auth_id: 'auth0|67fb254aff80744b40bf1075',
+      name: 'Dave',
+      avatar_id: 1
+    },
+    {
+      id: 5,
+      auth_id: 'auth0|67fb306c0864dfef98476fa6',
+      name: 'Jane',
+      avatar_id: 1
+    },
   ])
 }
