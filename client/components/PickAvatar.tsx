@@ -17,17 +17,17 @@ const avatars = [
   {
     id: 1,
     name: 'Mike',
-    image: '/public/images/avatars/mike.WebP',
+    image: '/images/avatars/mike.WebP',
   },
   {
     id: 2,
     name: 'Mandy',
-    image: '/public/images/avatars/mandy.WebP',
+    image: '/images/avatars/mandy.WebP',
   },
   {
     id: 3,
     name: 'Slappy',
-    image: '/public/images/avatars/slappy-the-seal.WebP',
+    image: '/images/avatars/slappy-the-seal.WebP',
   },
 ]
 

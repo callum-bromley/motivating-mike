@@ -12,9 +12,9 @@ type FormState = {
 }
 
 const avatars = [
-  { id: 1, src: '../../public/images/avatars/mike.WebP' },
-  { id: 2, src: '../../public/images/avatars/mandy.WebP' },
-  { id: 3, src: '../../public/images/avatars/slappy-the-seal.WebP' },
+  { id: 1, src: '/images/avatars/mike.WebP' },
+  { id: 2, src: '/images/avatars/mandy.WebP' },
+  { id: 3, src: '/images/avatars/slappy-the-seal.WebP' },
 ]
 export default function Login() {
   const { user, loginWithRedirect, getAccessTokenSilently } = useAuth0()

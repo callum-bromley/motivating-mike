@@ -91,8 +91,6 @@ export default function TodoList() {
             </Box>
 
             <Box
-              maxHeight="32vh"
-              overflowY="auto"
               bg="yellow.50"
               border="1px solid #ccc"
               borderRadius="md"
@@ -103,8 +101,8 @@ export default function TodoList() {
               backgroundSize="100% 30px"
               whiteSpace="pre-wrap"
               width="100%"
-              overflowY="auto"
               maxHeight="60vh"
+              overflowY="auto"
               backgroundAttachment="local"
             >
               <List
@@ -185,7 +183,7 @@ export default function TodoList() {
               Mike
             </Text>
             <Image
-              src="../public/funPhotos/big-blue-fish.webp"
+              src="/funPhotos/big-blue-fish.webp"
               alt="A large fish"
               boxSize="82px"
               position="absolute"
@@ -205,7 +203,7 @@ export default function TodoList() {
               width="auto"
             />
             <Image
-              src="funPhotos/hammer.webp"
+              src="/funPhotos/hammer.webp"
               alt="a hammer"
               boxSize="128px"
               position="absolute"
