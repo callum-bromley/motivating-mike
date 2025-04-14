@@ -17,6 +17,8 @@ export default function UserProfile({ selectedAvatarId }: UserProfileProps) {
     error: userError,
   } = useUserData(userId)
 
+  // console.log(user)
+
   const avatarId =
     selectedAvatarId !== null ? selectedAvatarId : user ? user.avatarId : null
   const {

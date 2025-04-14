@@ -12,7 +12,7 @@ export default function Nav() {
   const navigate = useNavigate()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user, logout, loginWithRedirect } = useAuth0()
-  console.log(user)
+  // console.log(user)
 
   const handleSignOut = () => {
     logout()
