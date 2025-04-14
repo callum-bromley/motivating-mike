@@ -17,6 +17,8 @@ import {
 import { Box, Button, Flex, Spinner } from '@chakra-ui/react'
 import { Todo } from '../models/todos'
 
+import ConfettiExplosion from 'react-confetti-explosion'
+
 export default function Home() {
   const { data: userData, isPending, error } = useUserDataAuth()
   const {
@@ -28,7 +30,7 @@ export default function Home() {
   const navigate = useNavigate()
   const { mutateAsync: updateStatus } = useUpdateStatus()
   const [isComplete, setIsComplete] = useState(false)
-  // console.log(userData)
+  const [isExploding, setIsExploding] = useState(false)
 
   if (isPending || todosPending) {
     return (
@@ -48,34 +50,39 @@ export default function Home() {
   }
 
   if (error || todosError) {
-    ;<Box
-      height="100vh"
-      flex="1"
-      flexDir="column"
-      backgroundColor="#B1CFB7"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-    >
-      return <h2>Error: {todosError?.message}</h2>
-    </Box>
+    return (
+      <Box
+        height="100vh"
+        flex="1"
+        flexDir="column"
+        backgroundColor="#B1CFB7"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <h2>Error: {todosError?.message}</h2>
+      </Box>
+    )
   }
+
   if (
     !userData ||
     userData.id === undefined ||
     userData.avatarId === undefined
   ) {
-    ;<Box
-      height="100vh"
-      flex="1"
-      flexDir="column"
-      backgroundColor="#B1CFB7"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-    >
-      return <h2>No user data found</h2>
-    </Box>
+    return (
+      <Box
+        height="100vh"
+        flex="1"
+        flexDir="column"
+        backgroundColor="#B1CFB7"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <h2>No user data found</h2>
+      </Box>
+    )
   }
 
   // -- Event handlers -- //
@@ -85,12 +92,18 @@ export default function Home() {
 
   const handleCheck = async (id: number) => {
     if (randomTodo) {
+      setIsExploding(true)
       await updateStatus({
         id,
       })
       setIsComplete(false)
+
+      setTimeout(() => {
+        setIsExploding(false)
+      }, 3000)
     }
   }
+
   const randomTodo = filterTodos(todos as Todo[])
 
   if (!randomTodo) {
@@ -104,7 +117,7 @@ export default function Home() {
         justifyContent="center"
         alignItems="center"
       >
-        <h2> you &apos;re all caught up</h2>
+        <h2>you &apos;re all caught up</h2>
         <p>Pat yourself on the back</p>
         <Button onClick={() => navigate(`/todo-list`)}>Add Todo</Button>
       </Box>
@@ -129,6 +142,7 @@ export default function Home() {
         />
         <HomePageAvatar avatarId={userData.avatarId} />
         <Flex gap={2}>
+          {isExploding && <ConfettiExplosion />}
           <input
             type="checkbox"
             checked={isComplete}
@@ -136,7 +150,6 @@ export default function Home() {
           />
           <OneTodo todo={randomTodo} />
         </Flex>
-        {/* <Button onClick={() => navigate(`/todo-list`)}>Add Todo</Button> */}
       </IfAuthenticated>
       <IfNotAuthenticated>
         <Button onClick={handleSignIn}>Add Todo</Button>
