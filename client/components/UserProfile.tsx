@@ -1,21 +1,23 @@
-import { useParams } from 'react-router-dom'
+// import { useParams } from 'react-router-dom'
 import useUserData from '../apis/use-user-data'
 import useAvatarData from '../apis/use-avatar-data'
 import { Text, Heading, Image } from '@chakra-ui/react'
 
 interface UserProfileProps {
-  selectedAvatarId: number | null
+  selectedAvatarId: number | null | undefined
+  userId: number | null | undefined
+
 }
 
-export default function UserProfile({ selectedAvatarId }: UserProfileProps) {
-  const { id } = useParams<{ id: string }>()
-  const userId = Number(id)
+export default function UserProfile({ selectedAvatarId, userId }: UserProfileProps) {
+  // const { id } = useParams<{ id: string }>()
+  // const userId = Number(id)
 
   const {
     data: user,
     isPending: userIsPending,
     error: userError,
-  } = useUserData(userId)
+  } = useUserData(Number(userId))
 
   const avatarId =
     selectedAvatarId !== null ? selectedAvatarId : user ? user.avatarId : null

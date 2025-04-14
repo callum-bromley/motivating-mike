@@ -2,9 +2,11 @@ import { Box, Heading, Text } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import useTodos from '../apis/use-todos'
 
-export default function TaskHistory() {
-  const { id } = useParams<{ id: string }>()
-  const userId = Number(id)
+interface Props {
+  userId: number | null | undefined
+}
+
+export default function TaskHistory({ userId }: Props) {
   const { data: todos, isPending, error } = useTodos()
 
   const history = todos

@@ -7,15 +7,13 @@ import { IfAuthenticated, IfNotAuthenticated } from '../components/Authenticated
 import useUserDataAuth from '../apis/use-user-data-auth'
 import { useAuth0 } from '@auth0/auth0-react'
 
+
+
 export default function UserHomePage() {
-  // const { id } = useParams<{ id: string }>()
-  // const userId = Number(id)
   const { data: userData, isPending, error } = useUserDataAuth()
   const { loginWithPopup } = useAuth0()
 
-  console.log('profile: ', userData)
-
-  const [selectedAvatarId, setSelectedAvatarId] = useState<number | null>(null)
+  const [selectedAvatarId, setSelectedAvatarId] = useState<number | null | undefined>(userData?.avatarId)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   const openDrawer = () => setIsDrawerOpen(true)
@@ -73,16 +71,15 @@ export default function UserHomePage() {
     loginWithPopup()
   }
 
-
   return (
     <Box
-      height="100vh"
       flex="1"
       flexDir="column"
       backgroundColor="#B1CFB7"
       display="flex"
       justifyContent="center"
       alignItems="center"
+      overflow="visible"
     >
       <IfAuthenticated>
         <Flex>
@@ -92,7 +89,7 @@ export default function UserHomePage() {
             flexDirection="column"
             justifyContent="flex-start"
           >
-            <UserProfile selectedAvatarId={selectedAvatarId} />
+            <UserProfile userId={userData?.id} selectedAvatarId={userData?.avatarId} />
             <Button onClick={openDrawer} width={200} borderRadius="0.5rem">
               Change Avatar
             </Button>
@@ -109,7 +106,7 @@ export default function UserHomePage() {
             flexDirection="column"
             justifyContent="flex-start"
           >
-            <TaskHistory />
+            <TaskHistory userId={userData?.id} />
           </Box>
           <Box
             display="flex"

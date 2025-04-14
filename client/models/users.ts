@@ -1,7 +1,7 @@
 export interface UserData {
   authId: string
   name: string
-  avatarId: number
+  avatarId: number | null | undefined
 }
 
 export interface User extends UserData {
