@@ -1,6 +1,9 @@
-import { Todo } from "../models/todos"
+import { Todo } from '../models/todos'
 
-export default function FilterTodos(todos: Todo[]) {
+export default function filterTodos(todos: Todo[]) {
+  if (todos.length === 0) {
+    return null
+  }
 
   let filteredTodos = todos.filter((todo) => todo.urgency === 3)
   let randomTodo = null
@@ -20,5 +23,4 @@ export default function FilterTodos(todos: Todo[]) {
   }
 
   return randomTodo
-
 }

@@ -18,8 +18,7 @@ export default function HomePageAvatar(props: Props) {
 
   return (
     <>
-      <p>{`Avatar ID: ${props.avatarId}`}</p>
-      <img src={avatar.image} alt={`${avatar.name} your avatar, here to encourage you`} />
+      <img src={avatar.image} alt={avatar.name} />
     </>
   )
 }
