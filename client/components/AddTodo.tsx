@@ -7,7 +7,6 @@ import {
   MenuItem,
   MenuList,
   VStack,
-  Text,
   FormLabel,
   FormControl,
   Box,
@@ -21,26 +20,29 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 const initialState = { task: '', urgency: '' }
 
-function AddTodo() {
+interface Props {
+  userId: number
+}
+
+function AddTodo({ userId }: Props) {
   const [formState, setFormState] = useState(initialState)
   const [dueDate, setDueDate] = useState<Date | null>(null)
 
   const addTodoMutation = useAddTodo()
 
   const urgencyMap: Record<string, number> = {
-    'Chill': 1,
+    Chill: 1,
     'Probably should start': 2,
     'Severe(whoops)': 3,
   }
 
-  
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     addTodoMutation.mutate({
+      userId: userId,
       task: formState.task,
       urgency: urgencyMap[formState.urgency] || 0,
-      due: dueDate ? dueDate.toISOString() : '', // convert to string or use empty string
+      due: dueDate ? dueDate.toISOString() : '',
     })
     setFormState(initialState)
     setDueDate(null)
