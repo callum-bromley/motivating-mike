@@ -162,7 +162,7 @@ export default function TodoList() {
               </Box>
 
               <Box pt={4}>
-                <Link to={'/Home'}>
+                <Link to={'/'}>
                   <Button colorScheme="blue">Lesh go!</Button>
                 </Link>
               </Box>
