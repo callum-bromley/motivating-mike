@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom'
+import { Box } from '@chakra-ui/react'
 import Nav from './Nav'
 import Footer from './Footer'
 import { useState } from 'react'
@@ -12,9 +13,11 @@ export default function Layout() {
 
   return (
     <>
-      <header>
-        <Nav />
-      </header>
+      <Box position="fixed">
+        <header>
+          <Nav />
+        </header>
+      </Box>
       <main>
         <Outlet context={{ username, updateUsername }} />
       </main>

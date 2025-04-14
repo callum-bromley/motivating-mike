@@ -48,7 +48,7 @@ export default function Home() {
   }
 
   if (error || todosError) {
-    ; <Box
+    ;<Box
       height="100vh"
       flex="1"
       flexDir="column"
@@ -65,7 +65,7 @@ export default function Home() {
     userData.id === undefined ||
     userData.avatarId === undefined
   ) {
-    ; <Box
+    ;<Box
       height="100vh"
       flex="1"
       flexDir="column"
