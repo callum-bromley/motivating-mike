@@ -3,7 +3,7 @@ import AddTodo from '../components/AddTodo'
 import DeleteTodo from '../components/DeleteTodo'
 import { useState } from 'react'
 import EditTodo from '../components/EditTodo'
-import Notepad from '../components/Notepad'
+
 import '@fontsource/indie-flower'
 import {
   Box,
@@ -61,14 +61,11 @@ export default function TodoList() {
     return <p>no todos ever</p>
   }
 
-
-
   const handleClick = (id: number) => {
     setEditId(id)
   }
   return (
     <>
-    
       <Flex height="100vh">
         <Box
           flex="1"
@@ -78,7 +75,6 @@ export default function TodoList() {
           alignItems="center"
         >
           <AddTodo />
-          
         </Box>
         <Box
           flex="1"
@@ -90,57 +86,61 @@ export default function TodoList() {
           <VStack overflowY="scroll">
             <Box justifyContent="left">
               <Heading as="h3" font-family="Bangers">
-                <Notepad>Todos:</Notepad>
+                <Text fontFamily="'Indie Flower', cursive" bg="yellow.50" border="1px solid #ccc" borderRadius="md" boxShadow="md">Todos:</Text>
               </Heading>
             </Box>
-            
-    <Box maxHeight="32vh" overflowY="auto"
-        bg="yellow.50"
-        border="1px solid #ccc"
-        borderRadius="md"
-        px={4}
-        py={2}
-        boxShadow="md"
-        fontFamily="'Indie Flower', cursive"
-        // backgroundImage="linear-gradient(to bottom, transparent 29px, #ccc 30px)"
-        backgroundSize="100% 30px"
-        whiteSpace="pre-wrap"
-        width="100%"
-        overflowY="auto"
-        maxHeight="60vh"
-        backgroundAttachment="local">
-    <List
-  spacing={0} 
-  fontSize="md"
-  lineHeight="30px"
-  fontFamily="'Courier New', monospace" 
->
-        {todos.map((todo) =>
-          todo.id === editId ? (
-            <EditTodo
-              key={todo.task}
-              todo={todo}
-              editId={editId}
-              onSave={() => setEditId(0)}
-            />
-          ) : (
-            <Flex key={todo.id}>
-              <UpdateTodoMenu />
-              <ListItem borderBottom="1px solid #ccc" pb={2} mb={2}
-                onDoubleClick={() => handleClick(todo.id)}
+
+            <Box
+              maxHeight="32vh"
+              overflowY="auto"
+              bg="yellow.50"
+              border="1px solid #ccc"
+              borderRadius="md"
+              px={4}
+              py={2}
+              boxShadow="md"
+              fontFamily="'Indie Flower', cursive"
+              backgroundSize="100% 30px"
+              whiteSpace="pre-wrap"
+              width="100%"
+              overflowY="auto"
+              maxHeight="60vh"
+              backgroundAttachment="local"
+            >
+              <List
+                spacing={0}
+                fontSize="md"
+                lineHeight="30px"
+                fontFamily="'Courier New', monospace"
               >
-                <Flex w="25vw" alignItems="center">
-                  {todo.task}
-                </Flex>
-              </ListItem>
-              <DeleteSingleTodo todoId={todo.id} />
-            </Flex>
-          )
-        )}
-      </List>
-    </Box>
-  
-            
+                {todos.map((todo) =>
+                  todo.id === editId ? (
+                    <EditTodo
+                      key={todo.task}
+                      todo={todo}
+                      editId={editId}
+                      onSave={() => setEditId(0)}
+                    />
+                  ) : (
+                    <Flex key={todo.id}>
+                      <UpdateTodoMenu />
+                      <ListItem
+                        borderBottom="1px solid #ccc"
+                        pb={2}
+                        mb={2}
+                        onDoubleClick={() => handleClick(todo.id)}
+                      >
+                        <Flex w="25vw" alignItems="center">
+                          {todo.task}
+                        </Flex>
+                      </ListItem>
+                      <DeleteSingleTodo todoId={todo.id} />
+                    </Flex>
+                  ),
+                )}
+              </List>
+            </Box>
+
             <Box pt={4}>
               <Link to={'/Home'}>
                 <Button colorScheme="blue">Lesh go!</Button>
