@@ -23,7 +23,7 @@ export async function addTodo(data: TodoData) {
     user_id: userId,
   }
   const results = await db('todos').insert(newTodo)
-  console.log(newTodo)
+  // console.log('db func, addTodo', newTodo)
   return results
 }
 
