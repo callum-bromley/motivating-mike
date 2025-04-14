@@ -5,6 +5,7 @@ import OneHeckle from './OneHeckle'
 import { useNavigate } from 'react-router-dom'
 import HomePageAvatar from './HomePageAvatar'
 
+
 interface Props {
   userId: number
 }
@@ -113,6 +114,7 @@ export default function OneTodo({ userId }: Props) {
             </h3>
           </Box>
         </>
+
       ) : (
         <>
           <h4>You&apos;re all caught up!</h4>
