@@ -33,7 +33,7 @@ export async function getUserById(id: number) {
 
 export async function getUserByAuthId(authId: string): Promise<User> {
   const user = await db('users').where('users.auth_id', authId).select(userKeys).first()
-  console.log(authId)
+  // console.log('db func, getUserByAuthId', authId)
   return user as User
 }
 // UPDATE
