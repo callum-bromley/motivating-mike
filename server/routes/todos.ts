@@ -37,6 +37,7 @@ router.get('/user/:id', async (req, res) => {
 router.post('/', async (req, res, next) => {
   try {
     await db.addTodo(req.body)
+    console.log('Through route', req.body)
     res.sendStatus(204)
   } catch (e) {
     next(e)
