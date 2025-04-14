@@ -20,6 +20,7 @@ import {
   VStack,
   Image,
   Button,
+  Badge,
 } from '@chakra-ui/react'
 import { MdCheckCircle } from 'react-icons/md'
 import {
@@ -76,6 +77,7 @@ export default function TodoList() {
         >
           <AddTodo />
         </Box>
+
         <Box
           flex="1"
           backgroundColor="#EFD9AA"
@@ -86,7 +88,15 @@ export default function TodoList() {
           <VStack overflowY="scroll">
             <Box justifyContent="left">
               <Heading as="h3" font-family="Bangers">
-                <Text fontFamily="'Indie Flower', cursive" bg="yellow.50" border="1px solid #ccc" borderRadius="md" boxShadow="md">Todos:</Text>
+                <Text
+                  fontFamily="'Indie Flower', cursive"
+                  bg="yellow.50"
+                  border="1px solid #ccc"
+                  borderRadius="md"
+                  boxShadow="md"
+                >
+                  Todos:
+                </Text>
               </Heading>
             </Box>
 
@@ -97,7 +107,7 @@ export default function TodoList() {
               px={4}
               py={2}
               boxShadow="md"
-              fontFamily="'Indie Flower', cursive"
+              // fontFamily="'Indie Flower', cursive"
               backgroundSize="100% 30px"
               whiteSpace="pre-wrap"
               width="100%"
@@ -105,47 +115,67 @@ export default function TodoList() {
               overflowY="auto"
               backgroundAttachment="local"
             >
-              <List
-                spacing={0}
-                fontSize="md"
-                lineHeight="30px"
-                fontFamily="'Courier New', monospace"
-              >
-                {todos.map((todo) =>
-                  todo.id === editId ? (
-                    <EditTodo
-                      key={todo.task}
-                      todo={todo}
-                      editId={editId}
-                      onSave={() => setEditId(0)}
-                    />
-                  ) : (
+              {editId === 0 ? (
+                <List
+                  spacing={0}
+                  fontSize="md"
+                  lineHeight="30px"
+                  fontFamily="'Courier New', monospace"
+                >
+                  {todos.map((todo) => (
                     <Flex key={todo.id}>
-                      <UpdateTodoMenu />
                       <ListItem
                         borderBottom="1px solid #ccc"
                         pb={2}
                         mb={2}
-                        onDoubleClick={() => handleClick(todo.id)}
+                        onDoubleClick={() => handleClick(todo.id)} // Set editId on double-click
                       >
                         <Flex w="25vw" alignItems="center">
                           {todo.task}
+                          <Badge
+                            ml={2}
+                            colorScheme={
+                              todo.urgency === 3
+                                ? 'red'
+                                : todo.urgency === 2
+                                  ? 'yellow'
+                                  : 'green'
+                            }
+                          >
+                            {todo.urgency === 3
+                              ? 'Severe'
+                              : todo.urgency === 2
+                                ? 'Should do'
+                                : 'Chill'}
+                          </Badge>
                         </Flex>
                       </ListItem>
                       <DeleteSingleTodo todoId={todo.id} />
                     </Flex>
-                  ),
-                )}
-              </List>
+                  ))}
+                </List>
+              ) : (
+                todos
+                  .filter((todo) => todo.id === editId)
+                  .map((todo) => (
+                    <EditTodo
+                      key={todo.id}
+                      todo={todo}
+                      editId={editId}
+                      onSave={() => setEditId(0)} // After save, reset editId to 0 to show the list again
+                    />
+                  ))
+              )}
             </Box>
 
             <Box pt={4}>
-              <Link to={'/Home'}>
+              <Link to="/">
                 <Button colorScheme="blue">Lesh go!</Button>
               </Link>
             </Box>
           </VStack>
         </Box>
+
         <Flex>
           <Box>
             <Text
@@ -173,12 +203,11 @@ export default function TodoList() {
               transform="translate(-10%, -42%)"
               textShadow="0px 0px 10px #0059b3"
               fontSize="8xl"
-              color="#00BFFF" // Neon Blue color
+              color="#00BFFF"
               fontFamily="Bangers"
               textAlign="center"
               zIndex="1"
-              // textShadow="0px 0px 10px #00BFFF" // Neon blue text shadow
-              animation={`${fadeInOutBlue} 3s ease-in-out infinite`} // Apply the animation
+              animation={`${fadeInOutBlue} 3s ease-in-out infinite`}
             >
               Mike
             </Text>
@@ -197,8 +226,8 @@ export default function TodoList() {
               alt="A pencil & a book"
               boxSize="110px"
               position="absolute"
-              top="25%"
-              left="53%"
+              top="31%"
+              left="54.5%"
               zIndex="1"
               width="auto"
             />
@@ -262,10 +291,10 @@ export default function TodoList() {
               zIndex="1"
               width="auto"
             />
+            {/* Add other images here */}
           </Box>
         </Flex>
       </Flex>
-      {/* <RefillForm></RefillForm> */}
     </>
   )
 }
