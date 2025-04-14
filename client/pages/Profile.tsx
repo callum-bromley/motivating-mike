@@ -72,16 +72,7 @@ export default function UserHomePage() {
   }
 
   return (
-    <Box
-      height="100vh"
-      flex="1"
-      flexDir="column"
-      backgroundColor="#B1CFB7"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      overflow="auto"
-    >
+    <>
       <IfAuthenticated>
         <Flex
           direction={['column', 'row']}
@@ -153,7 +144,7 @@ export default function UserHomePage() {
         <Button onClick={handleSignIn}>Add Todo</Button>
         <p>Sign in to see your data</p>
       </IfNotAuthenticated>
-    </Box >
+    </>
   )
 }
 
