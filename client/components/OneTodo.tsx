@@ -1,10 +1,8 @@
 import useUserTodos from '../apis/use-user-todos'
 import useUserDataAuth from '../apis/use-user-data-auth'
 import { Box, Spinner } from '@chakra-ui/react'
-import { Todo } from '../models/todos'
 import OneHeckle from './OneHeckle'
 import { useNavigate } from 'react-router-dom'
-import FilteredTodos from './filteredTodos'
 
 interface Props {
   userId: number
@@ -60,8 +58,6 @@ export default function OneTodo({ userId }: Props) {
     filteredTodos.length > 0
       ? filteredTodos[Math.floor(Math.random() * filteredTodos.length)]
       : null
-
-  console.log(filteredTodos)
 
   return (
     <>

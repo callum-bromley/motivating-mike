@@ -59,8 +59,6 @@ export default function DopamineHit({ userId }: Props) {
       ? filteredTodos[Math.floor(Math.random() * filteredTodos.length)]
       : null
 
-  console.log(filteredTodos)
-
   return (
     <>
       {randomTodo ? (
