@@ -19,6 +19,7 @@ import {
   DrawerCloseButton,
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
+import Logo from './NavLogo'
 
 export default function Nav() {
   const navigate = useNavigate()
@@ -40,6 +41,7 @@ export default function Nav() {
 
   return (
     <>
+      <Logo />
       <Box position="absolute" right={3} top={2}>
         <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
           <DrawerOverlay />
