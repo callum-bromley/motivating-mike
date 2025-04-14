@@ -3,6 +3,8 @@ import AddTodo from '../components/AddTodo'
 import DeleteTodo from '../components/DeleteTodo'
 import { useState } from 'react'
 import EditTodo from '../components/EditTodo'
+
+import '@fontsource/indie-flower'
 import {
   Box,
   Flex,
@@ -16,6 +18,8 @@ import {
   MenuList,
   Text,
   VStack,
+  Image,
+  Button,
 } from '@chakra-ui/react'
 import { MdCheckCircle } from 'react-icons/md'
 import {
@@ -28,6 +32,8 @@ import UpdateTodoMenu from '../components/UpdateTodoMenu'
 import DeleteSingleTodo from '../components/DeleteSingleTodo'
 
 import { keyframes } from '@emotion/react'
+
+import { Link } from 'react-router-dom'
 
 // Define the phasing glow animation
 const phase = keyframes`
@@ -55,8 +61,6 @@ export default function TodoList() {
     return <p>no todos ever</p>
   }
 
-  console.log(editId)
-
   const handleClick = (id: number) => {
     setEditId(id)
   }
@@ -79,16 +83,38 @@ export default function TodoList() {
           justifyContent="center"
           alignItems="center"
         >
-          <VStack>
+          <VStack overflowY="scroll">
             <Box justifyContent="left">
-              <Heading as="h3" font-family="Recoleta">
-                Todos:
+              <Heading as="h3" font-family="Bangers">
+                <Text font-family="'Indie Flower', cursive" bg="yellow.50" border="1px solid #ccc" borderRadius="md" boxShadow="md">Todos:</Text>
               </Heading>
             </Box>
-            <List as="h3" fontSize="4xl" color="black" fontFamily="monospace">
-              {todos.map((todo) => {
-                {
-                  return todo.id == editId ? (
+
+            <Box
+              maxHeight="32vh"
+              overflowY="auto"
+              bg="yellow.50"
+              border="1px solid #ccc"
+              borderRadius="md"
+              px={4}
+              py={2}
+              boxShadow="md"
+              fontFamily="'Indie Flower', cursive"
+              backgroundSize="100% 30px"
+              whiteSpace="pre-wrap"
+              width="100%"
+              overflowY="auto"
+              maxHeight="60vh"
+              backgroundAttachment="local"
+            >
+              <List
+                spacing={0}
+                fontSize="md"
+                lineHeight="30px"
+                fontFamily="'Courier New', monospace"
+              >
+                {todos.map((todo) =>
+                  todo.id === editId ? (
                     <EditTodo
                       key={todo.task}
                       todo={todo}
@@ -96,27 +122,30 @@ export default function TodoList() {
                       onSave={() => setEditId(0)}
                     />
                   ) : (
-                    <>
-                      <Flex>
-                        <UpdateTodoMenu />
-                        <ListItem
-                          key={todo.task}
-                          onDoubleClick={() => {
-                            handleClick(todo.id)
-                          }}
-                        >
-                          <Flex w="25vw" alignItems="center">
-                            {todo.task}
-                          </Flex>
-                        </ListItem>
-                        <DeleteSingleTodo todoId={todo.id} />
-                      </Flex>
-                    </>
-                  )
-                }
-              })}
-            </List>
-         
+                    <Flex key={todo.id}>
+                      <UpdateTodoMenu />
+                      <ListItem
+                        borderBottom="1px solid #ccc"
+                        pb={2}
+                        mb={2}
+                        onDoubleClick={() => handleClick(todo.id)}
+                      >
+                        <Flex w="25vw" alignItems="center">
+                          {todo.task}
+                        </Flex>
+                      </ListItem>
+                      <DeleteSingleTodo todoId={todo.id} />
+                    </Flex>
+                  ),
+                )}
+              </List>
+            </Box>
+
+            <Box pt={4}>
+              <Link to={'/Home'}>
+                <Button colorScheme="blue">Lesh go!</Button>
+              </Link>
+            </Box>
           </VStack>
         </Box>
         <Flex>
@@ -155,16 +184,90 @@ export default function TodoList() {
             >
               Mike
             </Text>
+            <Image
+              src="../public/funPhotos/big-blue-fish.webp"
+              alt="A large fish"
+              boxSize="82px"
+              position="absolute"
+              top="14%"
+              left="74%"
+              zIndex="1"
+              width="auto"
+            />
+            <Image
+              src="/funPhotos/pencil-paper.webp"
+              alt="A pencil & a book"
+              boxSize="110px"
+              position="absolute"
+              top="25%"
+              left="53%"
+              zIndex="1"
+              width="auto"
+            />
+            <Image
+              src="funPhotos/hammer.webp"
+              alt="a hammer"
+              boxSize="128px"
+              position="absolute"
+              top="15%"
+              left="29%"
+              zIndex="1"
+              width="auto"
+            />
+            <Image
+              src="/funPhotos/tree.webp"
+              alt="A lovely tree"
+              boxSize="280px"
+              position="absolute"
+              top="70%"
+              left="84%"
+              zIndex="1"
+              width="auto"
+            />
+            <Image
+              src="/funPhotos/bush-2.webp"
+              alt="A bush"
+              boxSize="150px"
+              position="absolute"
+              left="5%"
+              top="82%"
+              zIndex="2"
+              width="auto"
+            />
+            <Image
+              src="/funPhotos/bush-1.webp"
+              alt="A bush"
+              boxSize="150px"
+              position="absolute"
+              left="10%"
+              top="81%"
+              zIndex="1"
+              width="auto"
+            />
+            <Image
+              src="/funPhotos/bush-3.webp"
+              alt="A bush"
+              boxSize="150px"
+              position="absolute"
+              left="2%"
+              top="81%"
+              zIndex="1"
+              width="auto"
+            />
+            <Image
+              src="/funPhotos/squirell.webp"
+              alt="A squirell holding an acorn"
+              boxSize="120px"
+              position="absolute"
+              left="9%"
+              top="79%"
+              zIndex="1"
+              width="auto"
+            />
           </Box>
         </Flex>
       </Flex>
+      {/* <RefillForm></RefillForm> */}
     </>
   )
 }
-
-//update
-
-//useState - track task being edited (id)
-//When user dbl clicks, the state changes (click handler - on every list item in the map)
-//if task id is the clicked task id = show the form.
-//ternary on line 25. id = editedId ? show component or list item for the task
