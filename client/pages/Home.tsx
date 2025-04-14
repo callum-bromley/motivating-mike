@@ -108,7 +108,7 @@ export default function Home() {
         paddingTop={["12rem", "14rem", "17rem", "20rem"]}
       >
         <IfAuthenticated>
-          {userData && <HomePageAvatar avatarId={userData.avatarId} />}
+          {/* {userData && <HomePageAvatar avatarId={userData.avatarId} />} */}
           <Flex gap={2}>
             {showProcrastinate ? (
               <Procrastinate userId={userData.id} />

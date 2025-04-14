@@ -3,6 +3,7 @@ import useUserDataAuth from '../apis/use-user-data-auth'
 import { Box, Spinner } from '@chakra-ui/react'
 import OneHeckle from './OneHeckle'
 import { useNavigate } from 'react-router-dom'
+import HomePageAvatar from './HomePageAvatar'
 
 interface Props {
   userId: number
@@ -71,6 +72,7 @@ export default function DopamineHit({ userId }: Props) {
             avatarId={userData.avatarId}
             urgency={randomTodo?.urgency}
           />
+          {userData && <HomePageAvatar avatarId={userData.avatarId} />}
         </>
       ) : (
         <>
