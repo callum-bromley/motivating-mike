@@ -52,7 +52,16 @@ export default function OneTodo({ userId }: Props) {
     )
   }
 
-  const randomTodo = FilteredTodos(todos as Todo[])
+  const maxUrgency = Math.max(
+    ...todos.filter((todo) => todo.urgency > 0).map((todo) => todo.urgency),
+  )
+  const filteredTodos = todos.filter((todo) => todo.urgency === maxUrgency)
+  const randomTodo =
+    filteredTodos.length > 0
+      ? filteredTodos[Math.floor(Math.random() * filteredTodos.length)]
+      : null
+
+  console.log(filteredTodos)
 
   return (
     <>

@@ -1,26 +1,17 @@
 import { Todo } from '../models/todos'
 
-export default function FilteredTodos(todos: Todo[]) {
-  if (todos.length === 0) {
-    return null
+export default function ReverseFilterTodos(todos: Todo[]) {
+  let filteredTodos: Todo[] = []
+
+  for (let urgency = 3; urgency >= 1; urgency--) {
+    filteredTodos = todos.filter((todo) => todo.urgency === urgency)
+    if (filteredTodos.length > 0) break
   }
 
-  let filteredTodos = todos.filter((todo) => todo.urgency === 3)
-  let randomTodo = null
-
-  if (filteredTodos.length === 0) {
-    filteredTodos = todos.filter((todo) => todo.urgency === 2)
-  }
-  if (filteredTodos.length === 0) {
-    filteredTodos = todos.filter((todo) => todo.urgency === 1)
-  }
   if (filteredTodos.length > 0) {
-    filteredTodos = todos.filter((todo) => todo.completed === null)
-  }
-  if (filteredTodos.length > 0) {
-    const randomChoice = Math.floor(Math.random() * filteredTodos.length)
-    randomTodo = filteredTodos[randomChoice]
+    const randomIndex = Math.floor(Math.random() * filteredTodos.length)
+    return filteredTodos[randomIndex]
   }
 
-  return randomTodo
+  return null
 }

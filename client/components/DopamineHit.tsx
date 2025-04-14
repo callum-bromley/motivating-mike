@@ -3,8 +3,6 @@ import useUserDataAuth from '../apis/use-user-data-auth'
 import { Box, Spinner } from '@chakra-ui/react'
 import OneHeckle from './OneHeckle'
 import { useNavigate } from 'react-router-dom'
-import { Todo } from '../models/todos'
-import ReverseFilterTodos from './ReverseFilterTodos'
 
 interface Props {
   userId: number
@@ -52,7 +50,16 @@ export default function DopamineHit({ userId }: Props) {
     )
   }
 
-  const randomTodo = ReverseFilterTodos(todos as Todo[])
+  const minUrgency = Math.min(
+    ...todos.filter((todo) => todo.urgency > 0).map((todo) => todo.urgency),
+  )
+  const filteredTodos = todos.filter((todo) => todo.urgency === minUrgency)
+  const randomTodo =
+    filteredTodos.length > 0
+      ? filteredTodos[Math.floor(Math.random() * filteredTodos.length)]
+      : null
+
+  console.log(filteredTodos)
 
   return (
     <>
