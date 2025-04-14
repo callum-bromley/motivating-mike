@@ -1,5 +1,9 @@
+import { Box } from "@chakra-ui/react";
+
 export default function Footer() {
   return (
-    <h1>Footer Component Placeholder</h1>
+    <Box position='absolute' left={4} bottom={8} justifyContent="center">
+      <h1>Footer Component Placeholder</h1>
+    </Box>
   )
 }

@@ -1,17 +1,5 @@
 import db from './../connection.ts'
-import { Todo } from '../../../client/models/todos.ts'
-
-// function convertTodosToSnakeCase(data: Todo) {
-//   return {
-//     id: data.id,
-//     task: data.task,
-//     completed: data.completed,
-//     urgency: data.urgency,
-//     created: data.created,
-//     due: data.due,
-//     user_id: data.userId,
-//   }
-// }
+import { Todo, TodoData } from '../../../client/models/todos.ts'
 
 export const todoKeys = [
   'todos.id as id',
@@ -24,13 +12,25 @@ export const todoKeys = [
 ]
 
 // CREATE
+export async function addTodo(data: TodoData) {
+  const { task, urgency, created, due, completed, userId } = data
+  const newTodo = {
+    task,
+    urgency,
+    created,
+    due,
+    completed,
+    user_id: userId,
+  }
+  const results = await db('todos').insert(newTodo)
+  return results
+}
 
 // READ
 
 export async function getTodos() {
   try {
     const result = await db('todos').select(todoKeys)
-    // console.log(result)
     return result
   } catch (error) {
     console.error(error)
@@ -39,16 +39,28 @@ export async function getTodos() {
 
 // getTodosByUserId
 export async function getTodosByUserId(userId: number): Promise<Todo[]> {
-  const todoList = await db('todos')
-    .where('todos.user_id', userId)
-    .select()
-
-  // console.log('getTodosByYserId: ', todoList)
+  const todoList = await db('todos').where('todos.user_id', userId).select()
 
   return todoList
 }
 
 // UPDATE
+export async function updateTodo(updatedTodo: Todo) {
+  const todo: Todo = await db('todos')
+    .where('todos.id', updatedTodo.id)
+    .update('task', updatedTodo.task)
+    .update('urgency', updatedTodo.urgency)
+    .update('created', updatedTodo.created)
+    .update('due', updatedTodo.due)
+    .update('completed', updatedTodo.completed)
+    .update('userId', updatedTodo.userId)
+
+  return todo
+}
 
 // DELETE
-//
+
+export async function deleteTodo(id: number) {
+  const results = await db('todos').del().where('todos.id', id)
+  return results
+}

@@ -1,7 +1,7 @@
 import request from 'superagent'
 import { useQuery } from '@tanstack/react-query'
 
-import { Todo } from '../models/todos.ts'
+import { Todo } from '../models/todos'
 
 export default function useTodos() {
   return useQuery({
@@ -9,7 +9,7 @@ export default function useTodos() {
     queryFn: async () => {
       const res = await request.get('/api/v1/todos')
       if (res.ok) {
-        // console.log(res.body)
+        console.log(res.body)
         return res.body as Todo[]
       }
 

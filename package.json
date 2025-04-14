@@ -17,7 +17,6 @@
     "knex": "knex --knexfile ./server/db/knexfile.js",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "format": "prettier -w '**/*.{js,jsx,ts,tsx}'"
-
   },
   "keywords": [
     "fullstack"
@@ -31,13 +30,22 @@
     ]
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.3.0",
+    "@chakra-ui/icons": "^2.2.4",
     "@chakra-ui/react": "^2.10.7",
     "@devacademy/eslint-config": "^1.10.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@fontsource/indie-flower": "^5.2.5",
+    "date-fns": "^4.1.0",
     "express": "^4.17.2",
+    "express-jwt": "^8.5.1",
     "framer-motion": "^12.6.3",
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.2.0",
     "knex": "^2.5.1",
+    "react-datepicker": "^8.3.0",
+    "react-icons": "^5.5.0",
     "sqlite3": "^5.1.7",
     "superagent": "^8.1.2"
   },
@@ -82,5 +90,4 @@
     "singleQuote": true
   },
   "browserslist": "> 2%, not dead"
-  
 }

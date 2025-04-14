@@ -1,23 +1,20 @@
+import { User } from '../../../client/models/users.ts'
 import db from './../connection.ts'
-// import { User } from '../../../client/models/users.ts'
-
-// function convertUsersToSnakeCase(data: user) {
-//   return {
-//     id: data.id,
-//     name: data.name,
-//     avatar_id: data.avatarId,
-//   }
-// }
 
 export const userKeys = [
   'users.id as id',
+  'users.auth_id as authId',
   'users.name as name',
   'users.avatar_id as avatarId',
 ]
 
 // CREATE
 
-// addUser
+export async function addNewUser(data: User) {
+  const results = await db('users').insert(data)
+
+  return results
+}
 
 // READ
 
@@ -30,10 +27,18 @@ export async function getUserById(id: number) {
   }
 }
 
+export async function getUserByAuthId(authId: string): Promise<User> {
+  const user = await db('users').where('users.auth_id', authId).select(userKeys).first()
+  console.log(authId)
+  return user as User
+}
 // UPDATE
 
 // updateUser
 
+export async function updateUserAvatar(userId: number, avatarId: number) {
+  return db('users').where({ id: userId }).update({ avatar_id: avatarId })
+}
 // DELETE
 
 // deleteUser
