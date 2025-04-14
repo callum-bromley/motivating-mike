@@ -98,7 +98,7 @@ export default function UserHomePage() {
               isOpen={isDrawerOpen}
               onClose={closeDrawer}
               setSelectedAvatarId={setSelectedAvatarId}
-              userId={userData.id}
+              userId={userData?.id}
             />
           </Box>
           <Box
