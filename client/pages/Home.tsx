@@ -105,7 +105,7 @@ export default function Home() {
         backgroundColor="#B1CFB7"
         display="flex"
         alignItems="center"
-        paddingTop={["12rem", "14rem", "17rem", "20rem"]}
+        paddingTop={['12rem', '14rem', '17rem', '20rem']}
       >
         <IfAuthenticated>
           {userData && <HomePageAvatar avatarId={userData.avatarId} />}
