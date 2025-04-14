@@ -13,7 +13,7 @@ export default function Layout() {
 
   return (
     <>
-      <Box position="fixed">
+      <Box position="absolute" right={4} top={4}>
         <header>
           <Nav />
         </header>
