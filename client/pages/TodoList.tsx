@@ -226,8 +226,8 @@ export default function TodoList() {
               alt="A pencil & a book"
               boxSize="110px"
               position="absolute"
-              top="25%"
-              left="53%"
+              top="31%"
+              left="54.5%"
               zIndex="1"
               width="auto"
             />
