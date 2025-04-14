@@ -3,17 +3,20 @@ import { Box, Button, Flex, Spinner } from '@chakra-ui/react'
 import PickAvatar from '../components/PickAvatar'
 import TaskHistory from '../components/TaskHistory'
 import UserProfile from '../components/UserProfile'
-import { IfAuthenticated, IfNotAuthenticated } from '../components/Authenticated'
+import {
+  IfAuthenticated,
+  IfNotAuthenticated,
+} from '../components/Authenticated'
 import useUserDataAuth from '../apis/use-user-data-auth'
 import { useAuth0 } from '@auth0/auth0-react'
-
-
 
 export default function UserHomePage() {
   const { data: userData, isPending, error } = useUserDataAuth()
   const { loginWithPopup } = useAuth0()
 
-  const [selectedAvatarId, setSelectedAvatarId] = useState<number | null | undefined>(userData?.avatarId)
+  const [selectedAvatarId, setSelectedAvatarId] = useState<
+    number | null | undefined
+  >(userData?.avatarId)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   const openDrawer = () => setIsDrawerOpen(true)
@@ -37,7 +40,7 @@ export default function UserHomePage() {
   }
 
   if (error) {
-    <Box
+    ;<Box
       height="100vh"
       flex="1"
       flexDir="column"
@@ -49,11 +52,8 @@ export default function UserHomePage() {
       return <h2>Error: {error.message}</h2>
     </Box>
   }
-  if (
-    !userData ||
-    userData.id === undefined
-  ) {
-    <Box
+  if (!userData || userData.id === undefined) {
+    ;<Box
       width="100vw"
       flex="1"
       flexDir="column"
@@ -82,7 +82,7 @@ export default function UserHomePage() {
           py={8}
           gap={[8, 4]}
           bg="#FAF9F6"
-          paddingTop={["10rem", "12rem", "14rem", "17rem"]}
+          paddingTop={['10rem', '12rem', '14rem', '17rem']}
         >
           {/* Left Panel: Profile + Avatar Change */}
           <Box
@@ -92,20 +92,27 @@ export default function UserHomePage() {
             marginX="auto"
             alignItems="center"
             gap={6}
-            bg="white"
+            bg="#FAF9F6"
             p={6}
             borderRadius="xl"
             boxShadow="lg"
             position="relative"
           >
-            <UserProfile userId={userData?.id} selectedAvatarId={userData?.avatarId} />
+            <UserProfile
+              userId={userData?.id}
+              selectedAvatarId={userData?.avatarId}
+            />
             <Button
+              colorScheme="blue"
               onClick={openDrawer}
-              width="100%"
-              maxW="200px"
-              borderRadius="lg"
-              colorScheme="teal"
-              mt={2}
+              px={4}
+              py={2}
+              transition="all 0.2s"
+              borderRadius="md"
+              borderWidth="1px"
+              // _hover={{ bg: 'gray.400' }}
+              // _expanded={{ bg: 'blue.400' }}
+              // _focus={{ boxShadow: 'outline' }}
             >
               Change Avatar
             </Button>
@@ -139,7 +146,7 @@ export default function UserHomePage() {
           />
         </Flex>
         {/* <Button onClick={() => navigate(`/todo-list`)}>Add Todo</Button> */}
-      </IfAuthenticated >
+      </IfAuthenticated>
       <IfNotAuthenticated>
         <Button onClick={handleSignIn}>Add Todo</Button>
         <p>Sign in to see your data</p>
@@ -147,4 +154,3 @@ export default function UserHomePage() {
     </Box>
   )
 }
-
