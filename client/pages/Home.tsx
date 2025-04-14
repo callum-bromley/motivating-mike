@@ -28,7 +28,6 @@ export default function Home() {
   const navigate = useNavigate()
   const { mutateAsync: updateStatus } = useUpdateStatus()
   const [isComplete, setIsComplete] = useState(false)
-  // console.log(userData)
 
   if (isPending || todosPending) {
     return (
@@ -48,7 +47,7 @@ export default function Home() {
   }
 
   if (error || todosError) {
-    ;<Box
+    <Box
       height="100vh"
       flex="1"
       flexDir="column"
@@ -65,7 +64,7 @@ export default function Home() {
     userData.id === undefined ||
     userData.avatarId === undefined
   ) {
-    ;<Box
+    <Box
       height="100vh"
       flex="1"
       flexDir="column"
