@@ -11,8 +11,6 @@ import { useState } from 'react'
 import useUserTodos from '../apis/use-user-todos'
 import useUserDataAuth from '../apis/use-user-data-auth'
 
-import { keyframes } from '@emotion/react'
-import '@fontsource/indie-flower'
 import {
   Box,
   Flex,
@@ -27,20 +25,6 @@ import {
   Badge,
 } from '@chakra-ui/react'
 import { useAuth0 } from '@auth0/auth0-react'
-
-// Define the phasing glow animation
-const phase = keyframes`
-  0% { opacity: 1 }
-  50% { opacity: 0.4 }
-  100% { opacity: 1 }
-`
-
-const animation = `${phase} 3s ease-in-out infinite`
-
-const fadeInOutBlue = keyframes`
-  0% { opacity: 1; }
-  50% { opacity: 0.4; }
-  100% { opacity: 1; }`
 
 export default function TodoList() {
   const { data: userData, isPending, error } = useUserDataAuth()
@@ -204,39 +188,6 @@ export default function TodoList() {
 
           <Flex>
             <Box>
-              <Text
-                fontFamily="Bangers"
-                fontSize="9xl"
-                color="#D7C2DB"
-                animation={animation}
-                textShadow="0px 0px 10px #D100FF"
-                position="absolute"
-                top="10%"
-                left="38.5%"
-                transform="translate(-10%, -42%)"
-                zIndex="1"
-                textAlign="center"
-              >
-                Motivating
-              </Text>
-            </Box>
-            <Box>
-              <Text
-                as="h1"
-                position="absolute"
-                top="20%"
-                left="59%"
-                transform="translate(-10%, -42%)"
-                textShadow="0px 0px 10px #0059b3"
-                fontSize="8xl"
-                color="#00BFFF"
-                fontFamily="Bangers"
-                textAlign="center"
-                zIndex="1"
-                animation={`${fadeInOutBlue} 3s ease-in-out infinite`}
-              >
-                Mike
-              </Text>
               <Image
                 src="/funPhotos/big-blue-fish.webp"
                 alt="A large fish"

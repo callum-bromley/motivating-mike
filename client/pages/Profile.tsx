@@ -54,7 +54,7 @@ export default function UserHomePage() {
     userData.id === undefined
   ) {
     <Box
-      height="100vh"
+      width="100vw"
       flex="1"
       flexDir="column"
       backgroundColor="#B1CFB7"
@@ -72,23 +72,24 @@ export default function UserHomePage() {
   }
 
   return (
-    <>
+    <Box height="100vh" bg="#FAF9F6">
       <IfAuthenticated>
         <Flex
-          direction={['column', 'row']}
+          direction={['column', 'column', 'row', 'row']}
           justify="space-between"
           align="flex-start"
           px={[4, 8]}
           py={8}
           gap={[8, 4]}
           bg="#FAF9F6"
-          minH="100vh"
+          paddingTop={["10rem", "12rem", "14rem", "17rem"]}
         >
           {/* Left Panel: Profile + Avatar Change */}
           <Box
             flexBasis={['100%', '35%']}
             display="flex"
             flexDirection="column"
+            marginX="auto"
             alignItems="center"
             gap={6}
             bg="white"
@@ -96,7 +97,6 @@ export default function UserHomePage() {
             borderRadius="xl"
             boxShadow="lg"
             position="relative"
-            top="100px"
           >
             <UserProfile userId={userData?.id} selectedAvatarId={userData?.avatarId} />
             <Button
@@ -116,6 +116,7 @@ export default function UserHomePage() {
             flexBasis={['100%', '60%']}
             display="flex"
             flexDirection="column"
+            marginX="auto"
             gap={3}
             bg="white"
             p={6}
@@ -123,7 +124,6 @@ export default function UserHomePage() {
             boxShadow="lg"
             overflowY="auto"
             position="relative"
-            top="100px"
           >
             <TaskHistory userId={userData?.id} />
           </Box>
@@ -144,7 +144,7 @@ export default function UserHomePage() {
         <Button onClick={handleSignIn}>Add Todo</Button>
         <p>Sign in to see your data</p>
       </IfNotAuthenticated>
-    </>
+    </Box>
   )
 }
 

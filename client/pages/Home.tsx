@@ -97,49 +97,51 @@ export default function Home() {
   }
 
   return (
-    <Box
-      height="100vh"
-      flex="1"
-      flexDir="column"
-      backgroundColor="#B1CFB7"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <IfAuthenticated>
-        {userData && <HomePageAvatar avatarId={userData.avatarId} />}
-        <Flex gap={2}>
-          {showProcrastinate ? (
-            <Procrastinate userId={userData.id} />
-          ) : showDopamineHit ? (
-            <DopamineHit userId={userData.id} />
-          ) : isComplete ? (
-            <Complete userId={userData.id} />
-          ) : (
-            <OneTodo userId={userData.id} />
-          )}
-        </Flex>
+    <>
+      <Box
+        height="100vh"
+        flex="1"
+        flexDir="column"
+        backgroundColor="#B1CFB7"
+        display="flex"
+        alignItems="center"
+        paddingTop={["12rem", "14rem", "17rem", "20rem"]}
+      >
+        <IfAuthenticated>
+          {userData && <HomePageAvatar avatarId={userData.avatarId} />}
+          <Flex gap={2}>
+            {showProcrastinate ? (
+              <Procrastinate userId={userData.id} />
+            ) : showDopamineHit ? (
+              <DopamineHit userId={userData.id} />
+            ) : isComplete ? (
+              <Complete userId={userData.id} />
+            ) : (
+              <OneTodo userId={userData.id} />
+            )}
+          </Flex>
 
-        <ConfettiExplosionEffect isExploding={isExploding} />
+          <ConfettiExplosionEffect isExploding={isExploding} />
 
-        <Button onClick={toggleDopamineHit}>
-          {showDopamineHit ? 'Get Real' : 'Dopamine Hit'}
-        </Button>
+          <Button onClick={toggleDopamineHit}>
+            {showDopamineHit ? 'Get Real' : 'Dopamine Hit'}
+          </Button>
 
-        <Button onClick={toggleComplete}>
-          <p>Complete!</p>
-          {isComplete}
-        </Button>
+          <Button onClick={toggleComplete}>
+            <p>Complete!</p>
+            {isComplete}
+          </Button>
 
-        <Button onClick={toggleProcratinate}>
-          {showProcrastinate ? "I'm sorry!" : 'Procrastinate'}
-        </Button>
-      </IfAuthenticated>
+          <Button onClick={toggleProcratinate}>
+            {showProcrastinate ? "I'm sorry!" : 'Procrastinate'}
+          </Button>
+        </IfAuthenticated>
 
-      <IfNotAuthenticated>
-        <Button onClick={handleSignIn}>Add Todo</Button>
-        <p>Sign in to see your data</p>
-      </IfNotAuthenticated>
-    </Box>
+        <IfNotAuthenticated>
+          <Button onClick={handleSignIn}>Add Todo</Button>
+          <p>Sign in to see your data</p>
+        </IfNotAuthenticated>
+      </Box>
+    </>
   )
 }

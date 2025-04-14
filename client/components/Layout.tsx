@@ -7,11 +7,9 @@ export default function Layout() {
 
   return (
     <>
-      <Box position="absolute" right={4} top={4}>
-        <header>
-          <Nav />
-        </header>
-      </Box>
+      <header>
+        <Nav />
+      </header>
       <main>
         <Outlet />
       </main>
