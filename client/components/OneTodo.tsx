@@ -83,13 +83,13 @@ export default function OneTodo({ userId }: Props) {
             </Box>
           </Box>
           <Box
-            bg="white"
-            p={6}
-            borderRadius="lg"
-            boxShadow="lg"
-            minW="300px"
-            maxW="90vw"
-            textAlign="center"
+            // bg="white"
+            // p={6}
+            // borderRadius="lg"
+            // boxShadow="lg"
+            // minW="300px"
+            // maxW="90vw"
+            // textAlign="center"
           >
             <h3>
               <List
