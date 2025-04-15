@@ -86,7 +86,7 @@ export default function Home() {
 
   return (
     <Box height="100vh" backgroundColor="#B1CFB7">
-      <VStack paddingTop={["12rem", "14rem", "17rem", "20rem"]}>
+      <VStack paddingTop={['12rem', '14rem', '17rem', '20rem']}>
         <IfAuthenticated>
           {userData && <HomePageAvatar avatarId={userData.avatarId} />}
           <Flex gap={2}>

@@ -85,7 +85,7 @@ export default function TodoList() {
             justifyContent="center"
             alignItems="center"
           >
-            <AddTodo userId={todos.userId} />
+            <AddTodo userId={userData.id} />
           </Box>
 
           <Box
@@ -95,7 +95,7 @@ export default function TodoList() {
             justifyContent="center"
             alignItems="center"
           >
-            <VStack overflowY="scroll">
+            <VStack >
               <Box justifyContent="left">
                 <Heading as="h3" font-family="Bangers">
                   <Text
