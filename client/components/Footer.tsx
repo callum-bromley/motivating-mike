@@ -39,7 +39,7 @@ export default function Footer() {
             alt="A lovely tree"
             boxSize="280px"
             position="absolute"
-            top="70%"
+            top="75%"
             left="84%"
             zIndex="1"
             width="auto"
