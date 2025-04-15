@@ -30,6 +30,7 @@ export interface Props {
 
 const urgencyMap: Record<string, number> = {
   Complete: 0,
+
   Chill: 1,
   'Probably should start': 2,
   'Severe(whoops)': 3,
@@ -167,6 +168,7 @@ function EditTodo({ todo, onSave, editId }: Props) {
         </VStack>
       </form>
     </Box>
+
   )
 }
 
