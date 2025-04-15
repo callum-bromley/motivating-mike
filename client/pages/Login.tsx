@@ -105,11 +105,13 @@ export default function Login() {
       fontWeight="bold"
     >
       <IfNotAuthenticated>
-        <Text fontSize="xl">Please Login</Text>
+        <Text fontSize="xl" mt={32}>
+          Please Login
+        </Text>
       </IfNotAuthenticated>
       {/* <IfAuthenticated> */}
       <form onSubmit={handleSubmit}>
-        <FormLabel htmlFor="name" as="h3" fontSize="2xl" mb={4} mt={4}>
+        <FormLabel htmlFor="name" as="h3" fontSize="2xl" mb={4}>
           What shall we call you?
         </FormLabel>
         <Input
