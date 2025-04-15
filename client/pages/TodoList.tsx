@@ -207,21 +207,8 @@ export default function TodoList() {
                           >
                             <Flex w="25vw" alignItems="center">
                               {todo.task}
-                              <Badge
-                                ml={2}
-                                colorScheme={
-                                  todo.urgency === 3
-                                    ? 'red'
-                                    : todo.urgency === 2
-                                      ? 'yellow'
-                                      : 'green'
-                                }
-                              >
-                                {todo.urgency === 3
-                                  ? 'Severe'
-                                  : todo.urgency === 2
-                                    ? 'Should do'
-                                    : 'Chill'}
+                              <Badge ml={2} colorScheme={'green'}>
+                                Complete
                               </Badge>
                             </Flex>
                           </ListItem>
