@@ -163,7 +163,7 @@ function AddTodo({ userId }: Props) {
             </Box>
           </FormControl>
 
-          <Button colorScheme="blue" type="submit">
+          <Button color="#123456" bgColor="#B3D9E1" type="submit">
             Add Todo
           </Button>
         </VStack>
