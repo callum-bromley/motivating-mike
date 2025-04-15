@@ -6,10 +6,7 @@ import HomePageAvatar from '../components/HomePageAvatar'
 import OneTodo from '../components/OneTodo'
 import DopamineHit from '../components/DopamineHit'
 import Procrastinate from '../components/Procrastinate'
-import {
-  IfAuthenticated,
-  IfNotAuthenticated,
-} from '../components/Authenticated'
+import { IfAuthenticated } from '../components/Authenticated'
 
 import { Box, Button, Flex, Spinner, VStack } from '@chakra-ui/react'
 import ConfettiExplosionEffect from '../components/ConfettiExplosion'
@@ -31,10 +28,6 @@ export default function Home() {
 
     return () => clearTimeout(timeout)
   }, [])
-
-
-
-
 
   const handleSignIn = () => {
     loginWithRedirect()
@@ -144,7 +137,6 @@ export default function Home() {
             {showProcrastinate ? "I'm sorry!" : 'Procrastinate'}
           </Button>
         </IfAuthenticated>
-
       </VStack>
     </Box>
   )
