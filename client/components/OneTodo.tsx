@@ -1,10 +1,9 @@
 import useUserTodos from '../apis/use-user-todos'
 import useUserDataAuth from '../apis/use-user-data-auth'
-import { Box, List, Spinner } from '@chakra-ui/react'
+import { Box, List, Spinner, Text } from '@chakra-ui/react'
 import OneHeckle from './OneHeckle'
 import { useNavigate } from 'react-router-dom'
 import HomePageAvatar from './HomePageAvatar'
-
 
 interface Props {
   userId: number
@@ -65,56 +64,67 @@ export default function OneTodo({ userId }: Props) {
     <>
       {randomTodo ? (
         <>
-          <Box
-            position="relative"
-            transform="translateX(40%)"
-           
-            mb={2}
-          >
+          <Box position="relative" transform="translateX(40%)" mb={2}>
             <OneHeckle
               userId={userData.id}
               avatarId={userData.avatarId}
               urgency={randomTodo?.urgency}
             />
           </Box>
+
           <Box position="relative" display="inline-block">
             <Box boxSize="150px" borderRadius="full" overflow="hidden">
               <HomePageAvatar avatarId={userData.avatarId} />
             </Box>
           </Box>
+
+          {/* Movie Ticket Style Todo */}
           <Box
-            // bg="white"
-            // p={6}
-            // borderRadius="lg"
-            // boxShadow="lg"
-            // minW="300px"
-            // maxW="90vw"
-            // textAlign="center"
+            backgroundColor="#F8F3E6" // Warm pastel parchment
+            border="1.5px dashed #D1BEB0" // Soft taupe dashed border
+            borderRadius="4px"
+            px={5}
+            py={3}
+            position="relative"
+            width="280px"
+            textAlign="left"
+            fontFamily="'Homemade Apple', cursive" // Handwritten style
+            color="#6D5C54" // Muted brown-gray
+            boxShadow="0 2px 8px rgba(0,0,0,0.05)"
+            lineHeight="1.6"
           >
-            <h3>
-              <List
-                bg="yellow.50"
-                border="1px solid #ccc"
-                borderRadius="md"
-                px={4}
-                py={2}
-                boxShadow="md"
-                backgroundSize="100% 30px"
-                whiteSpace="pre-wrap"
-                width="100%"
-                maxHeight="60vh"
-                backgroundAttachment="local"
-                spacing={0}
-                fontSize="md"
-                lineHeight="30px"
-                fontFamily="'Courier New', monospace"
-              >
-                <strong>{randomTodo.task}</strong>
-              </List>
-            </h3>
+            {/* Handwritten header */}
+            <Text
+              fontSize="lg"
+              fontWeight="bold"
+              mb={2}
+              borderBottom="1px dashed #D1BEB0"
+              pb={1}
+            >
+              Current todo
+            </Text>
+
+            {/* title - styled like notepad item */}
+            <Text fontSize="xl" mb={3} pl={3} position="relative">
+              <Box
+                as="span"
+                position="absolute"
+                left={0}
+                top="8px"
+                w="8px"
+                h="8px"
+                bg="#D1BEB0"
+                borderRadius="50%"
+              />
+              {randomTodo.task}
+            </Text>
+
+            {/* Subtle footer */}
+            <Text fontSize="xs" mt={3} textAlign="right" opacity={0.7}>
+              Motivating Mike
+            </Text>
           </Box>
         </>
-
       ) : (
         <>
           <h4>You&apos;re all caught up!</h4>
