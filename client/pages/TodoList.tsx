@@ -122,7 +122,6 @@ export default function TodoList() {
                 whiteSpace="pre-wrap"
                 width="100%"
                 maxHeight="60vh"
-                overflowY="auto"
                 backgroundAttachment="local"
               >
                 {editId === 0 ? (
