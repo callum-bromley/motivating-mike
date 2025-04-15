@@ -7,7 +7,7 @@ import {
   IfNotAuthenticated,
 } from '../components/Authenticated'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useUserTodos from '../apis/use-user-todos'
 import useUserDataAuth from '../apis/use-user-data-auth'
 
@@ -33,21 +33,50 @@ export default function TodoList() {
     isPending: todoPending,
     error: todosError,
   } = useUserTodos(userData?.id)
-  const { loginWithPopup } = useAuth0()
+  const { loginWithRedirect, isAuthenticated } = useAuth0()
   const [editId, setEditId] = useState(0)
-  if (isPending || todoPending) {
+  const [stopLoading, setStopLoading] = useState(false)
+
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setStopLoading(true)
+    }, 1500)
+
+    return () => clearTimeout(timeout)
+  }, [])
+
+  const handleSignIn = () => {
+    loginWithRedirect()
+  }
+
+  const handleClick = (id: number) => {
+    setEditId(id)
+  }
+
+
+  if ((isPending || todoPending) && !stopLoading) {
     return (
-      <Box
-        height="100vh"
-        flex="1"
-        flexDir="column"
-        backgroundColor="#B1CFB7"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <h2>Loading profile</h2>
-        <Spinner />
+      <Box height="100vh" backgroundColor="#B1CFB7">
+        <Flex height="100%" align="center" justify="center">
+          <VStack>
+            <h2>Loading profile</h2>
+            <Spinner />
+          </VStack>
+        </Flex>
+      </Box>
+    )
+  }
+  // -- IfNotAuthenticated Path -- //
+  if (!isAuthenticated && stopLoading) {
+    return (
+      <Box height="100vh" backgroundColor="#B1CFB7">
+        <Flex height="100%" align="center" justify="center">
+          <VStack>
+            <Button onClick={handleSignIn}>Sign In</Button>
+            <p>Sign in to see your data</p>
+          </VStack>
+        </Flex>
       </Box>
     )
   }
@@ -67,13 +96,6 @@ export default function TodoList() {
     )
   }
 
-  const handleSignIn = () => {
-    loginWithPopup()
-  }
-
-  const handleClick = (id: number) => {
-    setEditId(id)
-  }
   return (
     <>
       <IfAuthenticated>
@@ -97,7 +119,7 @@ export default function TodoList() {
           >
             <VStack >
               <Box justifyContent="left">
-                <Heading as="h3" font-family="Bangers">
+                <Heading as="h3" fontFamily="Bangers">
                   <Text
                     fontFamily="'Indie Flower', cursive"
                     bg="yellow.50"
