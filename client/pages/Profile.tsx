@@ -1,43 +1,86 @@
-import { useState } from 'react'
-import { Box, Button, Flex, Spinner } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
+import { Box, Button, Flex, Spinner, VStack } from '@chakra-ui/react'
 import PickAvatar from '../components/PickAvatar'
 import TaskHistory from '../components/TaskHistory'
 import UserProfile from '../components/UserProfile'
-import { IfAuthenticated, IfNotAuthenticated } from '../components/Authenticated'
+import {
+  IfAuthenticated,
+  IfNotAuthenticated,
+} from '../components/Authenticated'
 import useUserDataAuth from '../apis/use-user-data-auth'
 import { useAuth0 } from '@auth0/auth0-react'
 
-
-
 export default function UserHomePage() {
   const { data: userData, isPending, error } = useUserDataAuth()
-  const { loginWithPopup } = useAuth0()
+  const { loginWithRedirect, isAuthenticated } = useAuth0()
 
-  const [selectedAvatarId, setSelectedAvatarId] = useState<number | null | undefined>(userData?.avatarId)
+  const [selectedAvatarId, setSelectedAvatarId] = useState<
+    number | null | undefined
+  >(userData?.avatarId)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-
   const openDrawer = () => setIsDrawerOpen(true)
   const closeDrawer = () => setIsDrawerOpen(false)
+  const [stopLoading, setStopLoading] = useState(false)
 
-  if (isPending) {
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setStopLoading(true)
+    }, 1500)
+
+    return () => clearTimeout(timeout)
+  }, [])
+
+  const handleSignIn = () => {
+    loginWithRedirect()
+  }
+
+
+  if (isPending && !stopLoading) {
     return (
-      <Box
-        height="100vh"
-        flex="1"
-        flexDir="column"
-        backgroundColor="#B1CFB7"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <h2>Loading profile</h2>
-        <Spinner />
+      <Box height="100vh" backgroundColor="#B1CFB7">
+        <Flex height="100%" align="center" justify="center">
+          <VStack>
+            <h2>Loading profile</h2>
+            <Spinner />
+          </VStack>
+        </Flex>
       </Box>
     )
   }
 
+
+  // -- IfNotAuthenticated Path -- //
+  if (!isAuthenticated && stopLoading) {
+    return (
+      <Box height="100vh" backgroundColor="#B1CFB7">
+        <Flex height="100%" align="center" justify="center">
+          <VStack>
+            <Button onClick={handleSignIn}>Sign In</Button>
+            <p>Sign in to see your data</p>
+          </VStack>
+        </Flex>
+      </Box>
+    )
+  }
+  if (
+    !userData ||
+    userData.id === undefined ||
+    userData.avatarId === undefined
+  ) {
+    return (
+      <Box height="100vh" backgroundColor="#B1CFB7">
+        <Flex height="100%" align="center" justify="center">
+          <VStack>
+            <Button onClick={handleSignIn}>Sign In</Button>
+            <h2>No user data found</h2>
+          </VStack>
+        </Flex>
+      </Box>
+    )
+  }
   if (error) {
-    <Box
+    ; <Box
       height="100vh"
       flex="1"
       flexDir="column"
@@ -49,11 +92,8 @@ export default function UserHomePage() {
       return <h2>Error: {error.message}</h2>
     </Box>
   }
-  if (
-    !userData ||
-    userData.id === undefined
-  ) {
-    <Box
+  if (!userData || userData.id === undefined) {
+    ; <Box
       width="100vw"
       flex="1"
       flexDir="column"
@@ -66,13 +106,9 @@ export default function UserHomePage() {
     </Box>
   }
 
-  // -- Event handlers -- //
-  const handleSignIn = () => {
-    loginWithPopup()
-  }
 
   return (
-    <Box height="100vh" bg="#FAF9F6">
+    <Box minHeight="100vh" bg="#FAF9F6">
       <IfAuthenticated>
         <Flex
           direction={['column', 'column', 'row', 'row']}
@@ -81,31 +117,39 @@ export default function UserHomePage() {
           px={[4, 8]}
           py={8}
           gap={[8, 4]}
-          bg="#FAF9F6"
-          paddingTop={["10rem", "12rem", "14rem", "17rem"]}
+          bg="#B1CFB7;"
+          paddingTop={['10rem', '12rem', '14rem', '17rem']}
+          overflow="hidden"
         >
           {/* Left Panel: Profile + Avatar Change */}
           <Box
-            flexBasis={['100%', '35%']}
+            flexBasis={['100%', '30%']}
             display="flex"
             flexDirection="column"
             marginX="auto"
             alignItems="center"
             gap={6}
-            bg="white"
+            bg="#FAF9F6"
             p={6}
             borderRadius="xl"
             boxShadow="lg"
             position="relative"
           >
-            <UserProfile userId={userData?.id} selectedAvatarId={userData?.avatarId} />
+            <UserProfile
+              userId={userData?.id}
+              selectedAvatarId={selectedAvatarId}
+            />
             <Button
+              colorScheme="blue"
               onClick={openDrawer}
-              width="100%"
-              maxW="200px"
-              borderRadius="lg"
-              colorScheme="teal"
-              mt={2}
+              px={4}
+              py={2}
+              transition="all 0.2s"
+              borderRadius="md"
+              borderWidth="1px"
+            // _hover={{ bg: 'gray.400' }}
+            // _expanded={{ bg: 'blue.400' }}
+            // _focus={{ boxShadow: 'outline' }}
             >
               Change Avatar
             </Button>
@@ -139,7 +183,7 @@ export default function UserHomePage() {
           />
         </Flex>
         {/* <Button onClick={() => navigate(`/todo-list`)}>Add Todo</Button> */}
-      </IfAuthenticated >
+      </IfAuthenticated>
       <IfNotAuthenticated>
         <Button onClick={handleSignIn}>Add Todo</Button>
         <p>Sign in to see your data</p>
@@ -147,4 +191,3 @@ export default function UserHomePage() {
     </Box>
   )
 }
-

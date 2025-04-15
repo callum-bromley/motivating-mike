@@ -143,7 +143,7 @@ function EditTodo({ todo, onSave, editId }: Props) {
         </Box>
       </FormControl>
 
-      <Button type="submit">Update Todo</Button>
+      <Button type="submit" colorScheme='blue'>Update Todo</Button>
     </form>
   )
 }

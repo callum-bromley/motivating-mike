@@ -40,7 +40,7 @@ export default function Nav() {
   }
 
   return (
-    <>
+    <nav>
       <Logo />
       <Box position="absolute" right={3} top={2}>
         <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
@@ -89,6 +89,6 @@ export default function Nav() {
           />
         </Flex>
       </Box>
-    </>
+    </nav>
   )
 }
