@@ -1,6 +1,6 @@
 import useUserTodos from '../apis/use-user-todos'
 import useUserDataAuth from '../apis/use-user-data-auth'
-import { Box, Button, Spinner } from '@chakra-ui/react'
+import { Box, Button, Spinner, VStack } from '@chakra-ui/react'
 import OneHeckle from './OneHeckle'
 import { useNavigate } from 'react-router-dom'
 import ConfettiExplosionEffect from './ConfettiExplosion'
@@ -75,7 +75,7 @@ export default function OneTodo({ userId }: Props) {
   }
 
   return (
-    <>
+    <VStack>
       {showComplete ? (
         <OneHeckle
           userId={userData.id}
@@ -102,10 +102,9 @@ export default function OneTodo({ userId }: Props) {
         </>
       )}
       <ConfettiExplosionEffect isExploding={isExploding} />
-
       <Button onClick={handleComplete}>
         {showComplete ? 'Smash Another Task!' : 'Complete!'}
       </Button>
-    </>
+    </VStack>
   )
 }

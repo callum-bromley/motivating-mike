@@ -40,6 +40,7 @@ export default function Home() {
 
   const toggleProcrastinate = () => {
     setShowProcrastinate((prev) => !prev)
+    setShowDopamineHit(false)
   }
 
   if (isPending && !stopLoading) {
@@ -113,9 +114,11 @@ export default function Home() {
             )}
           </Flex>
 
-          <Button onClick={toggleDopamineHit}>
-            {showDopamineHit ? 'Get Real' : 'Dopamine Hit'}
-          </Button>
+          {!showProcrastinate && (
+            <Button onClick={toggleDopamineHit}>
+              {showDopamineHit ? 'Get Real' : 'Dopamine Hit'}
+            </Button>
+          )}
 
           <Button onClick={toggleProcrastinate}>
             {showProcrastinate ? "I'm sorry!" : 'Procrastinate'}
