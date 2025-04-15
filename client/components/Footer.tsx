@@ -19,8 +19,8 @@ export default function Footer() {
             alt="A large fish"
             boxSize="82px"
             position="absolute"
-            top="14%"
-            left="74%"
+            top="8%"
+            left="85%"
             zIndex="1"
             width="auto"
           />

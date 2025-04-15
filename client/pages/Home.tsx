@@ -4,10 +4,7 @@ import { useEffect, useState } from 'react'
 import OneTodo from '../components/OneTodo'
 import DopamineHit from '../components/DopamineHit'
 import Procrastinate from '../components/Procrastinate'
-import {
-  IfAuthenticated,
-  IfNotAuthenticated,
-} from '../components/Authenticated'
+import { IfAuthenticated } from '../components/Authenticated'
 
 import { Box, Button, Flex, Spinner, VStack } from '@chakra-ui/react'
 
@@ -142,7 +139,7 @@ export default function Home() {
       <Box height="100vh" backgroundColor="#B1CFB7">
         <Flex height="100%" align="center" justify="center">
           <VStack>
-            <h2>Error: {error.message}</h2>
+            <h2>Error: {error}</h2>
           </VStack>
         </Flex>
       </Box>
@@ -185,12 +182,6 @@ export default function Home() {
           </Box>
         )}
       </IfAuthenticated>
-      <IfNotAuthenticated>
-        <Box textAlign="center">
-          <Button onClick={handleSignIn}>Add Todo</Button>
-          <p>Sign in to see your data</p>
-        </Box>
-      </IfNotAuthenticated>
     </Box>
   )
 }
