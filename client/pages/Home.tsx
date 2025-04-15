@@ -38,58 +38,6 @@ export default function Home() {
     setShowDopamineHit(false)
   }
 
-  if (isPending) {
-    return (
-      <Box
-        height="100vh"
-        flex="1"
-        flexDir="column"
-        backgroundColor="#B1CFB7"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <h2>Loading profile</h2>
-        <Spinner />
-      </Box>
-    )
-  }
-
-  if (error) {
-    return (
-      <Box
-        height="100vh"
-        flex="1"
-        flexDir="column"
-        backgroundColor="#B1CFB7"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <h2>Error: {error?.message}</h2>
-      </Box>
-    )
-  }
-
-  if (
-    !userData ||
-    userData.id === undefined ||
-    userData.avatarId === undefined
-  ) {
-    return (
-      <Box
-        height="100vh"
-        flex="1"
-        flexDir="column"
-        backgroundColor="#B1CFB7"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <h2>No user data found</h2>
-      </Box>
-    )
-  }
   if (isPending && !stopLoading) {
     return (
       <Box height="100vh" backgroundColor="#B1CFB7">
