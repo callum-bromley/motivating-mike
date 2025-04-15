@@ -122,7 +122,7 @@ export default function Login() {
         <FormLabel htmlFor="avatarId" as="h3" fontSize="2xl" mb={4} mt={8}>
           Choose your Motivational avatar
         </FormLabel>
-        <SimpleGrid columns={3} spacing={4}>
+        <SimpleGrid columns={3} spacing={6}>
           {avatars.map((avatar) => (
             <Button
               key={avatar.id}
@@ -134,7 +134,73 @@ export default function Login() {
             </Button>
           ))}
         </SimpleGrid>
-        <Button type="submit">submit</Button>
+        <Button type="submit" marginTop={4}>
+          submit
+        </Button>
+        <Box>
+          <Image
+            src="/funPhotos/big-blue-fish.webp"
+            alt="A large fish"
+            boxSize="82px"
+            position="absolute"
+            top="14%"
+            left="74%"
+            zIndex="1"
+            width="auto"
+          />
+
+          <Image
+            src="/funPhotos/tree.webp"
+            alt="A lovely tree"
+            boxSize="280px"
+            position="absolute"
+            top="70%"
+            left="84%"
+            zIndex="1"
+            width="auto"
+          />
+          <Image
+            src="/funPhotos/bush-2.webp"
+            alt="A bush"
+            boxSize="150px"
+            position="absolute"
+            left="5%"
+            top="82%"
+            zIndex="2"
+            width="auto"
+          />
+          <Image
+            src="/funPhotos/bush-1.webp"
+            alt="A bush"
+            boxSize="150px"
+            position="absolute"
+            left="10%"
+            top="81%"
+            zIndex="1"
+            width="auto"
+          />
+          <Image
+            src="/funPhotos/bush-3.webp"
+            alt="A bush"
+            boxSize="150px"
+            position="absolute"
+            left="2%"
+            top="81%"
+            zIndex="1"
+            width="auto"
+          />
+          <Image
+            src="/funPhotos/squirell.webp"
+            alt="A squirell holding an acorn"
+            boxSize="120px"
+            position="absolute"
+            left="9%"
+            top="79%"
+            zIndex="1"
+            width="auto"
+          />
+          {/* Add other images here */}
+        </Box>
       </form>
       {/* </IfAuthenticated> */}
     </Box>
