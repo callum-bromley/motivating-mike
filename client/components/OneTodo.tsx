@@ -1,8 +1,10 @@
 import useUserTodos from '../apis/use-user-todos'
 import useUserDataAuth from '../apis/use-user-data-auth'
-import { Box, Spinner } from '@chakra-ui/react'
+import { Box, Button, Spinner } from '@chakra-ui/react'
 import OneHeckle from './OneHeckle'
 import { useNavigate } from 'react-router-dom'
+import ConfettiExplosionEffect from './ConfettiExplosion'
+import { useState } from 'react'
 
 interface Props {
   userId: number
@@ -16,6 +18,8 @@ export default function OneTodo({ userId }: Props) {
     isPending: todosPending,
     error: todosError,
   } = useUserTodos(userId)
+  const [isComplete, setIsComplete] = useState(false)
+  const [isExploding, setIsExploding] = useState(false)
 
   if (isPending || todosPending) {
     return (
@@ -50,6 +54,14 @@ export default function OneTodo({ userId }: Props) {
     )
   }
 
+  const toggleComplete = () => {
+    setIsComplete((prev) => !prev)
+    setIsExploding(true)
+    setTimeout(() => {
+      setIsExploding(false)
+    }, 3000)
+  }
+
   const maxUrgency = Math.max(
     ...todos.filter((todo) => todo.urgency > 0).map((todo) => todo.urgency),
   )
@@ -78,6 +90,13 @@ export default function OneTodo({ userId }: Props) {
           <button onClick={() => navigate(`/todo-list`)}>Add Todo</button>
         </>
       )}
+
+      <ConfettiExplosionEffect isExploding={isExploding} />
+
+      <Button onClick={toggleComplete}>
+        <p>Complete!</p>
+        {isComplete}
+      </Button>
     </>
   )
 }
