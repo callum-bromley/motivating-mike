@@ -48,6 +48,8 @@ export default function UserHomePage() {
       </Box>
     )
   }
+
+
   // -- IfNotAuthenticated Path -- //
   if (!isAuthenticated && stopLoading) {
     return (
@@ -135,7 +137,7 @@ export default function UserHomePage() {
           >
             <UserProfile
               userId={userData?.id}
-              selectedAvatarId={userData?.avatarId}
+              selectedAvatarId={selectedAvatarId}
             />
             <Button
               colorScheme="blue"
