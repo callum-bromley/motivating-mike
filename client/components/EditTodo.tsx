@@ -26,15 +26,17 @@ export interface Props {
 }
 
 const urgencyMap: Record<string, number> = {
-  Chill: 0,
-  'Probably should start': 1,
-  'Severe(whoops)': 2,
+  Complete: 0,
+  Chill: 1,
+  'Probably should start': 2,
+  'Severe(whoops)': 3,
 }
 
 const reverseUrgencyMap: Record<number, string> = {
-  0: 'Chill',
-  1: 'Probably should start',
-  2: 'Severe(whoops)',
+  0: 'Complete',
+  1: 'Chill',
+  2: 'Probably should start',
+  3: 'Severe(whoops)',
 }
 function EditTodo({ todo, onSave, editId }: Props) {
   const [formState, setFormState] = useState({
@@ -82,7 +84,7 @@ function EditTodo({ todo, onSave, editId }: Props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <FormControl mb={4}>
+      <FormControl mb={4} width="100%" height="100%">
         <FormLabel htmlFor="task">
           <Text fontWeight="bold">Task</Text>
         </FormLabel>
@@ -143,7 +145,9 @@ function EditTodo({ todo, onSave, editId }: Props) {
         </Box>
       </FormControl>
 
-      <Button type="submit" colorScheme='blue'>Update Todo</Button>
+      <Button type="submit" colorScheme="blue">
+        Update Todo
+      </Button>
     </form>
   )
 }

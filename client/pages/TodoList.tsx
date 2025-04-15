@@ -150,6 +150,8 @@ export default function TodoList() {
                     fontSize="md"
                     lineHeight="30px"
                     fontFamily="'Courier New', monospace"
+                    width="auto"
+                    height="auto"
                   >
                     {todos
                       .filter((todo) => !todo.completed)
