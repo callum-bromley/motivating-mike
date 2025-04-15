@@ -1,5 +1,6 @@
 import useHecklesSeverity from '../apis/use-heckles-severity'
 import useUserData from '../apis/use-user-data'
+import SpeechBubble from './SpeechBubble'
 
 interface Props {
   userId: number | undefined
@@ -28,7 +29,9 @@ export default function OneHeckle(props: Props) {
     return <h2>No heckles data found</h2>
   }
 
-  const filteredHeckles = heckles.filter((heckle) => heckle.avatarId === props.avatarId)
+  const filteredHeckles = heckles.filter(
+    (heckle) => heckle.avatarId === props.avatarId,
+  )
   let randomHeckle = null
 
   if (filteredHeckles.length > 0) {
@@ -36,9 +39,5 @@ export default function OneHeckle(props: Props) {
     randomHeckle = filteredHeckles[randomChoice]
   }
 
-  return (
-    <>
-      <p>{randomHeckle?.heckle}</p>
-    </>
-  )
+  return <>{randomHeckle && <SpeechBubble message={randomHeckle?.heckle} />}</>
 }
