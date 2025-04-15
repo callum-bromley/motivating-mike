@@ -12,7 +12,7 @@ import {
   IfNotAuthenticated,
 } from '../components/Authenticated'
 
-import { Box, Button, Flex, Spinner } from '@chakra-ui/react'
+import { Box, Button, Flex, Spinner, Image } from '@chakra-ui/react'
 import ConfettiExplosionEffect from '../components/ConfettiExplosion'
 
 export default function Home() {
@@ -147,6 +147,91 @@ export default function Home() {
         </IfNotAuthenticated>
       </Box>
 
+      <Flex>
+        <Box>
+          <Image
+            src="/funPhotos/big-blue-fish.webp"
+            alt="A large fish"
+            boxSize="82px"
+            position="absolute"
+            top="14%"
+            left="74%"
+            zIndex="1"
+            width="auto"
+          />
+          {/* <Image
+            src="/funPhotos/pencil-paper.webp"
+            alt="A pencil & a book"
+            boxSize="110px"
+            position="absolute"
+            top="31%"
+            left="54.5%"
+            zIndex="1"
+            width="auto"
+          /> */}
+          <Image
+            src="/funPhotos/hammer.webp"
+            alt="a hammer"
+            boxSize="128px"
+            position="absolute"
+            top="15%"
+            left="29%"
+            zIndex="1"
+            width="auto"
+          />
+          {/* <Image
+            src="/funPhotos/tree.webp"
+            alt="A lovely tree"
+            boxSize="280px"
+            position="absolute"
+            top="70%"
+            left="84%"
+            zIndex="1"
+            width="auto"
+          /> */}
+          <Image
+            src="/funPhotos/bush-2.webp"
+            alt="A bush"
+            boxSize="150px"
+            position="absolute"
+            left="74.5%"
+            top="84%"
+            zIndex="2"
+            width="auto"
+          />
+          <Image
+            src="/funPhotos/bush-1.webp"
+            alt="A bush"
+            boxSize="150px"
+            position="absolute"
+            left="79%"
+            top="83%"
+            zIndex="1"
+            width="auto"
+          />
+          <Image
+            src="/funPhotos/bush-3.webp"
+            alt="A bush"
+            boxSize="150px"
+            position="absolute"
+            left="71%"
+            top="83%"
+            zIndex="1"
+            width="auto"
+          />
+          <Image
+            src="/funPhotos/squirell.webp"
+            alt="A squirell holding an acorn"
+            boxSize="120px"
+            position="absolute"
+            left="78.5%"
+            top="81%"
+            zIndex="1"
+            width="auto"
+          />
+          {/* Add other images here */}
+        </Box>
+      </Flex>
       <Footer />
     </Box>
   )
