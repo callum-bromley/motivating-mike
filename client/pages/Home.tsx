@@ -80,7 +80,7 @@ export default function Home() {
     setShowDopamineHit((prev) => !prev)
   }
 
-  const toggleProcratinate = () => {
+  const toggleProcrastinate = () => {
     setShowProcrastinate((prev) => !prev)
   }
 
@@ -110,7 +110,7 @@ export default function Home() {
           {showDopamineHit ? 'Get Real' : 'Dopamine Hit'}
         </Button>
 
-        <Button onClick={toggleProcratinate}>
+        <Button onClick={toggleProcrastinate}>
           {showProcrastinate ? "I'm sorry!" : 'Procrastinate'}
         </Button>
       </IfAuthenticated>

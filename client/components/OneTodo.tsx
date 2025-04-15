@@ -3,7 +3,9 @@ import useUserDataAuth from '../apis/use-user-data-auth'
 import { Box, Button, Spinner } from '@chakra-ui/react'
 import OneHeckle from './OneHeckle'
 import { useNavigate } from 'react-router-dom'
+import Complete from './CompleteButton'
 import ConfettiExplosionEffect from './ConfettiExplosion'
+import useUpdateTodoStatus from '../apis/use-update-status'
 import { useState } from 'react'
 
 interface Props {
@@ -18,8 +20,10 @@ export default function OneTodo({ userId }: Props) {
     isPending: todosPending,
     error: todosError,
   } = useUserTodos(userId)
-  const [isComplete, setIsComplete] = useState(false)
+
+  const updateStatus = useUpdateTodoStatus()
   const [isExploding, setIsExploding] = useState(false)
+  const [showComplete, setShowComplete] = useState(false)
 
   if (isPending || todosPending) {
     return (
@@ -54,12 +58,13 @@ export default function OneTodo({ userId }: Props) {
     )
   }
 
-  const toggleComplete = () => {
-    setIsComplete((prev) => !prev)
-    setIsExploding(true)
-    setTimeout(() => {
-      setIsExploding(false)
-    }, 3000)
+  const handleComplete = () => {
+    setShowComplete((prev) => !prev)
+    if (todos.id) {
+      setIsExploding(true)
+      setTimeout(() => setIsExploding(false), 3000)
+      updateStatus.mutate(todos.id)
+    }
   }
 
   const maxUrgency = Math.max(
@@ -84,18 +89,25 @@ export default function OneTodo({ userId }: Props) {
             urgency={randomTodo?.urgency}
           />
         </>
+      ) : showComplete ? (
+        <>
+          <OneHeckle
+            userId={userData.id}
+            avatarId={userData.avatarId}
+            urgency={0}
+          />
+          <ConfettiExplosionEffect isExploding={isExploding} />
+        </>
       ) : (
         <>
           <h4>You&apos;re all caught up!</h4>
-          <button onClick={() => navigate(`/todo-list`)}>Add Todo</button>
+          <Button onClick={() => navigate(`/todo-list`)} colorScheme="teal">
+            Add Todo
+          </Button>
         </>
       )}
-
-      <ConfettiExplosionEffect isExploding={isExploding} />
-
-      <Button onClick={toggleComplete}>
-        <p>Complete!</p>
-        {isComplete}
+      <Button onClick={handleComplete}>
+        {showComplete ? 'Smash Another Task!' : 'Complete!'}
       </Button>
     </>
   )
