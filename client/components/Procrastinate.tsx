@@ -3,6 +3,7 @@ import useUserDataAuth from '../apis/use-user-data-auth'
 import useUserTodos from '../apis/use-user-todos'
 import { useNavigate } from 'react-router-dom'
 import OneHeckle from './OneHeckle'
+import HomePageAvatar from './HomePageAvatar'
 
 interface Props {
   userId: number
@@ -52,11 +53,24 @@ export default function Procrastinate({ userId }: Props) {
 
   return (
     <>
+    <Box
+            position="relative"
+            transform="translateX(40%)"
+           
+            mb={2}
+          >
       <OneHeckle
         userId={userData.id}
         avatarId={userData.avatarId}
         urgency={4}
       />
+      </Box>
+        <Box position="relative" display="inline-block">
+                <Box boxSize="150px" borderRadius="full" overflow="hidden">
+                <HomePageAvatar avatarId={userData.avatarId} />
+                </Box>
+                </Box>
+       
     </>
   )
 }
