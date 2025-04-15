@@ -3,7 +3,6 @@ import useUserDataAuth from '../apis/use-user-data-auth'
 import { Box, Button, Spinner } from '@chakra-ui/react'
 import OneHeckle from './OneHeckle'
 import { useNavigate } from 'react-router-dom'
-import Complete from './CompleteButton'
 import ConfettiExplosionEffect from './ConfettiExplosion'
 import useUpdateTodoStatus from '../apis/use-update-status'
 import { useState } from 'react'
@@ -20,7 +19,6 @@ export default function OneTodo({ userId }: Props) {
     isPending: todosPending,
     error: todosError,
   } = useUserTodos(userId)
-
   const updateStatus = useUpdateTodoStatus()
   const [isExploding, setIsExploding] = useState(false)
   const [showComplete, setShowComplete] = useState(false)
@@ -58,15 +56,6 @@ export default function OneTodo({ userId }: Props) {
     )
   }
 
-  const handleComplete = () => {
-    setShowComplete((prev) => !prev)
-    if (todos.id) {
-      setIsExploding(true)
-      setTimeout(() => setIsExploding(false), 3000)
-      updateStatus.mutate(todos.id)
-    }
-  }
-
   const maxUrgency = Math.max(
     ...todos.filter((todo) => todo.urgency > 0).map((todo) => todo.urgency),
   )
@@ -76,9 +65,24 @@ export default function OneTodo({ userId }: Props) {
       ? filteredTodos[Math.floor(Math.random() * filteredTodos.length)]
       : null
 
+  const handleComplete = () => {
+    if (!showComplete && randomTodo) {
+      setIsExploding(true)
+      setTimeout(() => setIsExploding(false), 3000)
+      updateStatus.mutate(randomTodo.id)
+    }
+    setShowComplete((prev) => !prev)
+  }
+
   return (
     <>
-      {randomTodo ? (
+      {showComplete ? (
+        <OneHeckle
+          userId={userData.id}
+          avatarId={userData.avatarId}
+          urgency={0}
+        />
+      ) : randomTodo ? (
         <>
           <h3>
             <strong>{randomTodo.task}</strong>
@@ -86,17 +90,8 @@ export default function OneTodo({ userId }: Props) {
           <OneHeckle
             userId={userData.id}
             avatarId={userData.avatarId}
-            urgency={randomTodo?.urgency}
+            urgency={randomTodo.urgency}
           />
-        </>
-      ) : showComplete ? (
-        <>
-          <OneHeckle
-            userId={userData.id}
-            avatarId={userData.avatarId}
-            urgency={0}
-          />
-          <ConfettiExplosionEffect isExploding={isExploding} />
         </>
       ) : (
         <>
@@ -106,6 +101,8 @@ export default function OneTodo({ userId }: Props) {
           </Button>
         </>
       )}
+      <ConfettiExplosionEffect isExploding={isExploding} />
+
       <Button onClick={handleComplete}>
         {showComplete ? 'Smash Another Task!' : 'Complete!'}
       </Button>

@@ -6,9 +6,7 @@ const router = express.Router()
 router.patch('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    // console.log('server route: ', id)
     const todos = await db.updateStatusById(id)
-    // console.log('route db data returned', todos)
     res.json(todos)
   } catch (err) {
     console.error(err)

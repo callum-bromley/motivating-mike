@@ -23,7 +23,7 @@ export default function formatDate(newDate: number) {
 export async function updateStatusById(Id: number) {
   const todoList = await db('todos')
     .where('todos.id', Id)
-    .update({ completed: formatDate(Date.now()) })
+    .update({ completed: formatDate(Date.now()), urgency: 0 })
 
   return todoList
 }

@@ -1,10 +1,7 @@
 import useUserTodos from '../apis/use-user-todos'
 import useUserDataAuth from '../apis/use-user-data-auth'
-import { Box, Button, Spinner } from '@chakra-ui/react'
+import { Box, Spinner } from '@chakra-ui/react'
 import OneHeckle from './OneHeckle'
-import useUpdateTodoStatus from '../apis/use-update-status'
-import ConfettiExplosionEffect from './ConfettiExplosion'
-import { useState } from 'react'
 
 interface Props {
   userId: number
