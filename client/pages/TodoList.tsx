@@ -19,7 +19,6 @@ import {
   ListItem,
   Text,
   VStack,
-  Image,
   Button,
   Spinner,
   Badge,
@@ -143,6 +142,7 @@ export default function TodoList() {
                 width="100%"
                 maxHeight="60vh"
                 backgroundAttachment="local"
+                overflow="auto"
               >
                 {editId === 0 ? (
                   <List
@@ -248,8 +248,6 @@ export default function TodoList() {
               </Box>
             </VStack>
           </Box>
-
-
         </Flex>
       </IfAuthenticated>
       <IfNotAuthenticated>
