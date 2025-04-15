@@ -37,7 +37,6 @@ export default function TodoList() {
   const [editId, setEditId] = useState(0)
   const [stopLoading, setStopLoading] = useState(false)
 
-
   useEffect(() => {
     const timeout = setTimeout(() => {
       setStopLoading(true)
@@ -53,7 +52,6 @@ export default function TodoList() {
   const handleClick = (id: number) => {
     setEditId(id)
   }
-
 
   if ((isPending || todoPending) && !stopLoading) {
     return (
@@ -117,7 +115,7 @@ export default function TodoList() {
             justifyContent="center"
             alignItems="center"
           >
-            <VStack >
+            <VStack>
               <Box justifyContent="left">
                 <Heading as="h3" fontFamily="Bangers">
                   <Text
