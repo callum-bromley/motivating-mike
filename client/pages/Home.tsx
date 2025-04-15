@@ -1,6 +1,6 @@
 import useUserDataAuth from '../apis/use-user-data-auth'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Complete from '../components/CompleteButton'
 import HomePageAvatar from '../components/HomePageAvatar'
 import OneTodo from '../components/OneTodo'
@@ -16,56 +16,28 @@ import ConfettiExplosionEffect from '../components/ConfettiExplosion'
 
 export default function Home() {
   const { data: userData, isPending, error } = useUserDataAuth()
-  const { loginWithPopup } = useAuth0()
+  const { loginWithRedirect, isAuthenticated } = useAuth0()
 
   const [showDopamineHit, setShowDopamineHit] = useState(false)
   const [showProcrastinate, setShowProcrastinate] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
   const [isExploding, setIsExploding] = useState(false)
+  const [stopLoading, setStopLoading] = useState(false)
 
-  if (isPending) {
-    return (
-      <Box height="100vh" backgroundColor="#B1CFB7">
-        <Flex height="100%" align="center" justify="center">
-          <VStack>
-            <h2>Loading profile</h2>
-            <Spinner />
-          </VStack>
-        </Flex>
-      </Box>
-    )
-  }
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setStopLoading(true)
+    }, 1500)
 
-  if (error) {
-    return (
-      <Box height="100vh" backgroundColor="#B1CFB7">
-        <Flex height="100%" align="center" justify="center">
-          <VStack>
-            <h2>Error: {error?.message}</h2>
-          </VStack>
-        </Flex>
-      </Box>
-    )
-  }
+    return () => clearTimeout(timeout)
+  }, [])
 
-  if (
-    !userData ||
-    userData.id === undefined ||
-    userData.avatarId === undefined
-  ) {
-    return (
-      <Box height="100vh" backgroundColor="#B1CFB7">
-        <Flex height="100%" align="center" justify="center">
-          <VStack>
-            <h2>No user data found</h2>
-          </VStack>
-        </Flex>
-      </Box>
-    )
-  }
+
+
+
 
   const handleSignIn = () => {
-    loginWithPopup()
+    loginWithRedirect()
   }
 
   const toggleDopamineHit = () => {
@@ -82,6 +54,62 @@ export default function Home() {
     setTimeout(() => {
       setIsExploding(false)
     }, 3000)
+  }
+
+  if (isPending && !stopLoading) {
+    return (
+      <Box height="100vh" backgroundColor="#B1CFB7">
+        <Flex height="100%" align="center" justify="center">
+          <VStack>
+            <h2>Loading profile</h2>
+            <Spinner />
+          </VStack>
+        </Flex>
+      </Box>
+    )
+  }
+
+  // -- IfNotAuthenticated Path -- //
+  if (!isAuthenticated && stopLoading) {
+    return (
+      <Box height="100vh" backgroundColor="#B1CFB7">
+        <Flex height="100%" align="center" justify="center">
+          <VStack>
+            <Button onClick={handleSignIn}>Sign In</Button>
+            <p>Sign in to see your data</p>
+          </VStack>
+        </Flex>
+      </Box>
+    )
+  }
+
+  if (
+    !userData ||
+    userData.id === undefined ||
+    userData.avatarId === undefined
+  ) {
+    return (
+      <Box height="100vh" backgroundColor="#B1CFB7">
+        <Flex height="100%" align="center" justify="center">
+          <VStack>
+            <Button onClick={handleSignIn}>Sign In</Button>
+            <h2>No user data found</h2>
+          </VStack>
+        </Flex>
+      </Box>
+    )
+  }
+
+  if (error) {
+    return (
+      <Box height="100vh" backgroundColor="#B1CFB7">
+        <Flex height="100%" align="center" justify="center">
+          <VStack>
+            <h2>Error: {error?.message}</h2>
+          </VStack>
+        </Flex>
+      </Box>
+    )
   }
 
   return (
@@ -117,10 +145,6 @@ export default function Home() {
           </Button>
         </IfAuthenticated>
 
-        <IfNotAuthenticated>
-          <Button onClick={handleSignIn}>Add Todo</Button>
-          <p>Sign in to see your data</p>
-        </IfNotAuthenticated>
       </VStack>
     </Box>
   )
