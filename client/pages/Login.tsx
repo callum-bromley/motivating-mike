@@ -62,15 +62,6 @@ export default function Login() {
     await addUserData()
   }
 
-  // If a user signs up/signs in check to see if they have a name if not
-  // render user fields Name* and Pick Avatar
-  // If user does have a name, navigate to home page
-  //
-  // Custom button would have an onclick to set a state for currently selected avatar id
-  // each image is connected to the button
-  // in addUserData the avatarId would come from custom avatarButton state thingy
-  // type=button and preventDefault()
-
   return (
     <Box
       height="100vh"
@@ -84,28 +75,27 @@ export default function Login() {
       <IfNotAuthenticated>
         <Text>Please Login</Text>
       </IfNotAuthenticated>
-      <IfAuthenticated>
-        <form onSubmit={handleSubmit}>
-          <FormLabel htmlFor="name">
-            What shall we call you?
-          </FormLabel>
-          <Input id="name" type="text" spellCheck="false" value={formState.name} onChange={handleChange} />
-          <FormLabel htmlFor="avatarId">
-            Choose your Motivational avatar
-          </FormLabel>
-          <SimpleGrid columns={3} spacing={4}>
-            {avatars.map((avatar) => (
-              <Button key={avatar.id} type="button" onClick={() => handleSelectAvatar(avatar.id)}>
-                <Image key={avatar.id} src={avatar.src} />
-              </Button>
-            ))}
-          </SimpleGrid>
-          <Button type="submit">
-            submit
-          </Button>
-        </form>
-        <h1>placeholder Login page - user logged in</h1>
-      </IfAuthenticated>
+      {/* <IfAuthenticated> */}
+      <form onSubmit={handleSubmit}>
+        <FormLabel htmlFor="name">
+          What shall we call you?
+        </FormLabel>
+        <Input id="name" type="text" spellCheck="false" value={formState.name} onChange={handleChange} />
+        <FormLabel htmlFor="avatarId">
+          Choose your Motivational avatar
+        </FormLabel>
+        <SimpleGrid columns={3} spacing={4}>
+          {avatars.map((avatar) => (
+            <Button key={avatar.id} type="button" onClick={() => handleSelectAvatar(avatar.id)}>
+              <Image key={avatar.id} src={avatar.src} />
+            </Button>
+          ))}
+        </SimpleGrid>
+        <Button type="submit">
+          submit
+        </Button>
+      </form>
+      {/* </IfAuthenticated> */}
     </Box >
   )
 }
