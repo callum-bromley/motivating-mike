@@ -129,22 +129,22 @@ export default function TodoList() {
                 </Heading>
               </Box>
 
-              <Box
-                bg="yellow.50"
-                border="1px solid #ccc"
-                borderRadius="md"
-                px={4}
-                py={2}
-                boxShadow="md"
-                // fontFamily="'Indie Flower', cursive"
-                backgroundSize="100% 30px"
-                whiteSpace="pre-wrap"
-                width="100%"
-                maxHeight="60vh"
-                backgroundAttachment="local"
-                overflow="auto"
-              >
-                {editId === 0 ? (
+              {editId === 0 ? (
+                <Box
+                  bg="yellow.50"
+                  border="1px solid #ccc"
+                  borderRadius="md"
+                  px={4}
+                  py={2}
+                  boxShadow="md"
+                  // fontFamily="'Indie Flower', cursive"
+                  backgroundSize="100% 30px"
+                  whiteSpace="pre-wrap"
+                  width="100%"
+                  maxHeight="60vh"
+                  backgroundAttachment="local"
+                  overflow="auto"
+                >
                   <List
                     spacing={0}
                     fontSize="md"
@@ -216,19 +216,19 @@ export default function TodoList() {
                         </Flex>
                       ))}
                   </List>
-                ) : (
-                  todos
-                    .filter((todo) => todo.id === editId)
-                    .map((todo) => (
-                      <EditTodo
-                        key={todo.id}
-                        todo={todo}
-                        editId={editId}
-                        onSave={() => setEditId(0)} // After save, reset editId to 0 to show the list again
-                      />
-                    ))
-                )}
-              </Box>
+                </Box>
+              ) : (
+                todos
+                  .filter((todo) => todo.id === editId)
+                  .map((todo) => (
+                    <EditTodo
+                      key={todo.id}
+                      todo={todo}
+                      editId={editId}
+                      onSave={() => setEditId(0)} // After save, reset editId to 0 to show the list again
+                    />
+                  ))
+              )}
 
               <Box pt={4}>
                 <Link to="/">
