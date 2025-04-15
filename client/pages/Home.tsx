@@ -179,7 +179,7 @@ export default function Home() {
             zIndex="1"
             width="auto"
           />
-          {/* <Image
+          <Image
             src="/funPhotos/tree.webp"
             alt="A lovely tree"
             boxSize="280px"
@@ -188,14 +188,14 @@ export default function Home() {
             left="84%"
             zIndex="1"
             width="auto"
-          /> */}
+          />
           <Image
             src="/funPhotos/bush-2.webp"
             alt="A bush"
             boxSize="150px"
             position="absolute"
-            left="74.5%"
-            top="84%"
+            left="5%"
+            top="82%"
             zIndex="2"
             width="auto"
           />
@@ -204,8 +204,8 @@ export default function Home() {
             alt="A bush"
             boxSize="150px"
             position="absolute"
-            left="79%"
-            top="83%"
+            left="10%"
+            top="81%"
             zIndex="1"
             width="auto"
           />
@@ -214,8 +214,8 @@ export default function Home() {
             alt="A bush"
             boxSize="150px"
             position="absolute"
-            left="71%"
-            top="83%"
+            left="2%"
+            top="81%"
             zIndex="1"
             width="auto"
           />
@@ -224,8 +224,8 @@ export default function Home() {
             alt="A squirell holding an acorn"
             boxSize="120px"
             position="absolute"
-            left="78.5%"
-            top="81%"
+            left="9%"
+            top="79%"
             zIndex="1"
             width="auto"
           />
