@@ -51,8 +51,9 @@ export default function PickAvatar({
     mutationFn: (avatarId: number) =>
       request.patch(`/api/v1/users/${userId}`).send({ avatar_id: avatarId }),
     onSuccess: () => {
+      console.log('i made it to the queryKeys')
       queryClient.invalidateQueries({ queryKey: ['avatars'] })
-      queryClient.invalidateQueries({ queryKey: ['user', userId] })
+      queryClient.invalidateQueries({ queryKey: ['users', userId] })
     },
   })
 

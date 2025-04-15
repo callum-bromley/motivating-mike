@@ -4,7 +4,6 @@ import Nav from './Nav'
 import Footer from './Footer'
 
 export default function Layout() {
-
   return (
     <>
       <header>
@@ -13,6 +12,7 @@ export default function Layout() {
       <main>
         <Outlet />
       </main>
+      <Footer />
     </>
   )
 }

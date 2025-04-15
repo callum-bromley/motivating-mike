@@ -50,7 +50,6 @@ function AddTodo({ userId }: Props) {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputText = event.target.value
-    console.log(inputText)
     setFormState({ ...formState, [event.target.name as string]: inputText })
   }
 

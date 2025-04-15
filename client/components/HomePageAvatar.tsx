@@ -1,4 +1,4 @@
-import useAvatarData from "../apis/use-avatar-data"
+import useAvatarData from '../apis/use-avatar-data'
 
 interface Props {
   avatarId: number | null | undefined
@@ -18,7 +18,11 @@ export default function HomePageAvatar(props: Props) {
 
   return (
     <>
-      <img src={avatar.image} alt={avatar.name} />
+      <img
+        src={avatar.image}
+        alt={avatar.name}
+        style={{ width: '250px', height: '250px' }}
+      />
     </>
   )
 }

@@ -10,7 +10,7 @@ const router = express.Router()
 // import { logRequest } from '../middleware/auth'
 // router.use(logRequest)
 
-// GET /api/v1/user/
+// GET /api/v1/users/
 router.get('/', checkJwt, async (req: Request, res) => {
   try {
     const authId = req.auth?.sub
@@ -22,7 +22,7 @@ router.get('/', checkJwt, async (req: Request, res) => {
   }
 })
 
-// GET /api/v1/user/id
+// GET /api/v1/users/id
 router.get('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
@@ -35,17 +35,18 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-// POST /api/v1/user
-router.post('/', async (req, res, next) => {
+// POST /api/v1/users
+router.post('/', async (req, res) => {
   try {
     const result = await db.addNewUser(req.body)
     res.json(result)
-  } catch (e) {
-    next(e)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('no user added')
   }
 })
 
-// PATCH /api/v1/user/id
+// PATCH /api/v1/users/id
 //
 router.patch('/:id', async (req, res) => {
   const userId = Number(req.params.id)
@@ -59,6 +60,6 @@ router.patch('/:id', async (req, res) => {
     res.status(500).send({ message: 'Failed to update avatar' })
   }
 })
-// DELETE /api/v1/user/id
+// DELETE /api/v1/users/id
 
 export default router
