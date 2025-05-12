@@ -16,7 +16,9 @@
     "test": "vitest",
     "knex": "knex --knexfile ./server/db/knexfile.js",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
-    "format": "prettier -w '**/*.{js,jsx,ts,tsx}'"
+    "format": "prettier -w '**/*.{js,jsx,ts,tsx}'",
+    "render:build": "npm install && npm run build && npm prune --omit=dev && NODE_ENV='production' npm run knex migrate:latest",
+    "render:start": "node dist/server.js"
   },
   "keywords": [
     "fullstack"
@@ -44,6 +46,7 @@
     "jsonwebtoken": "^9.0.2",
     "jwks-rsa": "^3.2.0",
     "knex": "^2.5.1",
+    "pg": "^8.16.0",
     "react-confetti-explosion": "^2.1.2",
     "react-datepicker": "^8.3.0",
     "react-icons": "^5.5.0",
